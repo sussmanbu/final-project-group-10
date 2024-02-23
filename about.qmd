@@ -22,10 +22,25 @@ This comes from the file `about.qmd`.
 This is a website for the final project for MA[46]15 Data Science with R by Team Group 10.
 The members of this team are below.
 
-## Yixiao Li
 
-Li is a junior student majoring in Economics and Mathematics.
+=======
+##Aruzhan Bektemirova
 
+Aruzhan is an undergraduate student in Economics and Math and is enrolled in this course. 
+https://github.com/aru-beka 
+
+##Yixiao Li
+
+Li is an undergraduate student in Economics and Math.
+https://github.com/YixiaoLi0922
+
+##Chase Stephens
+
+Chase is an undergraduate student in Economics and Mathematics
+
+
+
+>>>>>>> c78b33d294cb3cec131c92a864c4bd81704aa588
 
 <!-- Please leave in the information below -->
 
