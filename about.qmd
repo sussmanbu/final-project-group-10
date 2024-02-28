@@ -38,7 +38,9 @@ https://github.com/YixiaoLi0922
 
 Chase is an undergraduate student in Economics and Mathematics
 
-
+##Morgan Fleming
+Morgan is an undergraduate student in Economics and Mathematics. 
+https://github.com/mlfleming 
 
 >>>>>>> c78b33d294cb3cec131c92a864c4bd81704aa588
 
