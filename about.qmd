@@ -42,6 +42,10 @@ Chase is an undergraduate student in Economics and Mathematics
 Morgan is an undergraduate student in Economics and Mathematics. 
 https://github.com/mlfleming 
 
+##Taelor Anderson
+Taelor is an undergraduate student in Psychology with a minor in statistical methods.
+https://github.com/taelorra
+
 >>>>>>> c78b33d294cb3cec131c92a864c4bd81704aa588
 
 <!-- Please leave in the information below -->
