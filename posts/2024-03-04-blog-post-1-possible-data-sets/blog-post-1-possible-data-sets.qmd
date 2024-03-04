@@ -1,0 +1,8 @@
+---
+title: "Blog post 1: Possible data sets"
+author: "Group 10"
+date: "2024-03-04"
+date-modified: "2024-03-04"
+draft: FALSE
+---
+
