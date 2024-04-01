@@ -18,10 +18,10 @@ draft: FALSE
 
 To begin, we wanted to make a summary table of general descriptibe statistics for the races included in our data as well as the economically challenged students to see the variation between their test scores. This is not broken down by location yet but we wanted to better visualize the data so we would know how to proceed.
 
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
-summary(cleaned_seda[c('gcs_mn_all', 'gcs_mn_asn', 'gcs_mn_blk','gcs_mn_ecd')])
+summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
 ```
 
 ----
