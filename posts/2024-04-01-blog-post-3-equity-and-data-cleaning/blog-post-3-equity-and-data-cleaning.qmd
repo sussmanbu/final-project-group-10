@@ -8,3 +8,30 @@ date-modified: "2024-04-01"
 draft: FALSE
 ---
 
+## Our data
+
+
+
+----
+
+## Preliminary Tables
+
+To begin, we wanted to make a summary table of general descriptibe statistics for the races included in our data as well as the economically challenged students to see the variation between their test scores. This is not broken down by location yet but we wanted to better visualize the data so we would know how to proceed.
+
+```{r}
+library(tidyverse)
+cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
+summary(cleaned_seda[c('gcs_mn_all', 'gcs_mn_asn', 'gcs_mn_blk','gcs_mn_ecd')])
+```
+
+----
+
+## Data Equity
+
+The Stanford Education Data Archive (SEDA) presents an opportunity to use educational data to benefit all students, especially those from underprivileged communities. Researchers and policymakers can use SEDA as a helpful tool for social justice in education by upholding the principles of beneficence and justice.
+
+It’s important to prioritize research addressing educational disparities. Our research involves conducting analyses highlighting gaps and identifying actional resource allocation. By focusing on the needs of underserved communities, such research can lead to policy recommendations that impact students' educational experiences and outcomes. Researchers must prioritize analyses that offer tangible solutions to underserved communities, ensuring that the insights gained do not disproportionately benefit advantaged groups. 
+
+We need to ensure that research findings are accessible to a wide range of stakeholders, including educators, policymakers, and community members, to enable informed decision-making across all levels of the education system. Restricting access to sensitive information protects the privacy and security of individuals represented in the data.
+
+----
