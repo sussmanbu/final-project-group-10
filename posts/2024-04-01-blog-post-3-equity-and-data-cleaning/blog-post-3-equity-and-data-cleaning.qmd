@@ -23,6 +23,41 @@ library(tidyverse)
 cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
 summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
 ```
+Our next step for Data Cleaning process is to analyze the histograms for selected variables.By examining these histograms, we can visually analyze the distribution of test scores within each subgroup. This visualization helps in understanding the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
+
+```{r}
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+selected_variables <- cleaned_seda %>%
+  select(mn_score_all, mn_score_asn, mn_score_blk, mn_score_ecd)
+
+selected_variables %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+       x = "Test Score",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+Additionally, we need to look at the boxplots of selected variables for the Data Cleaning process. The boxplots of test scores across racial and economic groups reveal outliers, differences in central tendency and spread, skewness or symmetry, disparities between groups, and missing values. These observations guide data cleaning efforts to ensure the reliability of subsequent analyses.
+
+```{r}
+variables_of_interest <- c("mn_score_all", "mn_score_asn", "mn_score_blk", "mn_score_ecd")
+
+cleaned_seda %>%
+  gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  ggplot(aes(x = variable, y = score, fill = variable)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+       x = "Variable",
+       y = "Test Score") +
+  theme_minimal()
+```
+
 
 ----
 
