@@ -1,0 +1,32 @@
+---
+title: "Blog Post 2: Data Background"
+author: "Group 10"
+date: "2024-03-25"
+date-modified: "2024-03-25"
+draft: FALSE
+---
+
+**Where does our data come from?**
+
+Our data comes from the Stanford Education Data Archive, also known as SEDA. This is a project conducted by researches at the Stanford Graduate School of Education.The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education. The data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes. Despite persistent racial, socioeconomic, and gender disparities in academic performance and educational attainment within the U.S. educational system, SEDA emphasizes that these gaps are not inevitable or unchangeable.
+
+
+The data is collected from various sources, including the U.S. Department of Education, state education agencies, and other publicly available datasets. It includes information on student demographics, achievement outcomes, funding, and other factors relevant to understanding educational disparities and opportunities across different regions and demographics. The advantage of SEDA is that it aggregates and organizes the data.
+
+
+SEDA combines information from the National Assessment of Educational Progress regarding the test scores in each school, geographic district, county, or state to compare scores from state tests on a common national level 
+
+**What is reported?**
+
+The raw data includes only counts of students scoring at different test-score levels, not individual test scores.This data includes constructed margin of errors for each of the measures of average test scores, learning rate, and trends in average scores with 95% confidence intervals. The data does not report average performance, learning, and/or trends if there were fewer than 20 students represented in the estimate, more than 30% of students in the unit took alternative assessments, or if the estimates are too imprecise to be informative. 
+
+
+**What issues do we predict?**
+
+There could be a possible bias in the learning-rate estimates towards districts with high-achieving kids moving out and low-achieving kids moving in, in the later years. Consequently, the data would be underestimating the learning rate in a school or district. 
+
+
+**Who has used this data?**
+
+The Stanford Education Data Archive (SEDA) has been instrumental in education policy and economics research, providing crucial insights into the educational impacts of COVID-19 through studies such as "The First Year of Pandemic Recovery: A District-Level Analysis" and "School District and Community Factors Associated With Learning Loss During the COVID-19 Pandemic". These investigations delve into the significant shifts to remote learning and the associated declines in math and reading achievements, offering a district-level perspective on the pandemic's profound effects on education. Moreover, by examining data from 7,800 districts, the research explores how income levels, minority status, and the extent of remote instruction have influenced learning losses, shedding light on the complex interplay of external factors affecting educational outcomes during this unprecedented time.
+
