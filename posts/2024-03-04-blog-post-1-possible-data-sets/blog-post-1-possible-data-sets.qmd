@@ -3,6 +3,7 @@ title: "Blog post 1: Possible data sets"
 author: "Group 10"
 date: "2024-03-04"
 date-modified: "2024-03-04"
+toc: true
 draft: FALSE
 ---
 
@@ -15,7 +16,7 @@ https://edopportunity.org/get-the-data/seda-archive-downloads/
 	
 ----
 
-##Option 2: US police shooting dataset
+## Option 2: US police shooting dataset
 
 https://www.kaggle.com/datasets/ahsen1330/us-police-shootings?resource=download
 
@@ -24,7 +25,7 @@ https://www.kaggle.com/datasets/ahsen1330/us-police-shootings?resource=download
   
 ----
 
-##Option 3: Health Insurance Coverage in the US in 2022
+## Option 3: Health Insurance Coverage in the US in 2022
 
 https://www.census.gov/library/publications/2023/demo/p60-281.html
 
