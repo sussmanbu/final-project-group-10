@@ -8,39 +8,6 @@ draft: false
 ![](images/data-import-cheatsheet-thumbs.png)
 
 
-This comes from the file `data.qmd`.
-
-Your first steps in this project will be to find data to work on.
-
-I recommend trying to find data that interests you and that you are knowledgeable about. A bad example would be if you have no interest in video games but your data set is about video games. I also recommend finding data that is related to current events, social justice, and other areas that have an impact.
-
-
-Initially, you will study _one dataset_ but later you will need to combine that data with another dataset. For this reason, I recommend finding data that has some date and/or location components. These types of data are conducive to interesting visualizations and analysis and you can also combine this data with other data that also has a date or location variable.
-Data from the census, weather data, economic data, are all relatively easy to combine with other data with time/location components.
-
-
-## What makes a good data set?
-
-* Data you are interested in and care about.
-* Data where there are a lot of potential questions that you can explore.
-* A data set that isn't completely cleaned already.
-* Multiple sources for data that you can combine.
-* Some type of time and/or location component.
-
-
-## Where to keep data?
-
-
-Below 50mb: In `dataset` folder
-
-Above 50mb: In `dataset_ignore` folder. This folder will be ignored by `git` so you'll have to manually sync these files across your team.
-
-### Sharing your data
-
-
-For small datasets (<50mb), you can use the `dataset` folder that is tracked by github. Add the files just like you would any other file.
-
-If you create a folder named `data` this will cause problems.
 
 For larger datasets, you'll need to create a new folder in the project root directory named `dataset-ignore`. This will be ignored by git (based off the `.gitignore` file in the project root directory) which will help you avoid issues with Github's size limits. Your team will have to manually make sure the data files in `dataset-ignore` are synced across team members.
 
@@ -55,14 +22,6 @@ source(
 You should never use absolute paths (eg. `/Users/danielsussman/path/to/project/` or `C:\MA415\\Final_Project\`).
 
 You might consider using the `here` function from the [`here` package](https://here.r-lib.org/articles/here.html) to avoid path problems.
-
-### Load and clean data script
-
-The idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them.
-This file might create a derivative data set that you then use for your subsequent analysis.
-Note that you don't need to run this script from every post/page.
-Instead, you can load in the results of this script, which could be plain text files or `.RData` files. In your data page you'll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes.
-To link to this file, you can use `[cleaning script](/scripts/load_and_clean_data.R)` wich appears as [cleaning script](/scripts/load_and_clean_data.R). 
 
 ----
 
@@ -89,14 +48,18 @@ You will
   
 ## Our Data
 
-Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions. 
+Our data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education. 
 
-----
+The data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes.
 
-### Where Is Our Data
+Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/
 
 
+SEDA data has been instrumental in education policy and economics research, providing crucial insights into the educational impacts of COVID-19 through studies such as “The First Year of Pandemic Recovery: A District-Level Analysis” and “School District and Community Factors Associated With Learning Loss During the COVID-19 Pandemic”. These investigations delve into the significant shifts to remote learning and the associated declines in math and reading achievements, offering a district-level perspective on the pandemic’s profound effects on education. Moreover, by examining data from 7,800 districts, the research explores how income levels, minority status, and the extent of remote instruction have influenced learning losses, shedding light on the complex interplay of external factors affecting educational outcomes during this unprecedented time.
 ----
 
 ### Variables and Files
 
+
+
+[cleaning script](/scripts/load_and_clean_data.R)
