@@ -1,0 +1,78 @@
+---
+title: "Blog Post 3: Equity and Data Cleaning"
+description:  |
+  Discussing what we did to clean our data and whether it is equitable
+author: "Group 10"
+date: "2024-04-01"
+date-modified: "2024-04-01"
+toc: true
+draft: FALSE
+---
+
+## Our data
+
+We cleaned our data before importing, as it was 500mB. We kept the scores for each race and the locations, as that is what we are most interested in. 
+
+----
+
+## Preliminary Tables
+
+To begin, we wanted to make a summary table of general descriptibe statistics for the races included in our data as well as the economically challenged students to see the variation between their test scores. This is not broken down by location yet but we wanted to better visualize the data so we would know how to proceed.
+
+```{r, echo=FALSE}
+library(tidyverse)
+cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
+summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
+```
+
+----
+
+## Plots
+
+Our next step for Data Cleaning process is to analyze the histograms for selected variables.By examining these histograms, we can visually analyze the distribution of test scores within each subgroup. This visualization helps in understanding the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
+
+```{r, echo=FALSE}
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+selected_variables <- cleaned_seda %>%
+  select(mn_score_all, mn_score_asn, mn_score_blk, mn_score_ecd)
+
+selected_variables %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+       x = "Test Score",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+Additionally, we need to look at the boxplots of selected variables for the Data Cleaning process. The boxplots of test scores across racial and economic groups reveal outliers, differences in central tendency and spread, skewness or symmetry, disparities between groups, and missing values. These observations guide data cleaning efforts to ensure the reliability of subsequent analyses.
+
+```{r, echo=FALSE}
+variables_of_interest <- c("mn_score_all", "mn_score_asn", "mn_score_blk", "mn_score_ecd")
+
+cleaned_seda %>%
+  gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  ggplot(aes(x = variable, y = score, fill = variable)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+       x = "Variable",
+       y = "Test Score") +
+  theme_minimal()
+```
+
+
+----
+
+## Data Equity
+
+The Stanford Education Data Archive (SEDA) presents an opportunity to use educational data to benefit all students, especially those from underprivileged communities. Researchers and policymakers can use SEDA as a helpful tool for social justice in education by upholding the principles of beneficence and justice.
+
+It’s important to prioritize research addressing educational disparities. Our research involves conducting analyses highlighting gaps and identifying actional resource allocation. By focusing on the needs of underserved communities, such research can lead to policy recommendations that impact students' educational experiences and outcomes. Researchers must prioritize analyses that offer tangible solutions to underserved communities, ensuring that the insights gained do not disproportionately benefit advantaged groups. 
+
+We need to ensure that research findings are accessible to a wide range of stakeholders, including educators, policymakers, and community members, to enable informed decision-making across all levels of the education system. Restricting access to sensitive information protects the privacy and security of individuals represented in the data.
+
+----
