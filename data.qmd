@@ -5,82 +5,77 @@ toc: true
 draft: false
 ---
 
-![](images/data-import-cheatsheet-thumbs.png)
+**Our Data**
 
+Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions.
 
-This comes from the file `data.qmd`.
+**Describe where/how to find data, Why was the data collected/curated? Who put it together?**
 
-Your first steps in this project will be to find data to work on.
+Our data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education           conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education. 
+The data is primarily gathered for academic research, policy analysis, and accountability purposes.Researchers utilize it to      study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data      to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes.
+Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/
 
-I recommend trying to find data that interests you and that you are knowledgeable about. A bad example would be if you have no interest in video games but your data set is about video games. I also recommend finding data that is related to current events, social justice, and other areas that have an impact.
+**Describe the different data files used and what each variable means**
 
+* District: geographic school district
+* Subject:
+    + RLA:  Reading Language Arts 
+    + MTH: Math
+* Mn_score: Average test scores
+* Numstu: number of students
+* Per: percentage of students in grade
+* Subgroups: 
+    + All: all students
+    + Asn: Asian students
+    + Blk: Black students
+    + Fem: female students
+    + Hsp: Hispanic students 
+    + Male: male students
+    + Mtr: Multiracial students
+    + Nec: Not economically disadvantaged
+    + Wht: white students
+* Totenrl: Number of students in grade
+* Unempall: unemployment rate
+* Snapall: Snap receipt rate
+* Single_momall: Single mother hh rate
 
-Initially, you will study _one dataset_ but later you will need to combine that data with another dataset. For this reason, I recommend finding data that has some date and/or location components. These types of data are conducive to interesting visualizations and analysis and you can also combine this data with other data that also has a date or location variable.
-Data from the census, weather data, economic data, are all relatively easy to combine with other data with time/location components.
+**Describe any cleaning you had to do for your data**
 
+* We cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.
+* We downloaded the raw data and saved it in the data folder.
+* Utilized the dplyr package to:
+    + Select relevant attributes for the project.
+    + Remove unnecessary attributes.
+    + Remove missing attributes.
+    + Remove unusual values.
+    + Utilized the collapse package to collapse selected variables into their mean, creating one observation per year, district, class subject, and state combination. Previously it was expanded into grade levels, and finding the mean across those for each year allowed for compression of the very large original data set. 
+The cleaned data was exported to the data folder.
+* Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
 
-## What makes a good data set?
+**Summary of numerical variables**
 
-* Data you are interested in and care about.
-* Data where there are a lot of potential questions that you can explore.
-* A data set that isn't completely cleaned already.
-* Multiple sources for data that you can combine.
-* Some type of time and/or location component.
+To begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.
 
-
-## Where to keep data?
-
-
-Below 50mb: In `dataset` folder
-
-Above 50mb: In `dataset_ignore` folder. This folder will be ignored by `git` so you'll have to manually sync these files across your team.
-
-### Sharing your data
-
-
-For small datasets (<50mb), you can use the `dataset` folder that is tracked by github. Add the files just like you would any other file.
-
-If you create a folder named `data` this will cause problems.
-
-For larger datasets, you'll need to create a new folder in the project root directory named `dataset-ignore`. This will be ignored by git (based off the `.gitignore` file in the project root directory) which will help you avoid issues with Github's size limits. Your team will have to manually make sure the data files in `dataset-ignore` are synced across team members.
-
-Your [load_and_clean_data.R](/scripts/load_and_clean_data.R) file is how you will load and clean your data. Here is a an example of a very simple one.
-
-```{r}
-source(
-  "scripts/load_and_clean_data.R",
-  echo = TRUE # Use echo=FALSE or omit it to avoid code output  
-)
+```{r, echo=FALSE}
+library(tidyverse)
+library(conflicted)
+library(dplyr)
+cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
+summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
 ```
-You should never use absolute paths (eg. `/Users/danielsussman/path/to/project/` or `C:\MA415\\Final_Project\`).
 
-You might consider using the `here` function from the [`here` package](https://here.r-lib.org/articles/here.html) to avoid path problems.
+By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
 
-### Load and clean data script
+```{r, echo=FALSE}
+variables_of_interest <- c("mn_score_all", "mn_score_asn", "mn_score_blk", "mn_score_ecd")
 
-The idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them.
-This file might create a derivative data set that you then use for your subsequent analysis.
-Note that you don't need to run this script from every post/page.
-Instead, you can load in the results of this script, which could be plain text files or `.RData` files. In your data page you'll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes.
-To link to this file, you can use `[cleaning script](/scripts/load_and_clean_data.R)` wich appears as [cleaning script](/scripts/load_and_clean_data.R). 
-
-----
-
-## Rubric: On this page
-
-You will
-
-* Describe where/how to find data.
-  * You must include a link to the original data source(s). Make sure to provide attribution to those who collected the data.
-  * Why was the data collected/curated? Who put it together? (This is important, if you don't know why it was collected then that might not be a good dataset to look at.
-* Describe the different data files used and what each variable means. 
-  * If you have many variables then only describe the most relevant ones and summarize the rest.
-* Describe any cleaning you had to do for your data.
-  * You *must* include a link to your `load_and_clean_data.R` file.
-  * Rrename variables and recode factors to make data more clear.
-  * Also, describe any additional R packages you used outside of those covered in class.
-  * Describe and show code for how you combined multiple data files and any cleaning that was necessary for that.
-  * Some repetition of what you do in your `load_and_clean_data.R` file is fine and encouraged if it helps explain what you did.
-* Organization, clarity, cleanliness of the page
-  * Make sure to remove excessive warnings, use clean easy-to-read code (without side scrolling), organize with sections, use bullets and other organization tools, etc.
-  * This page should be self-contained.
+cleaned_seda %>%
+  gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  ggplot(aes(x = variable, y = score, fill = variable)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+       x = "Variable",
+       y = "Test Score") +
+  theme_minimal()
+```
