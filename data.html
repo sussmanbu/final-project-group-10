@@ -109,24 +109,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#what-makes-a-good-data-set" id="toc-what-makes-a-good-data-set" class="nav-link active" data-scroll-target="#what-makes-a-good-data-set">What makes a good data set?</a></li>
-  <li><a href="#where-to-keep-data" id="toc-where-to-keep-data" class="nav-link" data-scroll-target="#where-to-keep-data">Where to keep data?</a>
-  <ul class="collapse">
-  <li><a href="#sharing-your-data" id="toc-sharing-your-data" class="nav-link" data-scroll-target="#sharing-your-data">Sharing your data</a></li>
-  <li><a href="#load-and-clean-data-script" id="toc-load-and-clean-data-script" class="nav-link" data-scroll-target="#load-and-clean-data-script">Load and clean data script</a></li>
-  </ul></li>
-  <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
-  <li><a href="#our-data" id="toc-our-data" class="nav-link" data-scroll-target="#our-data">Our Data</a>
-  <ul class="collapse">
-  <li><a href="#where-is-our-data" id="toc-where-is-our-data" class="nav-link" data-scroll-target="#where-is-our-data">Where Is Our Data</a></li>
-  <li><a href="#variables-and-files" id="toc-variables-and-files" class="nav-link" data-scroll-target="#variables-and-files">Variables and Files</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -153,82 +136,89 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><img src="images/data-import-cheatsheet-thumbs.png" class="img-fluid"></p>
-<p>This comes from the file <code>data.qmd</code>.</p>
-<p>Your first steps in this project will be to find data to work on.</p>
-<p>I recommend trying to find data that interests you and that you are knowledgeable about. A bad example would be if you have no interest in video games but your data set is about video games. I also recommend finding data that is related to current events, social justice, and other areas that have an impact.</p>
-<p>Initially, you will study <em>one dataset</em> but later you will need to combine that data with another dataset. For this reason, I recommend finding data that has some date and/or location components. These types of data are conducive to interesting visualizations and analysis and you can also combine this data with other data that also has a date or location variable. Data from the census, weather data, economic data, are all relatively easy to combine with other data with time/location components.</p>
-<section id="what-makes-a-good-data-set" class="level2">
-<h2 class="anchored" data-anchor-id="what-makes-a-good-data-set">What makes a good data set?</h2>
-<ul>
-<li>Data you are interested in and care about.</li>
-<li>Data where there are a lot of potential questions that you can explore.</li>
-<li>A data set that isn’t completely cleaned already.</li>
-<li>Multiple sources for data that you can combine.</li>
-<li>Some type of time and/or location component.</li>
-</ul>
-</section>
-<section id="where-to-keep-data" class="level2">
-<h2 class="anchored" data-anchor-id="where-to-keep-data">Where to keep data?</h2>
-<p>Below 50mb: In <code>dataset</code> folder</p>
-<p>Above 50mb: In <code>dataset_ignore</code> folder. This folder will be ignored by <code>git</code> so you’ll have to manually sync these files across your team.</p>
-<section id="sharing-your-data" class="level3">
-<h3 class="anchored" data-anchor-id="sharing-your-data">Sharing your data</h3>
-<p>For small datasets (&lt;50mb), you can use the <code>dataset</code> folder that is tracked by github. Add the files just like you would any other file.</p>
-<p>If you create a folder named <code>data</code> this will cause problems.</p>
-<p>For larger datasets, you’ll need to create a new folder in the project root directory named <code>dataset-ignore</code>. This will be ignored by git (based off the <code>.gitignore</code> file in the project root directory) which will help you avoid issues with Github’s size limits. Your team will have to manually make sure the data files in <code>dataset-ignore</code> are synced across team members.</p>
-<p>Your <a href="./scripts/load_and_clean_data.R">load_and_clean_data.R</a> file is how you will load and clean your data. Here is a an example of a very simple one.</p>
-<p>source( “scripts/load_and_clean_data.R”, echo = TRUE # Use echo=FALSE or omit it to avoid code output<br>
-)</p>
-<p>You should never use absolute paths (eg. <code>/Users/danielsussman/path/to/project/</code> or <code>C:\MA415\\Final_Project\</code>).</p>
-<p>You might consider using the <code>here</code> function from the <a href="https://here.r-lib.org/articles/here.html"><code>here</code> package</a> to avoid path problems.</p>
-</section>
-<section id="load-and-clean-data-script" class="level3">
-<h3 class="anchored" data-anchor-id="load-and-clean-data-script">Load and clean data script</h3>
-<p>The idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them. This file might create a derivative data set that you then use for your subsequent analysis. Note that you don’t need to run this script from every post/page. Instead, you can load in the results of this script, which could be plain text files or <code>.RData</code> files. In your data page you’ll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes. To link to this file, you can use <code>[cleaning script](/scripts/load_and_clean_data.R)</code> wich appears as <a href="./scripts/load_and_clean_data.R">cleaning script</a>.</p>
-<hr>
-</section>
-</section>
-<section id="rubric-on-this-page" class="level2">
-<h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
-<p>You will</p>
-<ul>
-<li>Describe where/how to find data.
-<ul>
-<li>You must include a link to the original data source(s). Make sure to provide attribution to those who collected the data.</li>
-<li>Why was the data collected/curated? Who put it together? (This is important, if you don’t know why it was collected then that might not be a good dataset to look at.</li>
-</ul></li>
-<li>Describe the different data files used and what each variable means.
-<ul>
-<li>If you have many variables then only describe the most relevant ones and summarize the rest.</li>
-</ul></li>
-<li>Describe any cleaning you had to do for your data.
-<ul>
-<li>You <em>must</em> include a link to your <code>load_and_clean_data.R</code> file.</li>
-<li>Rrename variables and recode factors to make data more clear.</li>
-<li>Also, describe any additional R packages you used outside of those covered in class.</li>
-<li>Describe and show code for how you combined multiple data files and any cleaning that was necessary for that.</li>
-<li>Some repetition of what you do in your <code>load_and_clean_data.R</code> file is fine and encouraged if it helps explain what you did.</li>
-</ul></li>
-<li>Organization, clarity, cleanliness of the page
-<ul>
-<li>Make sure to remove excessive warnings, use clean easy-to-read code (without side scrolling), organize with sections, use bullets and other organization tools, etc.</li>
-<li>This page should be self-contained.</li>
-</ul></li>
-</ul>
-</section>
-<section id="our-data" class="level2">
-<h2 class="anchored" data-anchor-id="our-data">Our Data</h2>
+<p><strong>Our Data</strong></p>
 <p>Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions.</p>
-<section id="where-is-our-data" class="level3">
-<h3 class="anchored" data-anchor-id="where-is-our-data">Where Is Our Data</h3>
-</section>
-<section id="variables-and-files" class="level3">
-<h3 class="anchored" data-anchor-id="variables-and-files">Variables and Files</h3>
+<p><strong>Describe where/how to find data, Why was the data collected/curated? Who put it together?</strong></p>
+<p>Our data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education. The data is primarily gathered for academic research, policy analysis, and accountability purposes.Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes. Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/</p>
+<p><strong>Describe the different data files used and what each variable means</strong></p>
+<ul>
+<li>District: geographic school district</li>
+<li>Subject:
+<ul>
+<li>RLA: Reading Language Arts</li>
+<li>MTH: Math</li>
+</ul></li>
+<li>Mn_score: Average test scores</li>
+<li>Numstu: number of students</li>
+<li>Per: percentage of students in grade</li>
+<li>Subgroups:
+<ul>
+<li>All: all students</li>
+<li>Asn: Asian students</li>
+<li>Blk: Black students</li>
+<li>Fem: female students</li>
+<li>Hsp: Hispanic students</li>
+<li>Male: male students</li>
+<li>Mtr: Multiracial students</li>
+<li>Nec: Not economically disadvantaged</li>
+<li>Wht: white students</li>
+</ul></li>
+<li>Totenrl: Number of students in grade</li>
+<li>Unempall: unemployment rate</li>
+<li>Snapall: Snap receipt rate</li>
+<li>Single_momall: Single mother hh rate</li>
+</ul>
+<p><strong>Describe any cleaning you had to do for your data</strong></p>
+<ul>
+<li>We cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.</li>
+<li>We downloaded the raw data and saved it in the data folder.</li>
+<li>Utilized the dplyr package to:
+<ul>
+<li>Select relevant attributes for the project.</li>
+<li>Remove unnecessary attributes.</li>
+<li>Remove missing attributes.</li>
+<li>Remove unusual values.</li>
+<li>Utilized the collapse package to collapse selected variables into their mean, creating one observation per year, district, class subject, and state combination. Previously it was expanded into grade levels, and finding the mean across those for each year allowed for compression of the very large original data set. The cleaned data was exported to the data folder.</li>
+</ul></li>
+<li>Link to <code>load_and_clean_data.R</code> file: <a href="dataset/cleaned_seda.rds">loading script</a></li>
+</ul>
+<p><strong>Summary of numerical variables</strong></p>
+<p>To begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mn_score_all     mn_score_asn     mn_score_blk     mn_score_ecd  
+ Min.   :-3.735   Min.   :-2.92    Min.   :-3.40    Min.   :-3.55  
+ 1st Qu.:-0.198   1st Qu.: 0.26    1st Qu.:-0.63    1st Qu.:-0.42  
+ Median : 0.030   Median : 0.60    Median :-0.45    Median :-0.24  
+ Mean   : 0.025   Mean   : 0.59    Mean   :-0.44    Mean   :-0.26  
+ 3rd Qu.: 0.249   3rd Qu.: 0.93    3rd Qu.:-0.25    3rd Qu.:-0.08  
+ Max.   : 2.865   Max.   : 2.79    Max.   : 1.16    Max.   : 1.24  
+ NA's   :23209    NA's   :204226   NA's   :180011   NA's   :61878  </code></pre>
+</div>
+</div>
+<p>By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 469324 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
