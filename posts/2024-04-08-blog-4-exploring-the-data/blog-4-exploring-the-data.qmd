@@ -1,0 +1,9 @@
+---
+title: "Blog post 4: Exploring the Data"
+author: "Group 10"
+date: "2024-04-08"
+date-modified: "2024-04-08"
+draft: FALSE
+---
+
+
