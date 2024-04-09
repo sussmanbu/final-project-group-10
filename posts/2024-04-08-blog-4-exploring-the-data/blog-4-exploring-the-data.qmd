@@ -19,7 +19,7 @@ Our regression model predicts the average test score (mn_score_all) based on sub
 ----
 
 ## Linear regression model
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
@@ -46,14 +46,14 @@ kable(head(augment_lm), format = "pipe")
 ----
 
 ## Residual Plot
-```{r}
+```{r, echo=FALSE}
 plot(score_regression_model, which = 1)
 ```
 
 The Residuals vs. Fitted plot signals an excellent fit of the regression model to the data. This close alignment indicates minimal discrepancies between predicted and observed values, while the consistent spread of residuals suggests uniform variability across different levels of the independent variables. With no discernible patterns, the model accurately captures underlying relationships without systematic errors, meeting key assumptions of linear regression. However, it's worth noting the presence of some visible leverage points in the data.
 
 ## Summary Tables
-```{r}
+```{r, echo=FALSE}
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 summary_table <- summary(cleaned_seda)
