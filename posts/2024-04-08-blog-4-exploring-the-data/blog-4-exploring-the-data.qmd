@@ -18,7 +18,44 @@ As seen in blog post 3, race was a predictor variable in the scores seen in stud
 
 ----
 
-## Regression
+## simple linear regression model (mean score of all students ~ percentage of economically disadvantaged student )
 
+```{r, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(broom)
+library(tidyverse)
+
+ds = cleaned_seda
+
+lm_model <- lm(mn_score_all ~ perecd, data = ds)
+summary(lm_model)
+```
+Coefficient (Beta1) = -1.208213: For every one-unit increase in the percentage of economically disadvantaged students, the mean score of all students decreases by approximately 1.208213 units. R-squared = 0.5674: About 56.74% of the variability in student mean scores is explained by the percentage of economically disadvantaged students. P-value for predictor < 2e-16: The negative relationship between the percentage of economically disadvantaged students and the mean score of all students is statistically significant, with a p-value less than 2e-16.
 
 ----
+
+## Residuals and Related Statistics Table:
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+augment_lm <- augment(lm_model)
+kable(head(augment_lm), format = "pipe")
+```
+
+----
+
+## Residual Plot
+```{r}
+# Fit the model
+residuals <- resid(mlr_model)
+fitted_values <- fitted(mlr_model)
+
+
+plot(fitted_values, residuals,
+     xlab = "Fitted Values",
+     ylab = "Residuals",
+     main = "Residual Plot of mlr_model",
+     pch = 20)
+
+abline(h = 0, col = "red")
+```
+
