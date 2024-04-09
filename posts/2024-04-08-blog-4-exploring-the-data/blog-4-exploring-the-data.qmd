@@ -14,30 +14,32 @@ As seen in blog post 3, race was a predictor variable in the scores seen in stud
 
 ## More Exploration
 
-
+Our regression model predicts the average test score (mn_score_all) based on subgroup-specific test scores, including those for Asian (mn_score_asn), Black (mn_score_blk), economically challenged (mn_score_ecd), female (mn_score_fem), Hispanic (mn_score_hsp), male (mn_score_male), multiracial (mn_score_mtr), and white (mn_score_wht) students. Each coefficient (β) represents the expected change in the average test score for a one-unit change in the corresponding subgroup's test score. We anticipate identifying significant associations between subgroup-specific performance and the overall average test score. Our model's goodness of fit will be evaluated using metrics such as R-squared and the F-statistic's significance, while residual plots will ensure adherence to model assumptions.
 
 ----
 
-## simple linear regression model (mean score of all students ~ percentage of economically disadvantaged student )
-
-```{r, echo=FALSE}
-library(dplyr)
-library(ggplot2)
-library(broom)
+## Linear regression model
+```{r}
 library(tidyverse)
 
-ds = cleaned_seda
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
-lm_model <- lm(mn_score_all ~ perecd, data = ds)
-summary(lm_model)
+score_regression_model <- lm(mn_score_all ~ mn_score_asn + mn_score_blk + mn_score_ecd + mn_score_fem + mn_score_hsp + mn_score_male + mn_score_mtr + mn_score_wht, data = cleaned_seda)
+
+summary(score_regression_model)
 ```
-Coefficient (Beta1) = -1.208213: For every one-unit increase in the percentage of economically disadvantaged students, the mean score of all students decreases by approximately 1.208213 units. R-squared = 0.5674: About 56.74% of the variability in student mean scores is explained by the percentage of economically disadvantaged students. P-value for predictor < 2e-16: The negative relationship between the percentage of economically disadvantaged students and the mean score of all students is statistically significant, with a p-value less than 2e-16.
+
+The summary output of the regression model demonstrates an exceptional fit to the data, with a remarkably low residual standard error of 0.006255, indicating minimal unexplained variability in the dependent variable. The multiple R-squared value of 0.9997 suggests that nearly all of the variance in the dependent variable is accounted for by the independent variables included in the model, while the adjusted R-squared value confirms this finding, adjusting for the number of predictors. The F-statistic is impressively large at 4.84e+06, with an associated p-value of less than 2.2e-16, providing strong evidence of the model's overall significance. However, it's noteworthy that not all coefficient estimates are statistically significant at the 5% level, suggesting that while the model as a whole is highly significant, individual predictors may not contribute significantly to explaining the variability in the dependent variable. Despite this, the model still offers valuable insights into the relationship between subgroup-specific test scores and overall average test performance.
 
 ----
 
 ## Residuals and Related Statistics Table:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-augment_lm <- augment(lm_model)
+library(dplyr)
+library(ggplot2)
+library(broom)
+library(knitr)
+augment_lm <- augment(score_regression_model)
 kable(head(augment_lm), format = "pipe")
 ```
 
@@ -45,17 +47,17 @@ kable(head(augment_lm), format = "pipe")
 
 ## Residual Plot
 ```{r}
-# Fit the model
-residuals <- resid(mlr_model)
-fitted_values <- fitted(mlr_model)
+plot(score_regression_model, which = 1)
+```
 
+The Residuals vs. Fitted plot signals an excellent fit of the regression model to the data. This close alignment indicates minimal discrepancies between predicted and observed values, while the consistent spread of residuals suggests uniform variability across different levels of the independent variables. With no discernible patterns, the model accurately captures underlying relationships without systematic errors, meeting key assumptions of linear regression. However, it's worth noting the presence of some visible leverage points in the data.
 
-plot(fitted_values, residuals,
-     xlab = "Fitted Values",
-     ylab = "Residuals",
-     main = "Residual Plot of mlr_model",
-     pch = 20)
+## Summary Tables
+```{r}
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
-abline(h = 0, col = "red")
+summary_table <- summary(cleaned_seda)
+
+summary_table
 ```
 
