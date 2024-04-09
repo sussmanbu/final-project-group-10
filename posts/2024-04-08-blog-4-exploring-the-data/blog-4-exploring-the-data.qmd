@@ -6,4 +6,19 @@ date-modified: "2024-04-08"
 draft: FALSE
 ---
 
+## Our Trends
 
+As seen in blog post 3, race was a predictor variable in the scores seen in students. Economic status is another. We want to see how these two variables work together, rather than individually like we did last week. 
+
+----
+
+## More Exploration
+
+
+
+----
+
+## Regression
+
+
+----
