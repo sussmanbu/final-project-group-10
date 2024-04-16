@@ -7,11 +7,8 @@ draft: FALSE
 ---
 
 ## Our Secondary Dataset
+In our ongoing quest to extract meaningful insights from educational data, we've recently enhanced our dataset with the inclusion of three pivotal new variables. Sourced from the Stanford Education Data Archive (SEDA), these additions—lninc50all, baplusall, and povertyall—represent, respectively, the natural logarithm of the median income across all datasets, the percentage of parents holding at least a Bachelor's degree, and the overall poverty rate. This data enrichment is performed with the intention of capturing a more nuanced picture of educational disparities on a state level, year by year. To ensure the integrity of our analysis, meticulous steps were taken to filter out any instances of missing values, thus maintaining the robustness of our research framework.
 
+As we stand, the datasets have been methodically merged, organizing the newly adopted variables in alignment with the existing structure based on state and temporal parameters. Preliminary scrutiny of the enhanced dataset reveals promising avenues for exploration. For instance, the incorporation of lninc50all allows us to investigate the elasticity of educational outcomes in relation to median income, while baplusall and povertyall offer a lens to examine the correlation between parental education, poverty levels, and educational equity. As we delve deeper into the data, our next steps will be geared towards applying advanced analytical models to discern patterns and potentially causal relationships. Stay tuned as we continue to unfold the narratives hidden within the numbers, with the ultimate aim of informing policies that bridge educational gaps.
 
-----
-
-## Findings
-
-
-----
+Link for the new dataset: https://edopportunity.org/get-the-data/seda-archive-downloads/
