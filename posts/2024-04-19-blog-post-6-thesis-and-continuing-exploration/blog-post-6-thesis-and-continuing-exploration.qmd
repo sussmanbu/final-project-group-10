@@ -6,3 +6,25 @@ date-modified: "2024-04-19"
 draft: FALSE
 ---
 
+## Thesis
+
+The district with a higher percentage of economically disadvantaged students, a higher poverty rate, a higher unemployment rate, a lower percentage of parents with bachelor's degrees, and a lower median income tends to have lower mean scores for both languages and math for all students.
+
+## More Exploration of Independent Variables
+```{r, echo=FALSE}
+library(tidyverse)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+selected_variables <- cleaned_seda %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall)
+
+selected_variables %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+       x = "Test Score",
+       y = "Frequency") +
+  theme_minimal()
+```

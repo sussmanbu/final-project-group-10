@@ -5,17 +5,17 @@ toc: true
 draft: false
 ---
 
-**Our Data**
+## Our Data
 
 Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions.
 
-**Describe where/how to find data, Why was the data collected/curated? Who put it together?**
+## Describe where/how to find data, Why was the data collected/curated? Who put it together?
 
 Our data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education           conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education. 
 The data is primarily gathered for academic research, policy analysis, and accountability purposes.Researchers utilize it to      study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data      to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes.
 Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/
 
-**Describe the different data files used and what each variable means**
+## Describe the different data files used and what each variable means
 
 * District: geographic school district
 * Subject:
@@ -39,7 +39,7 @@ Link to the original data source: https://edopportunity.org/get-the-data/seda-ar
 * Snapall: Snap receipt rate
 * Single_momall: Single mother hh rate
 
-**Describe any cleaning you had to do for your data**
+## Describe any cleaning you had to do for your data
 
 * We cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.
 * We downloaded the raw data and saved it in the data folder.
@@ -52,7 +52,7 @@ Link to the original data source: https://edopportunity.org/get-the-data/seda-ar
 The cleaned data was exported to the data folder.
 * Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
 
-**Summary of numerical variables**
+### Summary of numerical variables
 
 To begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.
 
@@ -60,6 +60,8 @@ To begin, we wanted to make a summary table of general descriptive statistics fo
 library(tidyverse)
 library(conflicted)
 library(dplyr)
+library(tidyr)
+library(ggplot2)
 cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
 summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
 ```
@@ -67,10 +69,12 @@ summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_
 By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
 
 ```{r, echo=FALSE}
+conflicts_prefer(dplyr::filter)
 variables_of_interest <- c("mn_score_all", "mn_score_asn", "mn_score_blk", "mn_score_ecd")
 
 cleaned_seda %>%
   gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  filter(!is.na(score) & !is.nan(score) & is.finite(score)) %>%
   ggplot(aes(x = variable, y = score, fill = variable)) +
   geom_boxplot() +
   facet_wrap(~ variable, scales = "free") +
@@ -78,4 +82,5 @@ cleaned_seda %>%
        x = "Variable",
        y = "Test Score") +
   theme_minimal()
+
 ```
