@@ -6,3 +6,28 @@ date-modified: "2024-04-19"
 draft: FALSE
 ---
 
+First, we created histograms and boxplots for each covariate to analyze their distribution. Then, we created correlation and scatter plots to compare each covariate with mn_score_all. The code is shown below
+
+```{r}
+hist(cleaned_seda$mn_score_all, main = "Histogram of mn_score_all")
+hist(cleaned_seda$lninc50all, main = "Histogram of lninc50all")
+hist(cleaned_seda$baplusall, main = "Histogram of baplusall")
+hist(cleaned_seda$povertyall, main = "Histogram of povertyall")
+hist(cleaned_seda$numstu_ecd, main = "Histogram of numstu_ecd")
+hist(cleaned_seda$numstu_male, main = "Histogram of numstu_male")
+hist(cleaned_seda$numstu_fem, main = "Histogram of numstu_fem")
+hist(cleaned_seda$perhsp, main = "Histogram of perhsp")
+hist(cleaned_seda$perblk, main = "Histogram of perblk")
+hist(cleaned_seda$perwht, main = "Histogram of perwht")
+```
+
+DATA CLEANING:
+  Checking max and min of variables to look for the infeasible outliers: 
+
+```{r}
+summary(cleaned_seda$mn_score_all)
+```
+```{r}
+
+```
+
