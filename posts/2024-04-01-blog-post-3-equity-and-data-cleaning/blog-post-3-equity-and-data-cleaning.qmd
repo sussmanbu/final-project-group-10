@@ -31,7 +31,7 @@ summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_
 
 Our next step for Data Cleaning process is to analyze the histograms for selected variables.By examining these histograms, we can visually analyze the distribution of test scores within each subgroup. This visualization helps in understanding the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 selected_variables <- cleaned_seda %>%

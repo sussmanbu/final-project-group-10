@@ -6,25 +6,54 @@ date-modified: "2024-04-19"
 draft: FALSE
 ---
 
-## Thesis
+To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state. 
 
-The district with a higher percentage of economically disadvantaged students, a higher poverty rate, a higher unemployment rate, a lower percentage of parents with bachelor's degrees, and a lower median income tends to have lower mean scores for both languages and math for all students.
+## Thesis
+Mississippi, with its higher percentage of economically disadvantaged students, higher poverty rate, higher unemployment rate, lower percentage of parents holding bachelor's degrees, and lower median income, has lower mean scores in both language and math for all students compared to Massachusetts.
 
 ## More Exploration of Independent Variables
+### Massachusetts
 ```{r, echo=FALSE}
 library(tidyverse)
+library(dplyr)
+library(readr)
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
 
-selected_variables <- cleaned_seda %>%
-  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall)
+selected_variables_MA <- massachusetts_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
 
-selected_variables %>%
+selected_variables_MA %>%
   gather(key = "variable", value = "score") %>%
   ggplot(aes(x = score)) +
   geom_histogram(bins = 30, fill = "skyblue", color = "black") +
   facet_wrap(~ variable, scales = "free") +
-  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+  labs(title = "Distribution of Variables for MA Districts",
        x = "Test Score",
        y = "Frequency") +
   theme_minimal()
 ```
+
+### Mississippi
+```{r, echo=FALSE}
+selected_variables_MS <- mississippi_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+selected_variables_MS %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Variables for MS Districts",
+       x = "Test Score",
+       y = "Frequency") +
+  theme_minimal()
+```
+After observing each plot for the variables, all variables are skewed except for the median income and the mean score. Therefore, we will apply natural log or square root transformations for those variables to deal with the skewness.
+
+## Data Transformation

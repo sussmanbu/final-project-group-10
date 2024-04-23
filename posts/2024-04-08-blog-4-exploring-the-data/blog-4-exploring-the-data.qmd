@@ -24,7 +24,7 @@ library(tidyverse)
 
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
-score_regression_model <- lm(mn_score_all ~ mn_score_asn + mn_score_blk + mn_score_ecd + mn_score_fem + mn_score_hsp + mn_score_male + mn_score_mtr + mn_score_wht, data = cleaned_seda)
+score_regression_model <- lm(mn_score_all ~ lninc50all + baplusall + povertyall + numstu_ecd + numstu_male + numstu_fem + perasn + perhsp + perblk + perwht, data = cleaned_seda)
 
 summary(score_regression_model)
 ```
