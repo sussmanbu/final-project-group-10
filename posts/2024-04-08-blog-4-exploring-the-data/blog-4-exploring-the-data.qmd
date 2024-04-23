@@ -19,15 +19,16 @@ Our regression model predicts the average test score (mn_score_all) based on sub
 ----
 
 ## Linear regression model
-```{r, echo=FALSE}
-library(tidyverse)
+```{r}
+state_dummies <- model.matrix(~ state - 1, data = cleaned_seda)
 
-cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+cleaned_seda <- cbind(cleaned_seda, state_dummies)
 
-score_regression_model <- lm(mn_score_all ~ lninc50all + baplusall + povertyall + numstu_ecd + numstu_male + numstu_fem + perasn + perhsp + perblk + perwht, data = cleaned_seda)
+score_regression_model <- lm(mn_score_all ~ lninc50all + baplusall + povertyall + numstu_ecd + numstu_male + numstu_fem + perasn + perhsp + perblk + perwht + state_dummies, data = cleaned_seda)
 
 summary(score_regression_model)
 ```
+
 
 The summary output of the regression model demonstrates an exceptional fit to the data, with a remarkably low residual standard error of 0.006255, indicating minimal unexplained variability in the dependent variable. The multiple R-squared value of 0.9997 suggests that nearly all of the variance in the dependent variable is accounted for by the independent variables included in the model, while the adjusted R-squared value confirms this finding, adjusting for the number of predictors. The F-statistic is impressively large at 4.84e+06, with an associated p-value of less than 2.2e-16, providing strong evidence of the model's overall significance. However, it's noteworthy that not all coefficient estimates are statistically significant at the 5% level, suggesting that while the model as a whole is highly significant, individual predictors may not contribute significantly to explaining the variability in the dependent variable. Despite this, the model still offers valuable insights into the relationship between subgroup-specific test scores and overall average test performance.
 

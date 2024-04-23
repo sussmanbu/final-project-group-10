@@ -5,29 +5,87 @@ date: "2024-04-19"
 date-modified: "2024-04-19"
 draft: FALSE
 ---
+To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state. 
 
-First, we created histograms and boxplots for each covariate to analyze their distribution. Then, we created correlation and scatter plots to compare each covariate with mn_score_all. The code is shown below
+## Thesis
+Mississippi, with its higher percentage of economically disadvantaged students, higher poverty rate, higher unemployment rate, lower percentage of parents holding bachelor's degrees, and lower median income, has lower mean scores in both language and math for all students compared to Massachusetts.
 
-```{r}
-hist(cleaned_seda$mn_score_all, main = "Histogram of mn_score_all")
-hist(cleaned_seda$lninc50all, main = "Histogram of lninc50all")
-hist(cleaned_seda$baplusall, main = "Histogram of baplusall")
-hist(cleaned_seda$povertyall, main = "Histogram of povertyall")
-hist(cleaned_seda$numstu_ecd, main = "Histogram of numstu_ecd")
-hist(cleaned_seda$numstu_male, main = "Histogram of numstu_male")
-hist(cleaned_seda$numstu_fem, main = "Histogram of numstu_fem")
-hist(cleaned_seda$perhsp, main = "Histogram of perhsp")
-hist(cleaned_seda$perblk, main = "Histogram of perblk")
-hist(cleaned_seda$perwht, main = "Histogram of perwht")
+## More Exploration of Independent Variables
+### Massachusetts
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MA <- massachusetts_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+selected_variables_MA %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Variables for MA Districts",
+       x = "Test Score",
+       y = "Frequency") +
+  theme_minimal()
 ```
 
-DATA CLEANING:
-  Checking max and min of variables to look for the infeasible outliers: 
+### Mississippi
+```{r, echo=FALSE}
+selected_variables_MS <- mississippi_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
 
-```{r}
-summary(cleaned_seda$mn_score_all)
+selected_variables_MS %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Distribution of Variables for MS Districts",
+       x = "Test Score",
+       y = "Frequency") +
+  theme_minimal()
 ```
-```{r}
+After observing each plot for the variables, all variables are skewed except for the median income and the mean score. Therefore, we will apply natural log or square root transformations for those variables to deal with the skewness.
 
+```{r}
+library(tidyverse)
+
+selected_variables_MS <- mississippi_data %>%
+  select(perasn, perblk, perecd, perwht, unempall, baplusall) %>%
+  filter(perasn > 0 & perblk > 0 & perecd > 0 & perwht > 0 & unempall > 0)
+
+selected_variables_MS_log <- selected_variables_MS %>%
+  mutate(across(everything(), log))
+
+selected_variables_MS_sqrt <- selected_variables_MS %>%
+  mutate(across(everything(), sqrt))
+
+selected_variables_MS_log %>%
+  gather(key = "variable", value = "value") %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Histograms of Log-Transformed Variables for MS Districts",
+       x = "Log-transformed Value",
+       y = "Frequency") +
+  theme_minimal()
+
+selected_variables_MS_sqrt %>%
+  gather(key = "variable", value = "value") %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "Histograms of Square Root Transformed Variables for MS Districts",
+       x = "Square Root Transformed Value",
+       y = "Frequency") +
+  theme_minimal()
 ```
 
