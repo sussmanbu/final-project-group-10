@@ -280,11 +280,39 @@
     "text": "Rubric: On this page\nYou will\n\nIntroduce what motivates your Data Analysis (DA)\n\nWhich variables and relationships are you most interested in?\nWhat questions are you interested in answering?\nProvide context for the rest of the page. This will include figures/tables that illustrate aspects of the data of your question.\n\nModeling and Inference\n\nThe page will include some kind of formal statistical model. This could be a linear regression, logistic regression, or another modeling framework.\nExplain the ideas and techniques you used to choose the predictors for your model. (Think about including interaction terms and other transformations of your variables.)\nDescribe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.\n\nExplain the flaws and limitations of your analysis\n\nAre there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions?\n\nClarity Figures\n\nAre your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?\nEach figure should provide a key insight. Too many figures or other data summaries can detract from this. (While not a hard limit, around 5 total figures is probably a good target.)\nDefault lm output and plots are typically not acceptable.\n\nClarity of Explanations\n\nHow well do you explain each figure/result?\nDo you provide interpretations that suggest further analysis or explanations for observed phenomenon?\n\nOrganization and cleanliness.\n\nMake sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.\nThis page should be self-contained, i.e. provide a description of the relevant data."
   },
   {
-    "objectID": "big_picture.html",
-    "href": "big_picture.html",
+    "objectID": "big_picture.html#introduction",
+    "href": "big_picture.html#introduction",
     "title": "Big Picture",
-    "section": "",
-    "text": "This comes from the file big_picture.Rmd.\nThink of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn’t assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations."
+    "section": "Introduction",
+    "text": "Introduction\nImagine two children, one in Massachusetts, the richest state in terms of educational attainment, and the other in Mississippi, ranked lowest on the same scale. Though separated by over a thousand miles, the distance is more than geographical—it’s educational, economic, and deeply rooted in the very fabric of society. This article dives into the complex interplay of socioeconomic factors that shape educational outcomes, revealing how deeply inequality is entrenched from one generation to the next."
+  },
+  {
+    "objectID": "big_picture.html#thesis-statement",
+    "href": "big_picture.html#thesis-statement",
+    "title": "Big Picture",
+    "section": "Thesis Statement",
+    "text": "Thesis Statement\nIn Massachusetts and Mississippi, the chasm in educational outcomes extends beyond mere geography and taps directly into profound socioeconomic disparities. Our analysis, focusing on district-level data, demonstrates a stark correlation: in areas where economic disadvantage is more pronounced, educational performance, particularly in language and math, significantly declines."
+  },
+  {
+    "objectID": "big_picture.html#data-and-methodology",
+    "href": "big_picture.html#data-and-methodology",
+    "title": "Big Picture",
+    "section": "Data and Methodology",
+    "text": "Data and Methodology\nOur study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics. By analyzing these variables, we aim to paint a detailed picture of how socioeconomic factors influence student performance across diverse communities.\n\nMassachusetts\n\n\n\n\n\n\n\nMississippi\n\n\n\n\n\nAs we journey through the educational terrain of Massachusetts and Mississippi, the contrasts are as stark as the shades of blue that paint our histograms. From the cobalt peaks representing Massachusetts’s highly educated parents to the navy troughs echoing Mississippi’s economic struggles, each bar tells a story.\nIn Massachusetts, the histogram showcasing parental education (‘baplusall’) is a mountain range of ambition, with a majority of districts featuring a high percentage of parents holding bachelor’s degrees. It’s a testament to the state’s rich educational foundation. Contrast this with Mississippi, where these peaks are notably subdued, hinting at a landscape where higher education is a distant summit for many.\nEconomic disadvantage (‘perecd’) casts long shadows across the Mississippi graph, where the frequency of high percentages is all too common, a reflection of the hardship many students face before they even step into a classroom. Massachusetts, while not immune to these challenges, shows a distribution with fewer districts at the higher end of economic disadvantage, suggesting a different kind of starting line for students.\nThe racial composition histograms (‘perblk’, ‘perasn’, ‘perwht’) are a mosaic of demographic diversity. Massachusetts’s ‘perwht’ bars rise high, a sign of racial homogeneity in many districts. Mississippi tells a different story, with ‘perblk’ significantly more represented, raising questions about how racial and economic factors interweave to shape educational outcomes.\nPoverty (‘povertyall’) and unemployment (‘unempall’) in Mississippi seem to walk hand in hand, with histograms skewing towards higher rates than those in Massachusetts. It’s a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement."
+  },
+  {
+    "objectID": "big_picture.html#analysis",
+    "href": "big_picture.html#analysis",
+    "title": "Big Picture",
+    "section": "Analysis",
+    "text": "Analysis\n\nEconomic Factors\nOur initial focus is on economic variables. Poverty and unemployment, often intertwined, emerge as significant predictors of educational success. Districts with higher poverty rates consistently show lower educational outcomes. This pattern underscores the critical role that economic stability plays in supporting academic achievement.\n\n\nEducational Background of Parents\nAnother striking factor is the educational attainment of parents. Districts where a higher percentage of parents hold bachelor’s degrees or higher often report better student performance. This relationship highlights the cyclical nature of education—where educational advantages and disadvantages are passed down through generations, potentially widening the gap.\n\n\nRacial Demographics\nFinally, the racial composition of districts also plays a critical role in educational outcomes. Our analysis indicates varied performance across different racial groups, with significant disparities evident between and within states. These findings provoke a broader discussion on the intersection of race, education, and socioeconomic status.\n\nOur exploration reveals a troubling yet clear picture: socioeconomic factors like poverty, unemployment, and parental education significantly influence educational outcomes in Massachusetts and Mississippi. This underscores the urgent need for policy interventions aimed at reducing educational disparities as a step towards greater social equity."
+  },
+  {
+    "objectID": "big_picture.html#call-to-action",
+    "href": "big_picture.html#call-to-action",
+    "title": "Big Picture",
+    "section": "Call to Action",
+    "text": "Call to Action\nUnderstanding these disparities is just the beginning. We must now turn insights into action. By supporting policies that target educational equity—such as improving access to quality education, enhancing parental support programs, and addressing systemic poverty—we can begin to close this educational gap. Let’s commit to making a difference, not just in Massachusetts and Mississippi, but across the nation."
   },
   {
     "objectID": "big_picture.html#rubric-on-this-page",
