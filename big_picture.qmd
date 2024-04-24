@@ -1,6 +1,6 @@
 ---
-title: "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi"
-description: "The Education Divide between American states"
+title: "From Bay State to Magnolia State"
+description: "Unveiling the Education Gap Between Massachusetts and Mississippi"
 toc: true
 draft: FALSE
 ---
