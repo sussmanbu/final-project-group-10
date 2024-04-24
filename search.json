@@ -130,7 +130,7 @@
     "href": "posts/2024-04-19-blog-post-6-thesis-and-continuing-exploration/blog-post-6-thesis-and-continuing-exploration.html",
     "title": "Blog Post 6: Thesis and Continuing Exploration",
     "section": "",
-    "text": "To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state."
+    "text": "To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state in 2009, when our data starts."
   },
   {
     "objectID": "posts/2024-04-19-blog-post-6-thesis-and-continuing-exploration/blog-post-6-thesis-and-continuing-exploration.html#thesis",
@@ -144,7 +144,7 @@
     "href": "posts/2024-04-19-blog-post-6-thesis-and-continuing-exploration/blog-post-6-thesis-and-continuing-exploration.html#more-exploration-of-independent-variables",
     "title": "Blog Post 6: Thesis and Continuing Exploration",
     "section": "More Exploration of Independent Variables",
-    "text": "More Exploration of Independent Variables\n\nMassachusetts\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n\n\n\n\nMississippi\n\n\n\n\n\nAfter observing each plot for the variables, all variables are skewed except for the median income and the mean score. Therefore, we will apply natural log or square root transformations for those variables to deal with the skewness.\n\nlibrary(tidyverse)\n\nselected_variables_MS &lt;- mississippi_data %&gt;%\n  select(perasn, perblk, perecd, perwht, unempall, baplusall) %&gt;%\n  filter(perasn &gt; 0 & perblk &gt; 0 & perecd &gt; 0 & perwht &gt; 0 & unempall &gt; 0)\n\nselected_variables_MS_log &lt;- selected_variables_MS %&gt;%\n  mutate(across(everything(), log))\n\nselected_variables_MS_sqrt &lt;- selected_variables_MS %&gt;%\n  mutate(across(everything(), sqrt))\n\nselected_variables_MS_log %&gt;%\n  gather(key = \"variable\", value = \"value\") %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 30, fill = \"skyblue\", color = \"black\") +\n  facet_wrap(~ variable, scales = \"free\") +\n  labs(title = \"Histograms of Log-Transformed Variables for MS Districts\",\n       x = \"Log-transformed Value\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n\n\nselected_variables_MS_sqrt %&gt;%\n  gather(key = \"variable\", value = \"value\") %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 30, fill = \"skyblue\", color = \"black\") +\n  facet_wrap(~ variable, scales = \"free\") +\n  labs(title = \"Histograms of Square Root Transformed Variables for MS Districts\",\n       x = \"Square Root Transformed Value\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n\n\n\nSince some of the variables are still skewed, we will find more potential transformations or use a Robust Regression model that is less sensitive to outliers and skewness."
+    "text": "More Exploration of Independent Variables\n\nMassachusetts\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.3     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.3     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n\n\n\n\nMississippi\n\n\n\n\n\nAfter observing each plot for the variables, all variables are skewed except for the median income and the mean score. Therefore, we will apply natural log or square root transformations for those variables to deal with the skewness.\n\n\n\n\n\n\n\n\nSince some of the variables are still skewed, we will find more potential transformations or use a Robust Regression model that is less sensitive to outliers and skewness."
   },
   {
     "objectID": "posts/2024-04-10-blog-post-5-the-second-dataset/blog-post-5-the-second-dataset.html",
@@ -282,85 +282,85 @@
   {
     "objectID": "big_picture.html#introduction",
     "href": "big_picture.html#introduction",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Introduction",
     "text": "Introduction\nImagine two children, one in Massachusetts, the richest state in terms of educational attainment, and the other in Mississippi, ranked lowest on the same scale. Though separated by over a thousand miles, the distance is more than geographical—it’s educational, economic, and deeply rooted in the very fabric of society. This article dives into the complex interplay of socioeconomic factors that shape educational outcomes, revealing how deeply inequality is entrenched from one generation to the next."
   },
   {
     "objectID": "big_picture.html#thesis-statement",
     "href": "big_picture.html#thesis-statement",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Thesis Statement",
     "text": "Thesis Statement\nIn Massachusetts and Mississippi, the chasm in educational outcomes extends beyond mere geography and taps directly into profound socioeconomic disparities. Our analysis, focusing on district-level data, demonstrates a stark correlation: in areas where economic disadvantage is more pronounced, educational performance, particularly in language and math, significantly declines."
   },
   {
     "objectID": "big_picture.html#data-and-methodology",
     "href": "big_picture.html#data-and-methodology",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Data and Methodology",
     "text": "Data and Methodology\nOur study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics. By analyzing these variables, we aim to paint a detailed picture of how socioeconomic factors influence student performance across diverse communities.\n\nMassachusetts\n\n\n\n\n\n\n\nMississippi\n\n\n\n\n\nAs we journey through the educational terrain of Massachusetts and Mississippi, the contrasts are as stark as the shades of blue that paint our histograms. From the cobalt peaks representing Massachusetts’s highly educated parents to the navy troughs echoing Mississippi’s economic struggles, each bar tells a story.\nIn Massachusetts, the histogram showcasing parental education (‘baplusall’) is a mountain range of ambition, with a majority of districts featuring a high percentage of parents holding bachelor’s degrees. It’s a testament to the state’s rich educational foundation. Contrast this with Mississippi, where these peaks are notably subdued, hinting at a landscape where higher education is a distant summit for many.\nEconomic disadvantage (‘perecd’) casts long shadows across the Mississippi graph, where the frequency of high percentages is all too common, a reflection of the hardship many students face before they even step into a classroom. Massachusetts, while not immune to these challenges, shows a distribution with fewer districts at the higher end of economic disadvantage, suggesting a different kind of starting line for students.\nThe racial composition histograms (‘perblk’, ‘perasn’, ‘perwht’) are a mosaic of demographic diversity. Massachusetts’s ‘perwht’ bars rise high, a sign of racial homogeneity in many districts. Mississippi tells a different story, with ‘perblk’ significantly more represented, raising questions about how racial and economic factors interweave to shape educational outcomes.\nPoverty (‘povertyall’) and unemployment (‘unempall’) in Mississippi seem to walk hand in hand, with histograms skewing towards higher rates than those in Massachusetts. It’s a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement."
   },
   {
     "objectID": "big_picture.html#analysis",
     "href": "big_picture.html#analysis",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Analysis",
     "text": "Analysis\n\nEconomic Factors\nOur initial focus is on economic variables. Poverty and unemployment, often intertwined, emerge as significant predictors of educational success. Districts with higher poverty rates consistently show lower educational outcomes. This pattern underscores the critical role that economic stability plays in supporting academic achievement.\n\n\nEducational Background of Parents\nAnother striking factor is the educational attainment of parents. Districts where a higher percentage of parents hold bachelor’s degrees or higher often report better student performance. This relationship highlights the cyclical nature of education—where educational advantages and disadvantages are passed down through generations, potentially widening the gap.\n\n\nRacial Demographics\nFinally, the racial composition of districts also plays a critical role in educational outcomes. Our analysis indicates varied performance across different racial groups, with significant disparities evident between and within states. These findings provoke a broader discussion on the intersection of race, education, and socioeconomic status.\n\nOur exploration reveals a troubling yet clear picture: socioeconomic factors like poverty, unemployment, and parental education significantly influence educational outcomes in Massachusetts and Mississippi. This underscores the urgent need for policy interventions aimed at reducing educational disparities as a step towards greater social equity."
   },
   {
     "objectID": "big_picture.html#call-to-action",
     "href": "big_picture.html#call-to-action",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Call to Action",
     "text": "Call to Action\nUnderstanding these disparities is just the beginning. We must now turn insights into action. By supporting policies that target educational equity—such as improving access to quality education, enhancing parental support programs, and addressing systemic poverty—we can begin to close this educational gap. Let’s commit to making a difference, not just in Massachusetts and Mississippi, but across the nation."
   },
   {
     "objectID": "big_picture.html#rubric-on-this-page",
     "href": "big_picture.html#rubric-on-this-page",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Rubric: On this page",
     "text": "Rubric: On this page\nYou will\n\nTitle\n\nYour big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.\n\nClarity of Explanation\n\nYou should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don’t go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.\nEach figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.\n\nCreativity\n\nDo your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.\n\nThis page should be self-contained.\n\nNote: This page should have no code visible, i.e. use #| echo: FALSE."
   },
   {
     "objectID": "big_picture.html#rubric-other-components",
     "href": "big_picture.html#rubric-other-components",
-    "title": "Big Picture",
+    "title": "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi",
     "section": "Rubric: Other components",
     "text": "Rubric: Other components\n\nInteractive\nYou will also be required to make an interactive dashboard like this one.\nYour Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor’s approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.\n\nQuality and ease of use of the interactive components. Is it clear what can be explored using your interactive components? Does it enhance and reinforce your conclusions from the Big Picture? Plotly with default hover text will get no credit. Be creative!\n\n\n\nVideo Recording\nMake a video recording (probably using Zoom) demonstrating your interactive components. You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA. This video should be no longer than 4 minutes. Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website. This can be presented by any subset of the team members.\n\n\nRest of the Site\nFinally, here are important things to keep in mind for the rest of the site.\nThe main title of your page is informative. Each post has an author/description/informative title. All lab required posts are present. Each page (including the home page) has a nice featured image associated with it. Your about page is up to date and clean. You have removed the generic posts from the initial site template."
   },
   {
     "objectID": "data.html",
     "href": "data.html",
-    "title": "Data",
+    "title": "SEDA Data",
     "section": "",
     "text": "Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions."
   },
   {
     "objectID": "data.html#our-data",
     "href": "data.html#our-data",
-    "title": "Data",
+    "title": "SEDA Data",
     "section": "",
     "text": "Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions."
   },
   {
-    "objectID": "data.html#describe-wherehow-to-find-data-why-was-the-data-collectedcurated-who-put-it-together",
-    "href": "data.html#describe-wherehow-to-find-data-why-was-the-data-collectedcurated-who-put-it-together",
-    "title": "Data",
-    "section": "Describe where/how to find data, Why was the data collected/curated? Who put it together?",
-    "text": "Describe where/how to find data, Why was the data collected/curated? Who put it together?\nOur data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education. The data is primarily gathered for academic research, policy analysis, and accountability purposes.Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes. Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/"
+    "objectID": "data.html#finding-our-data",
+    "href": "data.html#finding-our-data",
+    "title": "SEDA Data",
+    "section": "Finding our data",
+    "text": "Finding our data\nOur data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education.\nThe data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes. Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/"
   },
   {
-    "objectID": "data.html#describe-the-different-data-files-used-and-what-each-variable-means",
-    "href": "data.html#describe-the-different-data-files-used-and-what-each-variable-means",
-    "title": "Data",
-    "section": "Describe the different data files used and what each variable means",
-    "text": "Describe the different data files used and what each variable means\n\nDistrict: geographic school district\nSubject:\n\nRLA: Reading Language Arts\nMTH: Math\n\nMn_score: Average test scores\nNumstu: number of students\nPer: percentage of students in grade\nSubgroups:\n\nAll: all students\nAsn: Asian students\nBlk: Black students\nFem: female students\nHsp: Hispanic students\nMale: male students\nMtr: Multiracial students\nNec: Not economically disadvantaged\nWht: white students\n\nTotenrl: Number of students in grade\nUnempall: unemployment rate\nSnapall: Snap receipt rate\nSingle_momall: Single mother hh rate"
+    "objectID": "data.html#data-files-and-variables",
+    "href": "data.html#data-files-and-variables",
+    "title": "SEDA Data",
+    "section": "Data Files and Variables",
+    "text": "Data Files and Variables\n\nDistrict: geographic school district\nSubject:\n\nRLA: Reading Language Arts\nMTH: Math\n\nMn_score: Average test scores\nNumstu: number of students\nPer: percentage of students in grade\nSubgroups:\n\nAll: all students\nAsn: Asian students\nBlk: Black students\nFem: female students\nHsp: Hispanic students\nMale: male students\nMtr: Multiracial students\nNec: Not economically disadvantaged\nWht: white students\n\nTotenrl: Number of students in grade\nUnempall: unemployment rate\nSnapall: Snap receipt rate\nSingle_momall: Single mother hh rate"
   },
   {
-    "objectID": "data.html#describe-any-cleaning-you-had-to-do-for-your-data",
-    "href": "data.html#describe-any-cleaning-you-had-to-do-for-your-data",
-    "title": "Data",
-    "section": "Describe any cleaning you had to do for your data",
-    "text": "Describe any cleaning you had to do for your data\n\nWe cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.\nWe downloaded the raw data and saved it in the data folder.\nUtilized the dplyr package to:\n\nSelect relevant attributes for the project.\nRemove unnecessary attributes.\nRemove missing attributes.\nRemove unusual values.\nUtilized the collapse package to collapse selected variables into their mean, creating one observation per year, district, class subject, and state combination. Previously it was expanded into grade levels, and finding the mean across those for each year allowed for compression of the very large original data set. The cleaned data was exported to the data folder.\n\nLink to load_and_clean_data.R file: loading script\n\n\nSummary of numerical variables\nTo begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n  mn_score_all     mn_score_asn     mn_score_blk     mn_score_ecd  \n Min.   :-3.735   Min.   :-2.92    Min.   :-3.40    Min.   :-3.55  \n 1st Qu.:-0.197   1st Qu.: 0.26    1st Qu.:-0.63    1st Qu.:-0.42  \n Median : 0.030   Median : 0.60    Median :-0.45    Median :-0.24  \n Mean   : 0.025   Mean   : 0.59    Mean   :-0.44    Mean   :-0.26  \n 3rd Qu.: 0.249   3rd Qu.: 0.93    3rd Qu.:-0.25    3rd Qu.:-0.08  \n Max.   : 2.865   Max.   : 2.79    Max.   : 1.16    Max.   : 1.24  \n NA's   :23236    NA's   :205143   NA's   :180838   NA's   :61961  \n\n\nBy examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.\n\n\n[conflicted] Will prefer dplyr::filter over any other package."
+    "objectID": "data.html#cleaning",
+    "href": "data.html#cleaning",
+    "title": "SEDA Data",
+    "section": "Cleaning",
+    "text": "Cleaning\n\nWe cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.\nWe downloaded the raw data and saved it in the data folder.\nUtilized the dplyr package to:\n\nSelect relevant attributes for the project.\nRemove unnecessary attributes.\nRemove missing attributes.\nRemove unusual values.\nUtilized the collapse package to collapse selected variables into their mean, creating one observation per year, district, class subject, and state combination. Previously it was expanded into grade levels, and finding the mean across those for each year allowed for compression of the very large original data set. The cleaned data was exported to the data folder.\n\nLink to load_and_clean_data.R file: loading script\n\n\nSummary of numerical variables\nTo begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.3     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.3     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n  mn_score_all     mn_score_asn     mn_score_blk     mn_score_ecd  \n Min.   :-3.735   Min.   :-2.92    Min.   :-3.40    Min.   :-3.55  \n 1st Qu.:-0.197   1st Qu.: 0.26    1st Qu.:-0.63    1st Qu.:-0.42  \n Median : 0.030   Median : 0.60    Median :-0.45    Median :-0.24  \n Mean   : 0.025   Mean   : 0.59    Mean   :-0.44    Mean   :-0.26  \n 3rd Qu.: 0.249   3rd Qu.: 0.93    3rd Qu.:-0.25    3rd Qu.:-0.08  \n Max.   : 2.865   Max.   : 2.79    Max.   : 1.16    Max.   : 1.24  \n NA's   :23236    NA's   :205143   NA's   :180838   NA's   :61961  \n\n\nBy examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses."
   }
 ]
