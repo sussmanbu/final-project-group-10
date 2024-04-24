@@ -1,6 +1,6 @@
 ---
-title: "Big Picture"
-description: "A 538/Upshot style article about the data."
+title: "From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi"
+description: "The Education Divide between American states"
 toc: true
 draft: FALSE
 ---
@@ -8,7 +8,6 @@ draft: FALSE
 ![](images/Big picture page1.jpg)
 ---
 
-# From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi
 
 ## Introduction
 Imagine two children, one in Massachusetts, the richest state in terms of educational attainment, and the other in Mississippi, ranked lowest on the same scale. Though separated by over a thousand miles, the distance is more than geographical—it's educational, economic, and deeply rooted in the very fabric of society. This article dives into the complex interplay of socioeconomic factors that shape educational outcomes, revealing how deeply inequality is entrenched from one generation to the next.
