@@ -6,13 +6,10 @@ draft: false
 ---
 
 ![](images/cepa-logo.jpg){width="100%"}
+
 ## Our Data
 
 Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions.
-
-## Finding our data
-
-Our data comes from the Stanford Education Data Archive, SEDA. Researchers at the Stanford Graduate School of Education conducted this project. SEDA provides comprehensive, publicly available data on U.S. K-12 education. 
 
 The data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes.
 Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/
@@ -64,6 +61,7 @@ library(conflicted)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+conflicts_prefer(dplyr::filter, .quiet=TRUE)
 cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
 summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
 ```
