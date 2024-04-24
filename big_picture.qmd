@@ -40,12 +40,21 @@ selected_variables_MA <- massachusetts_data %>%
   select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
-
 selected_variables_MA %>%
   gather(key = "variable", value = "score") %>%
   ggplot(aes(x = score)) +
   geom_histogram(bins = 30, fill = "#0077BB", color = "white") + 
-  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  
+  facet_wrap(~ variable, scales = "free", labeller=labeller( variable=c(
+     mn_score_all = "Mean Scores",
+    perecd = "Economically Disadv",
+    povertyall = "Poverty",
+    unempall = "Unemployment",
+    lninc50all = "Income (50th Percentile)",
+    baplusall = "Parent Education",
+    perblk = "Black",
+    perasn = "Asian",
+    perwht = "White"
+  ))) +  
   labs(title = "Distribution of Key Educational and Economic Indicators",
        subtitle = "Exploring variations across districts in Massachusetts",
        x = "Score or Percentage",
@@ -84,8 +93,18 @@ selected_variables_MS <- mississippi_data %>%
 selected_variables_MS %>%
   gather(key = "variable", value = "score") %>%
   ggplot(aes(x = score)) +
-  geom_histogram(bins = 30, fill = "#0077BB", color = "white") + 
-  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  
+  geom_histogram(bins = 30, fill = "#00CC66", color = "white") + 
+  facet_wrap(~ variable, scales = "free", labeller=labeller( variable=c(
+     mn_score_all = "Mean Scores",
+    perecd = "Economically Disadv",
+    povertyall = "Poverty",
+    unempall = "Unemployment",
+    lninc50all = "Income (50th percentile)",
+    baplusall = "Parent Education",
+    perblk = "Black",
+    perasn = "Asian",
+    perwht = "White"
+  ))) + 
   labs(title = "Distribution of Key Educational and Economic Indicators",
        subtitle = "Exploring variations across districts in Mississippi",
        x = "Score or Percentage",
@@ -98,7 +117,7 @@ selected_variables_MS %>%
     plot.title = element_text(size = 16, face = "bold"),
     plot.subtitle = element_text(size = 14),
     strip.text = element_text(size = 10, face = "bold"),  
-    strip.background = element_rect(fill = "#add8e6")  
+    strip.background = element_rect(fill = "#D8F3DF") 
   )
 
 ```
