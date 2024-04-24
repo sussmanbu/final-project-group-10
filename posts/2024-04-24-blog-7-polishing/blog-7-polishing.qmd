@@ -2,9 +2,12 @@
 title: "Blog 7: Polishing"
 author: "Group 10"
 date: "2024-04-24"
+image: "polishing.png"
 date-modified: "2024-04-24"
 draft: FALSE
 ---
+
+![](polishing.png)
 
 ## Polishing the Data
 
