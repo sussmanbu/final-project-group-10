@@ -5,7 +5,7 @@ date: "2024-04-19"
 date-modified: "2024-04-19"
 draft: FALSE
 ---
-To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state. 
+To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state in 2009, when our data starts. 
 
 ## Thesis
 Mississippi, with its higher percentage of economically disadvantaged students, higher poverty rate, higher unemployment rate, lower percentage of parents holding bachelor's degrees, and lower median income, has lower mean scores in both language and math for all students compared to Massachusetts.
@@ -55,7 +55,7 @@ selected_variables_MS %>%
 ```
 After observing each plot for the variables, all variables are skewed except for the median income and the mean score. Therefore, we will apply natural log or square root transformations for those variables to deal with the skewness.
 
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 
 selected_variables_MS <- mississippi_data %>%
