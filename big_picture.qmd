@@ -5,10 +5,7 @@ toc: true
 draft: FALSE
 ---
 
-![](images/The_Big_Picture_2.jpeg)
-
-This comes from the file `big_picture.Rmd`.
-
+![](images/Big picture page1.jpg)
 Think of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn't assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations.
 
 ---
@@ -63,3 +60,99 @@ All lab required posts are present.
 Each page (including the home page) has a nice featured image associated with it.
 Your about page is up to date and clean.
 You have removed the generic posts from the initial site template.
+
+
+# From Bay State to Magnolia State: Unveiling the Education Gap Between Massachusetts and Mississippi
+
+## Introduction
+Imagine two children, one in Massachusetts, the richest state in terms of educational attainment, and the other in Mississippi, ranked lowest on the same scale. Though separated by over a thousand miles, the distance is more than geographical—it's educational, economic, and deeply rooted in the very fabric of society. This article dives into the complex interplay of socioeconomic factors that shape educational outcomes, revealing how deeply inequality is entrenched from one generation to the next.
+
+## Thesis Statement 
+In Massachusetts and Mississippi, the chasm in educational outcomes extends beyond mere geography and taps directly into profound socioeconomic disparities. Our analysis, focusing on district-level data, demonstrates a stark correlation: in areas where economic disadvantage is more pronounced, educational performance, particularly in language and math, significantly declines.
+
+## Data and Methodology
+Our study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics. By analyzing these variables, we aim to paint a detailed picture of how socioeconomic factors influence student performance across diverse communities.
+
+### Massachusetts
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(dplyr)
+library(readr)
+
+# Load the dataset
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+# Filter data for Massachusetts
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+# Select and clean necessary variables
+selected_variables_MA <- massachusetts_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+# Generate histograms
+selected_variables_MA %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "#0077BB", color = "white") +  # Adjusted colors for better visual appeal
+  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  # Use parsed labels for better readability
+  labs(title = "Distribution of Key Educational and Economic Indicators",
+       subtitle = "Exploring variations across districts in Massachusetts",
+       x = "Score or Percentage",
+       y = "Frequency",
+       caption = "Data source: Cleaned SEDA dataset") +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 12),  # General text size
+    axis.title = element_text(size = 14),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 14),
+    strip.text = element_text(size = 10, face = "bold"),  # Smaller font for facet labels
+    strip.background = element_rect(fill = "#add8e6")  # Adjust plot margins
+  )
+
+```
+
+### Mississippi 
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+
+# Load the dataset
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+# Select and clean necessary variables
+selected_variables_MS <- mississippi_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+# Generate histograms
+selected_variables_MS %>%
+  gather(key = "variable", value = "score") %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 30, fill = "#0077BB", color = "white") +  # Adjusted colors for better visual appeal
+  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  # Use parsed labels for better readability
+  labs(title = "Distribution of Key Educational and Economic Indicators",
+       subtitle = "Exploring variations across districts in Mississippi",
+       x = "Score or Percentage",
+       y = "Frequency",
+       caption = "Data source: Cleaned SEDA dataset") +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 12),  # General text size
+    axis.title = element_text(size = 14),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 14),
+    strip.text = element_text(size = 10, face = "bold"),  # Smaller font for facet labels
+    strip.background = element_rect(fill = "#add8e6")  # Adjust plot margins
+  )
+
+```
+```
+
