@@ -29,24 +29,23 @@ suppressPackageStartupMessages(library(tidyverse))
 library(dplyr)
 library(readr)
 
-# Load the dataset
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
-# Filter data for Massachusetts
+
 massachusetts_data <- cleaned_seda %>%
   filter(state == "MA")
 
-# Select and clean necessary variables
+
 selected_variables_MA <- massachusetts_data %>%
   select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
-# Generate histograms
+
 selected_variables_MA %>%
   gather(key = "variable", value = "score") %>%
   ggplot(aes(x = score)) +
-  geom_histogram(bins = 30, fill = "#0077BB", color = "white") +  # Adjusted colors for better visual appeal
-  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  # Use parsed labels for better readability
+  geom_histogram(bins = 30, fill = "#0077BB", color = "white") + 
+  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  
   labs(title = "Distribution of Key Educational and Economic Indicators",
        subtitle = "Exploring variations across districts in Massachusetts",
        x = "Score or Percentage",
@@ -54,12 +53,12 @@ selected_variables_MA %>%
        caption = "Data source: Cleaned SEDA dataset") +
   theme_minimal() +
   theme(
-    text = element_text(size = 12),  # General text size
+    text = element_text(size = 12),  
     axis.title = element_text(size = 14),
     plot.title = element_text(size = 16, face = "bold"),
     plot.subtitle = element_text(size = 14),
-    strip.text = element_text(size = 10, face = "bold"),  # Smaller font for facet labels
-    strip.background = element_rect(fill = "#add8e6")  # Adjust plot margins
+    strip.text = element_text(size = 10, face = "bold"),  
+    strip.background = element_rect(fill = "#add8e6") 
   )
 
 ```
@@ -70,24 +69,23 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 
-# Load the dataset
+
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 
 mississippi_data <- cleaned_seda %>%
   filter(state == "MS")
 
-# Select and clean necessary variables
 selected_variables_MS <- mississippi_data %>%
   select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
-# Generate histograms
+
 selected_variables_MS %>%
   gather(key = "variable", value = "score") %>%
   ggplot(aes(x = score)) +
-  geom_histogram(bins = 30, fill = "#0077BB", color = "white") +  # Adjusted colors for better visual appeal
-  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  # Use parsed labels for better readability
+  geom_histogram(bins = 30, fill = "#0077BB", color = "white") + 
+  facet_wrap(~ variable, scales = "free", labeller = label_parsed) +  
   labs(title = "Distribution of Key Educational and Economic Indicators",
        subtitle = "Exploring variations across districts in Mississippi",
        x = "Score or Percentage",
@@ -95,12 +93,12 @@ selected_variables_MS %>%
        caption = "Data source: Cleaned SEDA dataset") +
   theme_minimal() +
   theme(
-    text = element_text(size = 12),  # General text size
+    text = element_text(size = 12),  
     axis.title = element_text(size = 14),
     plot.title = element_text(size = 16, face = "bold"),
     plot.subtitle = element_text(size = 14),
-    strip.text = element_text(size = 10, face = "bold"),  # Smaller font for facet labels
-    strip.background = element_rect(fill = "#add8e6")  # Adjust plot margins
+    strip.text = element_text(size = 10, face = "bold"),  
+    strip.background = element_rect(fill = "#add8e6")  
   )
 
 ```
