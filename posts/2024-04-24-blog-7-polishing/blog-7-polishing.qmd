@@ -12,3 +12,7 @@ draft: FALSE
 ## Polishing the Data
 
 ## Polishing the Graphs
+
+To polish off the graphs that were made as part of the blog posts to prepare them for the main pages, we changed the labels of the variables and also the colors to make them stand out against each other. Hex codes for specific colors were used to make sure that the graphs looked exactly how we wanted them to look. The variables were redefined on the facet labels, but not in the dataframe itself so that previous plotting and calculations would not need to be edited as well. 
+
+Most of the widgets in the provided links will not work for us, as our data does not fit these types of models.
