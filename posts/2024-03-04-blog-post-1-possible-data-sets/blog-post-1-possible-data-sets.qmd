@@ -2,10 +2,13 @@
 title: "Blog post 1: Possible data sets"
 author: "Group 10"
 date: "2024-03-04"
+image: "data.jpeg"
 date-modified: "2024-03-04"
 toc: true
 draft: FALSE
 ---
+
+![](data.jpeg)
 
 ## Option 1: Stanford Education Data Archive
 

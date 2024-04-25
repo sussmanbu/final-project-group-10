@@ -2,9 +2,12 @@
 title: "Blog post 4: Exploring the Data"
 author: "Group 10"
 date: "2024-04-08"
+image: "blog4.jpeg"
 date-modified: "2024-04-08"
 draft: FALSE
 ---
+
+![](blog4.jpeg)
 
 ## Our Trends
 

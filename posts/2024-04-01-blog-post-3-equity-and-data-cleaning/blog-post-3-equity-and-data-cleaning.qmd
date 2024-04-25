@@ -4,10 +4,13 @@ description:  |
   Discussing what we did to clean our data and whether it is equitable
 author: "Group 10"
 date: "2024-04-01"
+image: "Data-Cleaning.jpeg"
 date-modified: "2024-04-01"
 toc: true
 draft: FALSE
 ---
+
+![](Data-Cleaning.jpeg)
 
 ## Our data
 

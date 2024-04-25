@@ -2,9 +2,13 @@
 title: "Blog Post 6: Thesis and Continuing Exploration"
 author: "Group 10"
 date: "2024-04-19"
+image: "thesis.jpeg"
 date-modified: "2024-04-19"
 draft: FALSE
 ---
+
+![](thesis.jpeg)
+
 To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state in 2009, when our data starts. 
 
 ## Thesis
