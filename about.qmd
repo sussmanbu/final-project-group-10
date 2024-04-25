@@ -27,13 +27,8 @@ The members of this team are below.
 
 ## Aruzhan Bektemirova
 
-Aruzhan is an undergraduate student in Economics and Mathematics and is enrolled in this course. 
+Aruzhan is an undergraduate student in Economics and Mathematics.
 https://github.com/aru-beka 
-
-## Yixiao Li
-
-Li is an undergraduate student in Economics and Mathematics.
-https://github.com/YixiaoLi0922
 
 ## Chase Stephens
 
@@ -41,6 +36,7 @@ Chase is an undergraduate student in Economics and Mathematics.
 https://github.com/chasedstephens
 
 ## Morgan Fleming
+
 Morgan is an undergraduate student in Economics and Mathematics. 
 https://github.com/mlfleming 
 
@@ -48,6 +44,11 @@ https://github.com/mlfleming
 
 Taelor is an undergraduate student in Psychology with a minor in Statistical Methods.
 https://github.com/taelorra
+
+## Yixiao Li
+
+Li is an undergraduate student in Economics and Mathematics.
+https://github.com/YixiaoLi0922
 
 
 
