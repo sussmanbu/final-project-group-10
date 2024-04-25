@@ -55,7 +55,7 @@ The cleaned data was exported to the data folder.
 
 To begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.
 
-```{r, echo=FALSE}
+```{r summary, echo=FALSE}
 library(tidyverse)
 library(conflicted)
 library(dplyr)
@@ -68,7 +68,7 @@ summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_
 
 By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
 
-```{r, echo=FALSE, warning=FALSE}
+```{r clean, echo=FALSE, warning=FALSE}
 conflicts_prefer(dplyr::filter, .quiet=TRUE)
 variables_of_interest <- c("mn_score_all", "mn_score_asn", "mn_score_blk", "mn_score_ecd")
 
