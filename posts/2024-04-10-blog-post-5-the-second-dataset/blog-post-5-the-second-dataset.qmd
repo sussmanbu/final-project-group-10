@@ -1,5 +1,8 @@
 ---
-title: "Blog Post 5: The Second Dataset"
+title: "The Second Dataset"
+subtitle: "Blog Post 5"
+description:  |
+  Identifying a secondary dataset to use in our analysis
 author: "Group 10"
 date: "2024-04-10"
 image: "second set.png"

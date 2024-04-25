@@ -1,5 +1,8 @@
 ---
-title: "Blog Post 6: Thesis and Continuing Exploration"
+title: "Thesis and Continuing Exploration"
+subtitle: "Blog Post 6"
+description:  |
+  Creating our thesis that will be the basis of our project
 author: "Group 10"
 date: "2024-04-19"
 image: "thesis.jpeg"

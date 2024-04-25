@@ -1,5 +1,8 @@
 ---
-title: "Blog 7: Polishing"
+title: "Polishing"
+subtitle: "Blog Post 7"
+description:  |
+  Editing previous work to make it presentable
 author: "Group 10"
 date: "2024-04-24"
 image: "polishing.png"

@@ -1,5 +1,6 @@
 ---
-title: "Blog Post 3: Equity and Data Cleaning"
+title: "Equity and Data Cleaning"
+subtitle: "Blog Post 3"
 description:  |
   Discussing what we did to clean our data and whether it is equitable
 author: "Group 10"
