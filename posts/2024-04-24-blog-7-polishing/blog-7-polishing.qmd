@@ -7,6 +7,7 @@ author: "Group 10"
 date: "2024-04-24"
 image: "polishing.png"
 date-modified: "2024-04-24"
+toc: true
 draft: FALSE
 ---
 
