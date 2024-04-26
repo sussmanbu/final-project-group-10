@@ -186,19 +186,74 @@ ul.task-list li input[type="checkbox"] {
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
+✖ dplyr::combine() masks gridExtra::combine()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  mn_score_all     mn_score_asn     mn_score_blk     mn_score_ecd  
- Min.   :-3.735   Min.   :-2.92    Min.   :-3.40    Min.   :-3.55  
- 1st Qu.:-0.197   1st Qu.: 0.26    1st Qu.:-0.63    1st Qu.:-0.42  
- Median : 0.030   Median : 0.60    Median :-0.45    Median :-0.24  
- Mean   : 0.025   Mean   : 0.59    Mean   :-0.44    Mean   :-0.26  
- 3rd Qu.: 0.249   3rd Qu.: 0.93    3rd Qu.:-0.25    3rd Qu.:-0.08  
- Max.   : 2.865   Max.   : 2.79    Max.   : 1.16    Max.   : 1.24  
- NA's   :23236    NA's   :205143   NA's   :180838   NA's   :61961  </code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">mn_score_all</th>
+<th style="text-align: left;">mn_score_asn</th>
+<th style="text-align: left;">mn_score_blk</th>
+<th style="text-align: left;">mn_score_ecd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Min. :-3.735</td>
+<td style="text-align: left;">Min. :-2.92</td>
+<td style="text-align: left;">Min. :-3.40</td>
+<td style="text-align: left;">Min. :-3.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1st Qu.:-0.197</td>
+<td style="text-align: left;">1st Qu.: 0.26</td>
+<td style="text-align: left;">1st Qu.:-0.63</td>
+<td style="text-align: left;">1st Qu.:-0.42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Median : 0.030</td>
+<td style="text-align: left;">Median : 0.60</td>
+<td style="text-align: left;">Median :-0.45</td>
+<td style="text-align: left;">Median :-0.24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Mean : 0.025</td>
+<td style="text-align: left;">Mean : 0.59</td>
+<td style="text-align: left;">Mean :-0.44</td>
+<td style="text-align: left;">Mean :-0.26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">3rd Qu.: 0.249</td>
+<td style="text-align: left;">3rd Qu.: 0.93</td>
+<td style="text-align: left;">3rd Qu.:-0.25</td>
+<td style="text-align: left;">3rd Qu.:-0.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Max. : 2.865</td>
+<td style="text-align: left;">Max. : 2.79</td>
+<td style="text-align: left;">Max. : 1.16</td>
+<td style="text-align: left;">Max. : 1.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">NA’s :23236</td>
+<td style="text-align: left;">NA’s :205143</td>
+<td style="text-align: left;">NA’s :180838</td>
+<td style="text-align: left;">NA’s :61961</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <hr>
@@ -213,9 +268,6 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Additionally, we need to look at the boxplots of selected variables for the Data Cleaning process. The boxplots of test scores across racial and economic groups reveal outliers, differences in central tendency and spread, skewness or symmetry, disparities between groups, and missing values. These observations guide data cleaning efforts to ensure the reliability of subsequent analyses.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 471178 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="blog-post-3-equity-and-data-cleaning_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
