@@ -7,6 +7,7 @@ author: "Group 10"
 date: "2024-04-24"
 image: "polishing.png"
 date-modified: "2024-04-24"
+toc: true
 draft: FALSE
 ---
 
@@ -14,8 +15,14 @@ draft: FALSE
 
 # Final exploratory modeling
 
+---
+
+# Weighted Regression Model
+
 ## Massachusetts Weighted Regression Model
-```{r}
+
+```{r, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
 library(tidyverse)
 library(dplyr)
 library(readr)
@@ -66,14 +73,13 @@ kable(coefficients_table, format = "markdown",
       caption = "Interpretations of Weighted Regression Model Coefficients for Massachusetts")
 ```
 
-
-
 ### MA Weighted Regression Model Residual Plots
+
 ```{r, echo=FALSE}
 library(ggplot2)
 library(dplyr)
 library(broom)
-library(gridExtra)
+suppressPackageStartupMessages(library(gridExtra))
 
 residuals_vs_fitted <- ggplot(data = augment(weighted_regression), aes(x = .fitted, y = .resid)) +
   geom_point() +
@@ -122,6 +128,7 @@ print(scale_location_plot)
 ```
 
 ## Mississippi Weighted Regression Model
+
 ```{r, echo=FALSE}
 library(tidyverse)
 library(dplyr)
@@ -145,7 +152,7 @@ weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
 summary(weighted_regression_MS)
 ```
 
-### Interpretation for MA Weighted Regression Model
+### Interpretation for MS Weighted Regression Model
 ```{r, echo = FALSE}
 
 
@@ -174,8 +181,6 @@ kable(coefficients_table_mississippi, format = "markdown",
       caption = "Interpretations of Weighted Regression Model Coefficients for Mississippi")
 
 ```
-
-
 
 ### MS Weighted Regression Model Residual Plots
 ```{r, echo=FALSE}
@@ -230,31 +235,37 @@ print(cooks_plot)
 print(scale_location_plot)
 ```
 
-
 ### Residuals vs. Fitted Values Plot:
+
 The values on this plot appear to be randomly distributed around the zero line, indicating that the assumption of constant variance (homoscedasticity) and linearity is satisfied.
 
 ### Normal Q-Q Plot of Residuals:
+
 The points on the Normal Q-Q Plot fall approximately along the diagonal line, suggesting that the residuals are normally distributed.
 
 ### Residuals vs. Predictor Variables Plot:
+
 There is no discernible pattern in the Residuals vs. Predictor Variables Plot, indicating that the model adequately captures the relationship between the predictor variables (perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) and the response variable (mn_score_all).
 
 ### Cook's Distance Plot:
+
 Almost all points on the Cook's Distance Plot are clustered near the bottom of the plot along one line, indicating that most observations have low influence on the regression coefficients. However, there are some points that are not aligned with the main cluster, suggesting they might have a higher influence on the model.
 
 ### Scale-Location Plot:
+
 The line on the Scale-Location Plot is slightly positively directed, indicating a possible violation of the homoscedasticity assumption. However, the points are randomly spread, which suggests that the assumption holds reasonably well overall.
 
 ---
 
+# Robust Regression Model
 
 ## Massachusetts Robust Regression Model
 ```{r, echo=FALSE}
 library(tidyverse)
 library(dplyr)
 library(readr)
-library(MASS)
+suppressPackageStartupMessages(library(MASS))
+
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 massachusetts_data <- cleaned_seda %>%
   filter(state == "MA")
@@ -366,7 +377,7 @@ kable(interpretations_df, format = "markdown", caption = "Interpretations of the
 
 ## Polishing the Graphs
 
-To polish off the graphs that were made as part of the blog posts to prepare them for the main pages, we changed the labels of the variables and also the colors to make them stand out against each other. Hex codes for specific colors were used to make sure that the graphs looked exactly how we wanted them to look. The variables were redefined on the facet labels, but not in the dataframe itself so that previous plotting and calculations would not need to be edited as well. 
+To polish off the graphs that were made as part of the blog posts to prepare them for the main pages, we changed the labels of the variables and also the colors to make them stand out against each other. Hex codes for specific colors were used to make sure that the graphs looked exactly how we wanted them to look. The variables were redefined on the facet labels, but not in the dataframe itself so that previous plotting and calculations would not need to be edited as well.
 
 Most of the widgets in the provided links will not work for us, as our data does not fit these types of models.
 
