@@ -51,9 +51,9 @@ library(knitr)
 
 coefficients_table <- data.frame(
   Term = c("Intercept", "perecd", "povertyall", "unempall", 
-           "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
+           "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
   Estimate = c(0.74363, -0.83297, -0.75291, 2.16004, 
-               -0.06063, 0.92817, -0.15714, 0.93507, 0.12889),
+               -0.06063, 0.92817, -0.15714, 0.93507, 0.12889, 0.7659),
   Interpretation = c(
     "Baseline mean score for all students, when all predictors are at zero.",
     "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.833 in the mean score.",
@@ -63,7 +63,8 @@ coefficients_table <- data.frame(
     "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.928 in the mean score.",
     "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.157 in the mean score.",
     "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 0.935 in the mean score.",
-    "For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score."
+    "For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score.", 
+    "The model explains approximately 76.59% of the variance in the mean score for all students in the dataset."
   )
 )
 
@@ -159,9 +160,9 @@ summary(weighted_regression_MS)
 
 coefficients_table_mississippi <- data.frame(
   Term = c("Intercept", "perecd", "povertyall", "unempall", 
-           "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
+           "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
   Estimate = c(2.31107, -0.22535, -0.75443, -0.72945, 
-               -0.19933, 0.93576, -0.56360, 3.80540, -0.05968),
+               -0.19933, 0.93576, -0.56360, 3.80540, -0.05968, 0.6752),
   Interpretation = c(
     "Baseline mean score for all students, when all predictors are at zero.",
     "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.225 in the mean score.",
@@ -171,7 +172,8 @@ coefficients_table_mississippi <- data.frame(
     "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.936 in the mean score.",
     "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.564 in the mean score.",
     "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 3.805 in the mean score.",
-    "For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435)."
+    "For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435).",
+    "The model explains approximately 67.52% of the variance in the mean score for all students in the dataset."
   )
 )
 
@@ -299,8 +301,8 @@ library(knitr)
 
 interpretations_df <- data.frame(
   Variable = c("(Intercept)", "perecd", "povertyall", "unempall", 
-               "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
-  Coefficient = c(0.6881, -0.8944, -0.7035, 2.1884, -0.0418, 0.8714, -0.3181, 0.7202, -0.0039),
+               "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
+  Coefficient = c(0.6881, -0.8944, -0.7035, 2.1884, -0.0418, 0.8714, -0.3181, 0.7202, -0.0039, 0.7697),
   Interpretation = c(
     "Baseline mean score for all students on the logged scale when all predictors are at zero.",
     "Each percentage point increase in economically disadvantaged students is associated with a 0.8944 point decrease in mean score.",
@@ -310,7 +312,8 @@ interpretations_df <- data.frame(
     "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.8714 point increase in mean score.",
     "Each percentage point increase in the proportion of Black students is associated with a 0.3181 point decrease in mean score.",
     "Each percentage point increase in the proportion of Asian students is associated with a 0.7202 point increase in mean score.",
-    "Each percentage point increase in the proportion of White students is associated with a negligible change in mean score."
+    "Each percentage point increase in the proportion of White students is associated with a negligible change in mean score.",
+    "The model explains approximately 76.97% of the variance in the mean score for all students in the dataset."
   )
 )
 
@@ -355,8 +358,8 @@ library(knitr)
 
 interpretations_df <- data.frame(
   Variable = c("Intercept", "perecd", "povertyall", "unempall", 
-               "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
-  Coefficient = c(2.3299, -0.2273, -0.7626, -0.6635, -0.2040, 0.9211, -0.5384, 4.3782, -0.0387),
+               "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
+  Coefficient = c(2.3299, -0.2273, -0.7626, -0.6635, -0.2040, 0.9211, -0.5384, 4.3782, -0.0387, 0.6625),
   Interpretation = c(
     "Baseline mean score for all students on the logged scale when all predictors are at zero.",
     "Each percentage point increase in economically disadvantaged students is associated with a 0.2273 point decrease in mean score.",
@@ -366,7 +369,8 @@ interpretations_df <- data.frame(
     "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.9211 point increase in mean score.",
     "Each percentage point increase in the proportion of Black students is associated with a 0.5384 point decrease in mean score.",
     "Each percentage point increase in the proportion of Asian students is associated with a 4.3782 point increase in mean score.",
-    "Each percentage point increase in the proportion of White students is associated with a 0.0387 point decrease in mean score."
+    "Each percentage point increase in the proportion of White students is associated with a 0.0387 point decrease in mean score.",
+    "The model explains approximately 66.25% of the variance in the mean score for all students in the dataset."
   )
 )
 
