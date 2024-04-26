@@ -6,3 +6,69 @@ date-modified: "2024-04-19"
 draft: FALSE
 ---
 
+### Massachusetts Robust Regression Model
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(MASS)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+
+
+selected_variables_MA <- massachusetts_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+
+robust_model_MA <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MA)
+  
+
+robust_residuals_MA <- residuals(robust_model_MA)
+
+
+tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_score_all))^2)
+
+
+rss <- sum(robust_residuals_MA^2)
+
+
+pseudo_r_squared <- 1 - rss/tss
+
+summary(robust_model_MA)
+cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+```
+
+### Mississippi Robust Regression Model
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(MASS)
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MS <- mississippi_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+robust_model_MS <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MS)
+  
+
+robust_residuals_MS <- residuals(robust_model_MS)
+
+
+tss <- sum((selected_variables_MS$mn_score_all - mean(selected_variables_MS$mn_score_all))^2)
+
+
+rss <- sum(robust_residuals_MS^2)
+
+
+pseudo_r_squared <- 1 - rss/tss
+
+summary(robust_model_MS)
+cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+```
