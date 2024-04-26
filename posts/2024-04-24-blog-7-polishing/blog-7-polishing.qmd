@@ -1,5 +1,5 @@
 ---
-title: "Polishing"
+title: "Polishing and Final Exploration"
 subtitle: "Blog Post 7"
 description:  |
   Editing previous work to make it presentable
@@ -12,7 +12,174 @@ draft: FALSE
 
 ![](polishing.png)
 
-## Polishing the Data
+# Final exploratory modeling
+
+## Massachusetts Weighted Regression Model
+```{r}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+selected_variables_MA <- massachusetts_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+weights <- 1/selected_variables_MA$povertyall 
+
+weighted_regression <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+                          data = selected_variables_MA,
+                          weights = weights)
+
+summary(weighted_regression)
+tidy(weighted_regression)
+
+```
+```{r, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(gridExtra)
+
+residuals_vs_fitted <- ggplot(data = augment(weighted_regression), aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
+
+qq_plot <- ggplot(data = augment(weighted_regression), aes(sample = .std.resid)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(title = "Normal Q-Q Plot of Residuals")
+
+residuals_vs_predictors <- augment(weighted_regression) %>%
+  ggplot(aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Predictor Variables",
+       x = "Fitted Values",
+       y = "Standardized Residuals")
+
+cooksd <- cooks.distance(weighted_regression)
+
+cooksd_df <- as.data.frame(cooksd)
+cooksd_df$Index <- rownames(cooksd_df)
+
+cooks_plot <- ggplot(data = cooksd_df, aes(x = Index, y = cooksd)) +
+  geom_point() +
+  geom_hline(yintercept = 4/(nrow(augment(weighted_regression)) - length(coefficients(weighted_regression))), linetype = "dashed") +
+  labs(title = "Cook's Distance Plot",
+       x = "Observation Index",
+       y = "Cook's Distance")
+
+scale_location_plot <- ggplot(data = augment(weighted_regression), aes(x = .fitted, y = sqrt(abs(.std.resid)))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Scale-Location Plot",
+       x = "Fitted Values",
+       y = "Square Root of Standardized Residuals")
+
+print(residuals_vs_fitted)
+print(qq_plot)
+print(residuals_vs_predictors)
+print(cooks_plot)
+print(scale_location_plot)
+```
+## Mississippi Weighted Regression Model
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MS <- mississippi_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+weights <- 1/selected_variables_MS$povertyall
+
+weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+                          data = selected_variables_MS,
+                          weights = weights)
+
+summary(weighted_regression_MS)
+tidy(weighted_regression_MS)
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(gridExtra)
+
+residuals_vs_fitted <- ggplot(data = augment(weighted_regression_MS), aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
+
+qq_plot <- ggplot(data = augment(weighted_regression_MS), aes(sample = .std.resid)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(title = "Normal Q-Q Plot of Residuals")
+
+residuals_vs_predictors <- augment(weighted_regression_MS) %>%
+  ggplot(aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Predictor Variables",
+       x = "Fitted Values",
+       y = "Standardized Residuals")
+
+cooksd <- cooks.distance(weighted_regression_MS)
+
+cooksd_df <- as.data.frame(cooksd)
+cooksd_df$Index <- rownames(cooksd_df)
+
+cooks_plot <- ggplot(data = cooksd_df, aes(x = Index, y = cooksd)) +
+  geom_point() +
+  geom_hline(yintercept = 4/(nrow(augment(weighted_regression_MS)) - length(coefficients(weighted_regression_MS))), linetype = "dashed") +
+  labs(title = "Cook's Distance Plot",
+       x = "Observation Index",
+       y = "Cook's Distance")
+
+scale_location_plot <- ggplot(data = augment(weighted_regression_MS), aes(x = .fitted, y = sqrt(abs(.std.resid)))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Scale-Location Plot",
+       x = "Fitted Values",
+       y = "Square Root of Standardized Residuals")
+
+print(residuals_vs_fitted)
+print(qq_plot)
+print(residuals_vs_predictors)
+print(cooks_plot)
+print(scale_location_plot)
+```
+### Residuals vs. Fitted Values Plot:
+The values on this plot appear to be randomly distributed around the zero line, indicating that the assumption of constant variance (homoscedasticity) and linearity is satisfied.
+
+### Normal Q-Q Plot of Residuals:
+The points on the Normal Q-Q Plot fall approximately along the diagonal line, suggesting that the residuals are normally distributed.
+
+### Residuals vs. Predictor Variables Plot:
+There is no discernible pattern in the Residuals vs. Predictor Variables Plot, indicating that the model adequately captures the relationship between the predictor variables (perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) and the response variable (mn_score_all).
+
+### Cook's Distance Plot:
+Almost all points on the Cook's Distance Plot are clustered near the bottom of the plot along one line, indicating that most observations have low influence on the regression coefficients. However, there are some points that are not aligned with the main cluster, suggesting they might have a higher influence on the model.
+
+### Scale-Location Plot:
+The line on the Scale-Location Plot is slightly positively directed, indicating a possible violation of the homoscedasticity assumption. However, the points are randomly spread, which suggests that the assumption holds reasonably well overall.
 
 ## Polishing the Graphs
 
