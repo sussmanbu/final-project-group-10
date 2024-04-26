@@ -36,9 +36,39 @@ weighted_regression <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc5
                           weights = weights)
 
 summary(weighted_regression)
-tidy(weighted_regression)
-
 ```
+
+### Interpretation for MA Weighted Regression Model
+```{r, echo = FALSE}
+library(knitr)
+
+coefficients_table <- data.frame(
+  Term = c("Intercept", "perecd", "povertyall", "unempall", 
+           "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
+  Estimate = c(0.74363, -0.83297, -0.75291, 2.16004, 
+               -0.06063, 0.92817, -0.15714, 0.93507, 0.12889),
+  Interpretation = c(
+    "Baseline mean score for all students, when all predictors are at zero.",
+    "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.833 in the mean score.",
+    "For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.753 in the mean score.",
+    "For each percentage point increase in unemployment rate, there is an unexpected increase of approximately 2.160 in the mean score.",
+    "A 1% increase in median income is associated with a decrease of 0.061 in the mean score, indicating a complex relationship with other socioeconomic factors.",
+    "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.928 in the mean score.",
+    "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.157 in the mean score.",
+    "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 0.935 in the mean score.",
+    "For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score."
+  )
+)
+
+
+kable(coefficients_table, format = "markdown", 
+      col.names = c("Term", "Coefficient Estimate", "Interpretation"),
+      caption = "Interpretations of Weighted Regression Model Coefficients for Massachusetts")
+```
+
+
+
+### MA Weighted Regression Model Residual Plots
 ```{r, echo=FALSE}
 library(ggplot2)
 library(dplyr)
@@ -90,6 +120,7 @@ print(residuals_vs_predictors)
 print(cooks_plot)
 print(scale_location_plot)
 ```
+
 ## Mississippi Weighted Regression Model
 ```{r, echo=FALSE}
 library(tidyverse)
@@ -112,9 +143,41 @@ weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
                           weights = weights)
 
 summary(weighted_regression_MS)
-tidy(weighted_regression_MS)
 ```
 
+### Interpretation for MA Weighted Regression Model
+```{r, echo = FALSE}
+
+
+
+coefficients_table_mississippi <- data.frame(
+  Term = c("Intercept", "perecd", "povertyall", "unempall", 
+           "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
+  Estimate = c(2.31107, -0.22535, -0.75443, -0.72945, 
+               -0.19933, 0.93576, -0.56360, 3.80540, -0.05968),
+  Interpretation = c(
+    "Baseline mean score for all students, when all predictors are at zero.",
+    "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.225 in the mean score.",
+    "For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.754 in the mean score.",
+    "For each percentage point increase in unemployment rate, there is an expected decrease of approximately 0.729 in the mean score.",
+    "A 1% increase in median income is associated with a decrease of 0.199 in the mean score, indicating a complex relationship with other socioeconomic factors.",
+    "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.936 in the mean score.",
+    "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.564 in the mean score.",
+    "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 3.805 in the mean score.",
+    "For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435)."
+  )
+)
+
+
+kable(coefficients_table_mississippi, format = "markdown", 
+      col.names = c("Term", "Coefficient Estimate", "Interpretation"),
+      caption = "Interpretations of Weighted Regression Model Coefficients for Mississippi")
+
+```
+
+
+
+### MS Weighted Regression Model Residual Plots
 ```{r, echo=FALSE}
 library(ggplot2)
 library(dplyr)
@@ -166,6 +229,8 @@ print(residuals_vs_predictors)
 print(cooks_plot)
 print(scale_location_plot)
 ```
+
+
 ### Residuals vs. Fitted Values Plot:
 The values on this plot appear to be randomly distributed around the zero line, indicating that the assumption of constant variance (homoscedasticity) and linearity is satisfied.
 
@@ -181,8 +246,128 @@ Almost all points on the Cook's Distance Plot are clustered near the bottom of t
 ### Scale-Location Plot:
 The line on the Scale-Location Plot is slightly positively directed, indicating a possible violation of the homoscedasticity assumption. However, the points are randomly spread, which suggests that the assumption holds reasonably well overall.
 
+---
+
+
+## Massachusetts Robust Regression Model
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(MASS)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+selected_variables_MA <- massachusetts_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+
+robust_model_MA <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MA)
+  
+
+robust_residuals_MA <- residuals(robust_model_MA)
+
+
+tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_score_all))^2)
+
+
+rss <- sum(robust_residuals_MA^2)
+
+
+pseudo_r_squared <- 1 - rss/tss
+
+summary(robust_model_MA)
+cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+```
+
+### Interpretation for MA Robust Regression Model
+```{r, echo=FALSE}
+library(knitr)
+
+interpretations_df <- data.frame(
+  Variable = c("(Intercept)", "perecd", "povertyall", "unempall", 
+               "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
+  Coefficient = c(0.6881, -0.8944, -0.7035, 2.1884, -0.0418, 0.8714, -0.3181, 0.7202, -0.0039),
+  Interpretation = c(
+    "Baseline mean score for all students on the logged scale when all predictors are at zero.",
+    "Each percentage point increase in economically disadvantaged students is associated with a 0.8944 point decrease in mean score.",
+    "Each percentage point increase in poverty rate is associated with a 0.7035 point decrease in mean score.",
+    "Each percentage point increase in unemployment rate is associated with a 2.1884 point increase in mean score, which is counterintuitive.",
+    "A 1% increase in median income (not logged) is associated with a 0.0418 point decrease in mean score, which may indicate the presence of other interacting variables.",
+    "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.8714 point increase in mean score.",
+    "Each percentage point increase in the proportion of Black students is associated with a 0.3181 point decrease in mean score.",
+    "Each percentage point increase in the proportion of Asian students is associated with a 0.7202 point increase in mean score.",
+    "Each percentage point increase in the proportion of White students is associated with a negligible change in mean score."
+  )
+)
+
+kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients")
+```
+
+## Mississippi Robust Regression Model
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(MASS)
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MS <- mississippi_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+robust_model_MS <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MS)
+  
+
+robust_residuals_MS <- residuals(robust_model_MS)
+
+
+tss <- sum((selected_variables_MS$mn_score_all - mean(selected_variables_MS$mn_score_all))^2)
+
+
+rss <- sum(robust_residuals_MS^2)
+
+
+pseudo_r_squared <- 1 - rss/tss
+
+summary(robust_model_MS)
+cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+```
+
+### Interpretation for MS Robust Regression Model
+```{r, echo = FALSE}
+library(knitr)
+
+interpretations_df <- data.frame(
+  Variable = c("Intercept", "perecd", "povertyall", "unempall", 
+               "lninc50all", "baplusall", "perblk", "perasn", "perwht"),
+  Coefficient = c(2.3299, -0.2273, -0.7626, -0.6635, -0.2040, 0.9211, -0.5384, 4.3782, -0.0387),
+  Interpretation = c(
+    "Baseline mean score for all students on the logged scale when all predictors are at zero.",
+    "Each percentage point increase in economically disadvantaged students is associated with a 0.2273 point decrease in mean score.",
+    "Each percentage point increase in poverty rate is associated with a 0.7626 point decrease in mean score.",
+    "Each percentage point increase in unemployment rate is associated with a 0.6635 point decrease in mean score.",
+    "A 1% increase in median income (on the natural log scale) is associated with a 0.2040 point decrease in mean score.",
+    "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.9211 point increase in mean score.",
+    "Each percentage point increase in the proportion of Black students is associated with a 0.5384 point decrease in mean score.",
+    "Each percentage point increase in the proportion of Asian students is associated with a 4.3782 point increase in mean score.",
+    "Each percentage point increase in the proportion of White students is associated with a 0.0387 point decrease in mean score."
+  )
+)
+
+kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients for Mississippi")
+```
+
+
+
 ## Polishing the Graphs
 
 To polish off the graphs that were made as part of the blog posts to prepare them for the main pages, we changed the labels of the variables and also the colors to make them stand out against each other. Hex codes for specific colors were used to make sure that the graphs looked exactly how we wanted them to look. The variables were redefined on the facet labels, but not in the dataframe itself so that previous plotting and calculations would not need to be edited as well. 
 
 Most of the widgets in the provided links will not work for us, as our data does not fit these types of models.
+
+
