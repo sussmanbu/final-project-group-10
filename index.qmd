@@ -1,5 +1,5 @@
 ---
-title: "MA [46]15 Final Project"
+title: "Education Disparity in the US"
 listing:
   contents: "posts/*/*.qmd"
   sort: "date desc"
@@ -11,6 +11,6 @@ page-layout: full
 title-block-banner: true
 ---
 
-![](images/data-science.png)
+![](images/standardized-test-v2.png){width="100%"}
 
-# Final Project due May 7, 2024 at 11:59pm.
+

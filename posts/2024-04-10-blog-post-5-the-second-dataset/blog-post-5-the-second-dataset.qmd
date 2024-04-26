@@ -1,10 +1,16 @@
 ---
-title: "Blog Post 5: The Second Dataset"
+title: "The Second Dataset"
+subtitle: "Blog Post 5"
+description:  |
+  Identifying a secondary dataset to use in our analysis
 author: "Group 10"
 date: "2024-04-10"
+image: "second set.png"
 date-modified: "2024-04-10"
 draft: FALSE
 ---
+
+![](second set.png)
 
 ## Our Secondary Dataset
 In our ongoing quest to extract meaningful insights from educational data, we've recently enhanced our dataset with the inclusion of three pivotal new variables. Sourced from the Stanford Education Data Archive (SEDA), these additions—lninc50all, baplusall, and povertyall—represent, respectively, the natural logarithm of the median income across all datasets, the percentage of parents holding at least a Bachelor's degree, and the overall poverty rate. This data enrichment is performed with the intention of capturing a more nuanced picture of educational disparities on a state level, year by year. To ensure the integrity of our analysis, meticulous steps were taken to filter out any instances of missing values, thus maintaining the robustness of our research framework.

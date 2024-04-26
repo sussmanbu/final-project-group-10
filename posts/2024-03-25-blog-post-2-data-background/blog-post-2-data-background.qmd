@@ -1,11 +1,17 @@
 ---
-title: "Blog Post 2: Data Background"
+title: "Data Background"
+subtitle: "Blog Post 2"
+description:  |
+  Discussing where our data comes from
 author: "Group 10"
 date: "2024-03-25"
+image: "seda-social.png"
 date-modified: "2024-03-25"
 toc: true
 draft: FALSE
 ---
+
+![](seda-social.png)
 
 ## Where does our data come from?
 

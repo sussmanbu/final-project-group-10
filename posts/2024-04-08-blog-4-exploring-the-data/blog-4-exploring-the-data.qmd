@@ -1,10 +1,16 @@
 ---
-title: "Blog post 4: Exploring the Data"
+title: "Exploring the Data"
+subtitle: "Blog Post 4"
+description:  |
+  Our first steps of data analysis
 author: "Group 10"
 date: "2024-04-08"
+image: "blog4.jpeg"
 date-modified: "2024-04-08"
 draft: FALSE
 ---
+
+![](blog4.jpeg)
 
 ## Our Trends
 
@@ -20,6 +26,9 @@ Our regression model predicts the average test score (mn_score_all) based on sub
 
 ## Linear regression model
 ```{r}
+library(tidyverse)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
 state_dummies <- model.matrix(~ state - 1, data = cleaned_seda)
 
 cleaned_seda <- cbind(cleaned_seda, state_dummies)

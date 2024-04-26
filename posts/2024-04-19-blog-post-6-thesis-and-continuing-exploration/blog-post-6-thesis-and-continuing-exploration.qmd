@@ -1,10 +1,17 @@
 ---
-title: "Blog Post 6: Thesis and Continuing Exploration"
+title: "Thesis and Continuing Exploration"
+subtitle: "Blog Post 6"
+description:  |
+  Creating our thesis that will be the basis of our project
 author: "Group 10"
 date: "2024-04-19"
+image: "thesis.jpeg"
 date-modified: "2024-04-19"
 draft: FALSE
 ---
+
+![](thesis.jpeg)
+
 To narrow down to certain states, we will focus on Massachusetts and Mississippi. Massachusetts is the most educated state in the US, and Mississippi is the least educated state in 2009, when our data starts. 
 
 ## Thesis
@@ -46,7 +53,7 @@ selected_variables_MS <- mississippi_data %>%
 selected_variables_MS %>%
   gather(key = "variable", value = "score") %>%
   ggplot(aes(x = score)) +
-  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  geom_histogram(bins = 30, fill = "#00CC66", color = "black") +
   facet_wrap(~ variable, scales = "free") +
   labs(title = "Distribution of Variables for MS Districts",
        x = "Test Score",
@@ -71,7 +78,7 @@ selected_variables_MS_sqrt <- selected_variables_MS %>%
 selected_variables_MS_log %>%
   gather(key = "variable", value = "value") %>%
   ggplot(aes(x = value)) +
-  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  geom_histogram(bins = 30, fill = "#00CC66", color = "black") +
   facet_wrap(~ variable, scales = "free") +
   labs(title = "Histograms of Log-Transformed Variables for MS Districts",
        x = "Log-transformed Value",
@@ -81,7 +88,7 @@ selected_variables_MS_log %>%
 selected_variables_MS_sqrt %>%
   gather(key = "variable", value = "value") %>%
   ggplot(aes(x = value)) +
-  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  geom_histogram(bins = 30, fill = "#00CC66", color = "black") +
   facet_wrap(~ variable, scales = "free") +
   labs(title = "Histograms of Square Root Transformed Variables for MS Districts",
        x = "Square Root Transformed Value",
