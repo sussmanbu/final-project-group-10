@@ -16,7 +16,7 @@ draft: FALSE
 # Final exploratory modeling
 
 ## Massachusetts Weighted Regression Model
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 library(tidyverse)
 library(dplyr)
 library(readr)
