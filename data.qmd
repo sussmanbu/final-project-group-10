@@ -64,7 +64,7 @@ library(ggplot2)
 library(knitr)
 conflicts_prefer(dplyr::filter, .quiet=TRUE)
 cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
-summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
+kable(summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')]))
 ```
 
 By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
