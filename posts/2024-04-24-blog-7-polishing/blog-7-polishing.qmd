@@ -27,6 +27,7 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(broom)
+library(knitr)
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 massachusetts_data <- cleaned_seda %>%
@@ -131,6 +132,7 @@ print(scale_location_plot)
 ## Mississippi Weighted Regression Model
 
 ```{r, echo=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
 library(tidyverse)
 library(dplyr)
 library(readr)
@@ -185,7 +187,8 @@ kable(coefficients_table_mississippi, format = "markdown",
 ```
 
 ### MS Weighted Regression Model Residual Plots
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
 library(ggplot2)
 library(dplyr)
 library(broom)
@@ -297,6 +300,7 @@ cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
 
 ### Interpretation for MA Robust Regression Model
 ```{r, echo=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
 library(knitr)
 
 interpretations_df <- data.frame(
@@ -322,6 +326,7 @@ kable(interpretations_df, format = "markdown", caption = "Interpretations of the
 
 ## Mississippi Robust Regression Model
 ```{r, echo=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
 library(tidyverse)
 library(dplyr)
 library(readr)
@@ -354,6 +359,7 @@ cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
 
 ### Interpretation for MS Robust Regression Model
 ```{r, echo = FALSE}
+suppressPackageStartupMessages(library(gridExtra))
 library(knitr)
 
 interpretations_df <- data.frame(

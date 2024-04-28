@@ -85,6 +85,7 @@ To begin, we wanted to make summary tables of MA and MS's general descriptive st
 library(tidyverse)
 library(knitr)
 
+
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 massachusetts_data <- cleaned_seda %>%
   filter(state == "MA")

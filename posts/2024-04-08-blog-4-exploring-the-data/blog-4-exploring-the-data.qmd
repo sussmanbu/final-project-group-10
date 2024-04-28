@@ -26,7 +26,9 @@ Our regression model predicts the average test score (mn_score_all) based on sub
 
 ## Linear regression model
 ```{r}
+suppressPackageStartupMessages(library(gridExtra))
 library(tidyverse)
+library(knitr)
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 state_dummies <- model.matrix(~ state - 1, data = cleaned_seda)
@@ -45,6 +47,7 @@ The summary output of the regression model demonstrates an exceptional fit to th
 
 ## Residuals and Related Statistics Table:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
 library(dplyr)
 library(ggplot2)
 library(broom)
@@ -70,7 +73,8 @@ cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 summary_table <- summary(cleaned_seda)
 
-summary_table
+options(knitr.kable.NA = " ")
+kable(summary_table)
 ```
 
 ----
