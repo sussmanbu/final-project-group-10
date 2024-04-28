@@ -168,7 +168,8 @@ mississippi_data %>%
 * Rigorous data cleaning ensures analysis integrity by removing instances with missing values.
 * Meticulous merging aligns new variables with existing data by state and year.
 
-Link for the new dataset: https://edopportunity.org/get-the-data/seda-archive-downloads/
+Link for the new dataset: https://edopportunity.org/get-the-data/seda-archive-downloads
+
 Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
 
 ### Data Files and Variables
