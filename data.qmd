@@ -7,38 +7,64 @@ draft: false
 
 ![](images/cepa-logo.jpg){width="100%"}
 
-## Our Data
+# Describe where/how to find data
 
 Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions.
 
 The data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes.
+
+# Our Datasets
+
+## First Dataset 
+
 Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/
 
-## Data Files and Variables
+Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
 
-* District: geographic school district
-* Subject:
-    + RLA:  Reading Language Arts 
-    + MTH: Math
-* Mn_score: Average test scores
-* Numstu: number of students
-* Per: percentage of students in grade
-* Subgroups: 
-    + All: all students
-    + Asn: Asian students
-    + Blk: Black students
-    + Fem: female students
-    + Hsp: Hispanic students 
-    + Male: male students
-    + Mtr: Multiracial students
-    + Nec: Not economically disadvantaged
-    + Wht: white students
-* Totenrl: Number of students in grade
-* Unempall: unemployment rate
-* Snapall: Snap receipt rate
-* Single_momall: Single mother hh rate
 
-## Cleaning
+### Data Files and Variables
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+variable_descriptions <- data.frame(
+  Variable = c("District", "Subject - RLA", "Subject - MTH", "Mn_score", 
+               "Numstu", "Per", "Subgroups - All", "Subgroups - Asn",
+               "Subgroups - Blk", "Subgroups - Fem", "Subgroups - Hsp", 
+               "Subgroups - Male", "Subgroups - Mtr", "Subgroups - Nec", 
+               "Subgroups - Ecd", "Subgroups - Wht", "Totenrl", "Unempall", 
+               "Snapall", "Single_momall"),
+  Description = c(
+    "Geographic school district",
+    "Reading Language Arts test scores",
+    "Math test scores",
+    "Average test scores for the district",
+    "Number of students who took the test",
+    "Percentage of students in a particular grade",
+    "All students",
+    "Asian students",
+    "Black students",
+    "Female students",
+    "Hispanic students",
+    "Male students",
+    "Multiracial students",
+    "Not economically disadvantaged students",
+    "Economically disadvantaged students",
+    "White students",
+    "Total number of students enrolled in a particular grade",
+    "Unemployment rate in the district",
+    "SNAP (Supplemental Nutrition Assistance Program) receipt rate in the district",
+    "Rate of households with single mothers in the district"
+  )
+)
+
+kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Description"),
+      caption = "Description of Variables in the Dataset")
+
+```
+
+
+### Cleaning
 
 * We cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.
 * We downloaded the raw data and saved it in the data folder.
@@ -49,42 +75,185 @@ Link to the original data source: https://edopportunity.org/get-the-data/seda-ar
     + Remove unusual values.
     + Utilized the collapse package to collapse selected variables into their mean, creating one observation per year, district, class subject, and state combination. Previously it was expanded into grade levels, and finding the mean across those for each year allowed for compression of the very large original data set. 
 The cleaned data was exported to the data folder.
+* Filter Massachusetts and Mississippi Dataset
 * Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
 
 ### Summary of numerical variables
+To begin, we wanted to make summary tables of MA and MS's general descriptive statistics for the explanatory variables included in our data sets. 
 
-To begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.
-
-```{r summary, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
-library(conflicted)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
 library(knitr)
-conflicts_prefer(dplyr::filter, .quiet=TRUE)
-cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
-summary(cleaned_seda[c('mn_score_all', 'mn_score_asn', 'mn_score_blk','mn_score_ecd')])
+
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+create_summary_table <- function(data, state_name) {
+  
+  summary_stats <- data %>%
+    summarise(across(c(perecd, povertyall, unempall, perblk, perasn, perwht),
+                     list(Min = ~min(.x, na.rm = TRUE), 
+                          Max = ~max(.x, na.rm = TRUE),
+                          Mean = ~mean(.x, na.rm = TRUE), 
+                          Median = ~median(.x, na.rm = TRUE))))
+
+  
+  summary_long <- summary_stats %>%
+    pivot_longer(cols = everything(), names_to = "Variable_Statistic", values_to = "Value") %>%
+    separate(Variable_Statistic, into = c("Variable", "Statistic"), sep = "_") %>%
+    pivot_wider(names_from = "Statistic", values_from = "Value") %>%
+    select(Variable, Min, Max, Mean, Median) %>%
+    mutate(Description = case_when(
+      Variable == "perecd" ~ "Percentage of economically disadvantaged students",
+      Variable == "povertyall" ~ "Overall poverty rate",
+      Variable == "unempall" ~ "Unemployment rate",
+      Variable == "perblk" ~ "Percentage of Black students",
+      Variable == "perasn" ~ "Percentage of Asian students",
+      Variable == "perwht" ~ "Percentage of White students"
+    )) %>%
+    select(Variable, Description, Min, Max, Mean, Median)
+
+  
+  kable(summary_long, format = "markdown", col.names = c("Variable", "Description", "Min", "Max", "Mean", "Median"),
+        caption = paste("Summary Statistics for", state_name))
+}
+
+
+ma_table <- create_summary_table(massachusetts_data, "Massachusetts")
+ms_table <- create_summary_table(mississippi_data, "Mississippi")
+
+print(ma_table)
+print(ms_table)
+
+
 ```
 
-By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
+By examining these histograms, we visually analyze the distribution of each variables. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
 
-```{r clean, echo=FALSE, warning=FALSE}
-conflicts_prefer(dplyr::filter, .quiet=TRUE)
-variables_of_interest <- c("mn_score_all", "mn_score_asn", "mn_score_blk", "mn_score_ecd")
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-cleaned_seda %>%
+variables_of_interest <- c('mn_score_all', 'perecd', 'povertyall', 'unempall', 'perblk', 'perasn', 'perwht')
+
+massachusetts_data %>%
   gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
   filter(!is.na(score) & !is.nan(score) & is.finite(score)) %>%
   ggplot(aes(x = variable, y = score, fill = variable)) +
   geom_boxplot() +
   facet_wrap(~ variable, scales = "free") +
-  labs(title = "Distribution of Test Scores by Race and Economically Challenged Status",
+  labs(title = "MA Distribution of Different Variables",
        x = "Variable",
        y = "Test Score") +
   theme_minimal()
 
+mississippi_data %>%
+  gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  filter(!is.na(score) & !is.nan(score) & is.finite(score)) %>%
+  ggplot(aes(x = variable, y = score, fill = variable)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "MS Distribution of Different Variables",
+       x = "Variable",
+       y = "Test Score") +
+  theme_minimal()
 ```
 
+## Second Dataset (Adding more variables)
+
+* Newly added key variables to the educational data: median income (log-transformed), parental education level, and poverty rate.
+* Data from the Stanford Education Data Archive (SEDA) enriches state-level analysis over time.
+* Rigorous data cleaning ensures analysis integrity by removing instances with missing values.
+* Meticulous merging aligns new variables with existing data by state and year.
+
+Link for the new dataset: https://edopportunity.org/get-the-data/seda-archive-downloads/
+Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
+
+### Data Files and Variables
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+variable_descriptions <- data.frame(
+  Variable = c("lninc50all", "baplusall", "povertyall"),
+  Description = c("Natural log of median income",
+                  "Percentage of parents holding at least a Bachelor's degree",
+                  "Overall poverty rate"
+  )
+)
+
+kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Description"),
+      caption = "Description of Variables in the Dataset")
+
+```
+
+### Summary of numerical variables
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+variables_of_interest <- c("lninc50all", "baplusall", "povertyall")
+
+massachusetts_data %>%
+  gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  filter(!is.na(score) & !is.nan(score) & is.finite(score)) %>%
+  ggplot(aes(x = variable, y = score, fill = variable)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "MA Distribution of New Variables",
+       x = "Variable",
+       y = "Test Score") +
+  theme_minimal()
+
+mississippi_data %>%
+  gather(key = "variable", value = "score", all_of(variables_of_interest)) %>%
+  filter(!is.na(score) & !is.nan(score) & is.finite(score)) %>%
+  ggplot(aes(x = variable, y = score, fill = variable)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = "MS Distribution of New Variables",
+       x = "Variable",
+       y = "Test Score") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+
+
+create_selected_summary_table <- function(data, state_name) {
+  summary_stats <- data %>%
+    summarise(across(c(lninc50all, baplusall, povertyall),
+                     list(Min = ~min(.x, na.rm = TRUE), 
+                          Max = ~max(.x, na.rm = TRUE),
+                          Mean = ~mean(.x, na.rm = TRUE), 
+                          Median = ~median(.x, na.rm = TRUE))))
+
+  
+  summary_long <- summary_stats %>%
+    pivot_longer(cols = everything(), names_to = "Variable_Statistic", values_to = "Value") %>%
+    separate(Variable_Statistic, into = c("Variable", "Statistic"), sep = "_") %>%
+    pivot_wider(names_from = "Statistic", values_from = "Value") %>%
+    select(Variable, Min, Max, Mean, Median) %>%
+    mutate(Description = case_when(
+      Variable == "lninc50all" ~ "Natural log of median income",
+      Variable == "baplusall" ~ "Percentage of parents holding at least a Bachelor's degree",
+      Variable == "povertyall" ~ "Overall poverty rate"
+    )) %>%
+    select(Variable, Description, Min, Max, Mean, Median)
+
+  
+  kable(summary_long, format = "markdown", col.names = c("Variable", "Description", "Min", "Max", "Mean", "Median"),
+        caption = paste("Selected Summary Statistics for", state_name))
+}
+
+
+ma_table <- create_selected_summary_table(massachusetts_data, "Massachusetts")
+ms_table <- create_selected_summary_table(mississippi_data, "Mississippi")
+
+
+print(ma_table)
+print(ms_table)
+
+```
 
 
