@@ -113,11 +113,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#our-data" id="toc-our-data" class="nav-link active" data-scroll-target="#our-data">Our Data</a></li>
-  <li><a href="#data-files-and-variables" id="toc-data-files-and-variables" class="nav-link" data-scroll-target="#data-files-and-variables">Data Files and Variables</a></li>
-  <li><a href="#cleaning" id="toc-cleaning" class="nav-link" data-scroll-target="#cleaning">Cleaning</a>
+  <li><a href="#describe-wherehow-to-find-data" id="toc-describe-wherehow-to-find-data" class="nav-link active" data-scroll-target="#describe-wherehow-to-find-data">Describe where/how to find data</a></li>
+  <li><a href="#our-datasets" id="toc-our-datasets" class="nav-link" data-scroll-target="#our-datasets">Our Datasets</a>
   <ul class="collapse">
+  <li><a href="#first-dataset" id="toc-first-dataset" class="nav-link" data-scroll-target="#first-dataset">First Dataset</a>
+  <ul class="collapse">
+  <li><a href="#data-files-and-variables" id="toc-data-files-and-variables" class="nav-link" data-scroll-target="#data-files-and-variables">Data Files and Variables</a></li>
+  <li><a href="#cleaning" id="toc-cleaning" class="nav-link" data-scroll-target="#cleaning">Cleaning</a></li>
   <li><a href="#summary-of-numerical-variables" id="toc-summary-of-numerical-variables" class="nav-link" data-scroll-target="#summary-of-numerical-variables">Summary of numerical variables</a></li>
+  </ul></li>
+  <li><a href="#second-dataset-adding-more-variables" id="toc-second-dataset-adding-more-variables" class="nav-link" data-scroll-target="#second-dataset-adding-more-variables">Second Dataset (Adding more variables)</a>
+  <ul class="collapse">
+  <li><a href="#data-files-and-variables-1" id="toc-data-files-and-variables-1" class="nav-link" data-scroll-target="#data-files-and-variables-1">Data Files and Variables</a></li>
+  <li><a href="#summary-of-numerical-variables-1" id="toc-summary-of-numerical-variables-1" class="nav-link" data-scroll-target="#summary-of-numerical-variables-1">Summary of numerical variables</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -148,43 +157,121 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p><img src="images/cepa-logo.jpg" class="img-fluid" style="width:100.0%"></p>
-<section id="our-data" class="level2">
-<h2 class="anchored" data-anchor-id="our-data">Our Data</h2>
+<section id="describe-wherehow-to-find-data" class="level1">
+<h1>Describe where/how to find data</h1>
 <p>Our data comes from the Stanford Education Data Archive (SEDA). The purpose of SEDA is to provide comprehensive, publicly available data on U.S. K-12 education academic research, policy analysis, and accountability purposes. It is commonly sourced from for the study of educational disparities, policy effectiveness, and the impact of various interventions.</p>
-<p>The data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes. Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/</p>
+<p>The data is primarily gathered for academic research, policy analysis, and accountability purposes. Researchers utilize it to study educational disparities, policy effectiveness, and the impact of various interventions. Policymakers rely on this data to make informed decisions, allocate resources, and hold stakeholders accountable for student outcomes.</p>
 </section>
-<section id="data-files-and-variables" class="level2">
-<h2 class="anchored" data-anchor-id="data-files-and-variables">Data Files and Variables</h2>
-<ul>
-<li>District: geographic school district</li>
-<li>Subject:
-<ul>
-<li>RLA: Reading Language Arts</li>
-<li>MTH: Math</li>
-</ul></li>
-<li>Mn_score: Average test scores</li>
-<li>Numstu: number of students</li>
-<li>Per: percentage of students in grade</li>
-<li>Subgroups:
-<ul>
-<li>All: all students</li>
-<li>Asn: Asian students</li>
-<li>Blk: Black students</li>
-<li>Fem: female students</li>
-<li>Hsp: Hispanic students</li>
-<li>Male: male students</li>
-<li>Mtr: Multiracial students</li>
-<li>Nec: Not economically disadvantaged</li>
-<li>Wht: white students</li>
-</ul></li>
-<li>Totenrl: Number of students in grade</li>
-<li>Unempall: unemployment rate</li>
-<li>Snapall: Snap receipt rate</li>
-<li>Single_momall: Single mother hh rate</li>
-</ul>
+<section id="our-datasets" class="level1">
+<h1>Our Datasets</h1>
+<section id="first-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="first-dataset">First Dataset</h2>
+<p>Link to the original data source: https://edopportunity.org/get-the-data/seda-archive-downloads/</p>
+<p>Link to <code>load_and_clean_data.R</code> file: <a href="dataset/cleaned_seda.rds">loading script</a></p>
+<section id="data-files-and-variables" class="level3">
+<h3 class="anchored" data-anchor-id="data-files-and-variables">Data Files and Variables</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Description of Variables in the Dataset</caption>
+<colgroup>
+<col style="width: 17%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">District</td>
+<td style="text-align: left;">Geographic school district</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject - RLA</td>
+<td style="text-align: left;">Reading Language Arts test scores</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject - MTH</td>
+<td style="text-align: left;">Math test scores</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mn_score</td>
+<td style="text-align: left;">Average test scores for the district</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Numstu</td>
+<td style="text-align: left;">Number of students who took the test</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Per</td>
+<td style="text-align: left;">Percentage of students in a particular grade</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subgroups - All</td>
+<td style="text-align: left;">All students</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subgroups - Asn</td>
+<td style="text-align: left;">Asian students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subgroups - Blk</td>
+<td style="text-align: left;">Black students</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subgroups - Fem</td>
+<td style="text-align: left;">Female students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subgroups - Hsp</td>
+<td style="text-align: left;">Hispanic students</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subgroups - Male</td>
+<td style="text-align: left;">Male students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subgroups - Mtr</td>
+<td style="text-align: left;">Multiracial students</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subgroups - Nec</td>
+<td style="text-align: left;">Not economically disadvantaged students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subgroups - Ecd</td>
+<td style="text-align: left;">Economically disadvantaged students</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subgroups - Wht</td>
+<td style="text-align: left;">White students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Totenrl</td>
+<td style="text-align: left;">Total number of students enrolled in a particular grade</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Unempall</td>
+<td style="text-align: left;">Unemployment rate in the district</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Snapall</td>
+<td style="text-align: left;">SNAP (Supplemental Nutrition Assistance Program) receipt rate in the district</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Single_momall</td>
+<td style="text-align: left;">Rate of households with single mothers in the district</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
-<section id="cleaning" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning">Cleaning</h2>
+<section id="cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning">Cleaning</h3>
 <ul>
 <li>We cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.</li>
 <li>We downloaded the raw data and saved it in the data folder.</li>
@@ -196,97 +283,134 @@ ul.task-list li input[type="checkbox"] {
 <li>Remove unusual values.</li>
 <li>Utilized the collapse package to collapse selected variables into their mean, creating one observation per year, district, class subject, and state combination. Previously it was expanded into grade levels, and finding the mean across those for each year allowed for compression of the very large original data set. The cleaned data was exported to the data folder.</li>
 </ul></li>
+<li>Filter Massachusetts and Mississippi Dataset</li>
 <li>Link to <code>load_and_clean_data.R</code> file: <a href="dataset/cleaned_seda.rds">loading script</a></li>
 </ul>
+</section>
 <section id="summary-of-numerical-variables" class="level3">
 <h3 class="anchored" data-anchor-id="summary-of-numerical-variables">Summary of numerical variables</h3>
-<p>To begin, we wanted to make a summary table of general descriptive statistics for the races included in our data and the economically challenged students to see the variation between their test scores. This is not broken down by location yet, but we wanted to visualize the data better so we would know how to proceed.</p>
+<p>To begin, we wanted to make summary tables of MA and MS’s general descriptive statistics for the explanatory variables included in our data sets.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.3     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table: Summary Statistics for Massachusetts
+
+|Variable   |Description                                       |       Min|       Max|      Mean|    Median|
+|:----------|:-------------------------------------------------|---------:|---------:|---------:|---------:|
+|perecd     |Percentage of economically disadvantaged students | 0.0090090| 0.9237849| 0.2572312| 0.2106642|
+|povertyall |Overall poverty rate                              | 0.0037677| 0.3341780| 0.0767193| 0.0633837|
+|unempall   |Unemployment rate                                 | 0.0091265| 0.1654570| 0.0664401| 0.0634995|
+|perblk     |Percentage of Black students                      | 0.0000000| 0.6057010| 0.0385408| 0.0187346|
+|perasn     |Percentage of Asian students                      | 0.0000000| 0.4195884| 0.0416657| 0.0212570|
+|perwht     |Percentage of White students                      | 0.0435475| 1.0000000| 0.8333210| 0.9021066|</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table: Summary Statistics for Mississippi
+
+|Variable   |Description                                       |       Min|       Max|      Mean|    Median|
+|:----------|:-------------------------------------------------|---------:|---------:|---------:|---------:|
+|perecd     |Percentage of economically disadvantaged students | 0.2112846| 1.0000000| 0.7251544| 0.7078702|
+|povertyall |Overall poverty rate                              | 0.0676034| 0.4386482| 0.2239929| 0.2195274|
+|unempall   |Unemployment rate                                 | 0.0344040| 0.2161760| 0.0985414| 0.0953619|
+|perblk     |Percentage of Black students                      | 0.0230470| 1.0000000| 0.5447141| 0.5052691|
+|perasn     |Percentage of Asian students                      | 0.0000000| 0.0581905| 0.0059577| 0.0026737|
+|perwht     |Percentage of White students                      | 0.0000000| 0.9640693| 0.4193295| 0.4585892|</code></pre>
+</div>
+</div>
+<p>By examining these histograms, we visually analyze the distribution of each variables. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="second-dataset-adding-more-variables" class="level2">
+<h2 class="anchored" data-anchor-id="second-dataset-adding-more-variables">Second Dataset (Adding more variables)</h2>
+<ul>
+<li>Newly added key variables to the educational data: median income (log-transformed), parental education level, and poverty rate.</li>
+<li>Data from the Stanford Education Data Archive (SEDA) enriches state-level analysis over time.</li>
+<li>Rigorous data cleaning ensures analysis integrity by removing instances with missing values.</li>
+<li>Meticulous merging aligns new variables with existing data by state and year.</li>
+</ul>
+<p>Link for the new dataset: https://edopportunity.org/get-the-data/seda-archive-downloads/ Link to <code>load_and_clean_data.R</code> file: <a href="dataset/cleaned_seda.rds">loading script</a></p>
+<section id="data-files-and-variables-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-files-and-variables-1">Data Files and Variables</h3>
+<div class="cell">
+<div class="cell-output-display">
 <table class="table table-sm table-striped small">
+<caption>Description of Variables in the Dataset</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 84%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">mn_score_all</th>
-<th style="text-align: left;">mn_score_asn</th>
-<th style="text-align: left;">mn_score_blk</th>
-<th style="text-align: left;">mn_score_ecd</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Min. :-3.735</td>
-<td style="text-align: left;">Min. :-2.92</td>
-<td style="text-align: left;">Min. :-3.40</td>
-<td style="text-align: left;">Min. :-3.55</td>
+<td style="text-align: left;">lninc50all</td>
+<td style="text-align: left;">Natural log of median income</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">1st Qu.:-0.197</td>
-<td style="text-align: left;">1st Qu.: 0.26</td>
-<td style="text-align: left;">1st Qu.:-0.63</td>
-<td style="text-align: left;">1st Qu.:-0.42</td>
+<td style="text-align: left;">baplusall</td>
+<td style="text-align: left;">Percentage of parents holding at least a Bachelor’s degree</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Median : 0.030</td>
-<td style="text-align: left;">Median : 0.60</td>
-<td style="text-align: left;">Median :-0.45</td>
-<td style="text-align: left;">Median :-0.24</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Mean : 0.025</td>
-<td style="text-align: left;">Mean : 0.59</td>
-<td style="text-align: left;">Mean :-0.44</td>
-<td style="text-align: left;">Mean :-0.26</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">3rd Qu.: 0.249</td>
-<td style="text-align: left;">3rd Qu.: 0.93</td>
-<td style="text-align: left;">3rd Qu.:-0.25</td>
-<td style="text-align: left;">3rd Qu.:-0.08</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Max. : 2.865</td>
-<td style="text-align: left;">Max. : 2.79</td>
-<td style="text-align: left;">Max. : 1.16</td>
-<td style="text-align: left;">Max. : 1.24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA’s :23236</td>
-<td style="text-align: left;">NA’s :205143</td>
-<td style="text-align: left;">NA’s :180838</td>
-<td style="text-align: left;">NA’s :61961</td>
+<td style="text-align: left;">povertyall</td>
+<td style="text-align: left;">Overall poverty rate</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>By examining these histograms, we visually analyze the distribution of test scores within each subgroup. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.</p>
+</section>
+<section id="summary-of-numerical-variables-1" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-numerical-variables-1">Summary of numerical variables</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/clean-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table: Selected Summary Statistics for Massachusetts
+
+|Variable   |Description                                                |        Min|        Max|       Mean|     Median|
+|:----------|:----------------------------------------------------------|----------:|----------:|----------:|----------:|
+|lninc50all |Natural log of median income                               | 10.3486640| 12.1182110| 11.2338139| 11.2229460|
+|baplusall  |Percentage of parents holding at least a Bachelor's degree |  0.1080376|  0.8464119|  0.4117615|  0.3868308|
+|povertyall |Overall poverty rate                                       |  0.0037677|  0.3341780|  0.0767193|  0.0633837|</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table: Selected Summary Statistics for Mississippi
+
+|Variable   |Description                                                |       Min|        Max|       Mean|     Median|
+|:----------|:----------------------------------------------------------|---------:|----------:|----------:|----------:|
+|lninc50all |Natural log of median income                               | 9.8578291| 11.2068380| 10.4684077| 10.4519910|
+|baplusall  |Percentage of parents holding at least a Bachelor's degree | 0.0386911|  0.5401447|  0.1707087|  0.1499818|
+|povertyall |Overall poverty rate                                       | 0.0676034|  0.4386482|  0.2239929|  0.2195274|</code></pre>
 </div>
 </div>
 
 
+</section>
 </section>
 </section>
 
