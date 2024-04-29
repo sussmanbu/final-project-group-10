@@ -20,10 +20,8 @@ Mississippi, with its higher percentage of economically disadvantaged students, 
 ## More Exploration of Independent Variables
 ### Massachusetts
 ```{r, echo=FALSE, warning=FALSE}
-suppressPackageStartupMessages(library(gridExtra))
+suppressPackageStartupMessages(library(tidyverse))
 library(tidyverse)
-library(dplyr)
-library(readr)
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 massachusetts_data <- cleaned_seda %>%
   filter(state == "MA")

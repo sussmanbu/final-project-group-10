@@ -24,7 +24,8 @@ We cleaned our data before importing, as it was 500mB. We kept the scores for ea
 To begin, we wanted to make a summary table of general descriptibe statistics for the races included in our data as well as the economically challenged students to see the variation between their test scores. This is not broken down by location yet but we wanted to better visualize the data so we would know how to proceed.
 
 ```{r, echo=FALSE}
-suppressPackageStartupMessages(library(gridExtra))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
 library(tidyverse)
 library(knitr)
 cleaned_seda <-read_rds("dataset/cleaned_seda.rds")
