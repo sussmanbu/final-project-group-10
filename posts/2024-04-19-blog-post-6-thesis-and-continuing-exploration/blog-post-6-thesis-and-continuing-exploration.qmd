@@ -19,7 +19,7 @@ Mississippi, with its higher percentage of economically disadvantaged students, 
 
 ## More Exploration of Independent Variables
 ### Massachusetts
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(gridExtra))
 library(tidyverse)
 library(dplyr)
