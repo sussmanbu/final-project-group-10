@@ -15,7 +15,7 @@ draft: FALSE
 
 # Final exploratory modeling
 
----
+------------------------------------------------------------------------
 
 # Weighted Regression Model
 
@@ -47,6 +47,7 @@ summary(weighted_regression)
 ```
 
 ### Interpretation for MA Weighted Regression Model
+
 ```{r, echo = FALSE}
 coefficients_table <- data.frame(
   Term = c("Intercept", "perecd", "povertyall", "unempall", 
@@ -144,6 +145,7 @@ summary(weighted_regression_MS)
 ```
 
 ### Interpretation for MS Weighted Regression Model
+
 ```{r, echo = FALSE}
 coefficients_table_mississippi <- data.frame(
   Term = c("Intercept", "perecd", "povertyall", "unempall", 
@@ -172,6 +174,7 @@ kable(coefficients_table_mississippi, format = "markdown",
 ```
 
 ### MS Weighted Regression Model Residual Plots
+
 ```{r, echo=FALSE, warning=FALSE}
 residuals_vs_fitted <- ggplot(data = augment(weighted_regression_MS), aes(x = .fitted, y = .resid)) +
   geom_point() +
@@ -239,11 +242,12 @@ Almost all points on the Cook's Distance Plot are clustered near the bottom of t
 
 The line on the Scale-Location Plot is slightly positively directed, indicating a possible violation of the homoscedasticity assumption. However, the points are randomly spread, which suggests that the assumption holds reasonably well overall.
 
----
+------------------------------------------------------------------------
 
 # Robust Regression Model
 
 ## Massachusetts Robust Regression Model
+
 ```{r, echo=FALSE}
 library(tidyverse)
 library(dplyr)
@@ -278,6 +282,7 @@ cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
 ```
 
 ### Interpretation for MA Robust Regression Model
+
 ```{r, echo=FALSE}
 suppressPackageStartupMessages(library(gridExtra))
 library(knitr)
@@ -304,6 +309,7 @@ kable(interpretations_df, format = "markdown", caption = "Interpretations of the
 ```
 
 ## Mississippi Robust Regression Model
+
 ```{r, echo=FALSE}
 suppressPackageStartupMessages(library(gridExtra))
 library(tidyverse)
@@ -337,6 +343,7 @@ cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
 ```
 
 ### Interpretation for MS Robust Regression Model
+
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(gridExtra))
 library(knitr)
@@ -362,12 +369,8 @@ interpretations_df <- data.frame(
 kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients for Mississippi")
 ```
 
-
-
 ## Polishing the Graphs
 
 To polish off the graphs that were made as part of the blog posts to prepare them for the main pages, we changed the labels of the variables and also the colors to make them stand out against each other. Hex codes for specific colors were used to make sure that the graphs looked exactly how we wanted them to look. The variables were redefined on the facet labels, but not in the dataframe itself so that previous plotting and calculations would not need to be edited as well.
 
 Most of the widgets in the provided links will not work for us, as our data does not fit these types of models.
-
-
