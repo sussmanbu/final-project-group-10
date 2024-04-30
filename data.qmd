@@ -29,16 +29,16 @@ library(knitr)
 
 variable_descriptions <- data.frame(
   Variable = c("District", "Subject - RLA", "Subject - MTH", "Mn_score", 
-               "Numstu", "Per", "Subgroups - All", "Subgroups - Asn",
-               "Subgroups - Blk", "Subgroups - Fem", "Subgroups - Hsp", 
-               "Subgroups - Male", "Subgroups - Mtr", "Subgroups - Nec", 
-               "Subgroups - Ecd", "Subgroups - Wht", "Totenrl", "Unempall", 
+               "Numstu", "Per", "All", "Asn",
+               "Blk", "Fem", "Hsp", 
+               "Male", "Mtr", "Nec", 
+               "Ecd", "Wht", "Totenrl", "Unempall", 
                "Snapall", "Single_momall"),
   Description = c(
     "Geographic school district",
     "Reading Language Arts test scores",
     "Math test scores",
-    "Average test scores for the district",
+    "Average test scores for the district; Anything less than -0.75 is below basic. Between -0.75 and 0.05 is basic. Between 0.05 and 1.0 is proficient. Above 1.0 is advanced.",
     "Number of students who took the test",
     "Percentage of students in a particular grade",
     "All students",
@@ -64,6 +64,7 @@ kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Des
 ```
 
 
+
 ### Cleaning
 
 * We cleaned our data before importing it, as it was 500mB. We kept the scores for each race and the locations, as we are most interested in those.
@@ -79,12 +80,12 @@ The cleaned data was exported to the data folder.
 * Link to `load_and_clean_data.R` file: [loading script](dataset/cleaned_seda.rds)
 
 ### Summary of numerical variables
-To begin, we wanted to make summary tables of MA and MS's general descriptive statistics for the explanatory variables included in our data sets. 
+To start, we aimed to create summary tables of the general descriptive statistics for the explanatory variables included in our analysis of Massachusetts (MA) and Mississippi (MS).
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(formattable)
 library(tidyverse)
 library(knitr)
-
 
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 massachusetts_data <- cleaned_seda %>%
@@ -93,7 +94,6 @@ mississippi_data <- cleaned_seda %>%
   filter(state == "MS")
 
 create_summary_table <- function(data, state_name) {
-  
   summary_stats <- data %>%
     summarise(across(c(perecd, povertyall, unempall, perblk, perasn, perwht),
                      list(Min = ~min(.x, na.rm = TRUE), 
@@ -101,12 +101,10 @@ create_summary_table <- function(data, state_name) {
                           Mean = ~mean(.x, na.rm = TRUE), 
                           Median = ~median(.x, na.rm = TRUE))))
 
-  
   summary_long <- summary_stats %>%
     pivot_longer(cols = everything(), names_to = "Variable_Statistic", values_to = "Value") %>%
     separate(Variable_Statistic, into = c("Variable", "Statistic"), sep = "_") %>%
     pivot_wider(names_from = "Statistic", values_from = "Value") %>%
-    select(Variable, Min, Max, Mean, Median) %>%
     mutate(Description = case_when(
       Variable == "perecd" ~ "Percentage of economically disadvantaged students",
       Variable == "povertyall" ~ "Overall poverty rate",
@@ -116,23 +114,28 @@ create_summary_table <- function(data, state_name) {
       Variable == "perwht" ~ "Percentage of White students"
     )) %>%
     select(Variable, Description, Min, Max, Mean, Median)
+    
 
-  
-  kable(summary_long, format = "markdown", col.names = c("Variable", "Description", "Min", "Max", "Mean", "Median"),
-        caption = paste("Summary Statistics for", state_name))
+  formattable(summary_long, list(
+    Min = color_tile("white", "lightblue"),
+    Max = color_tile("white", "salmon"),
+    Mean = color_tile("white", "lightgreen"),
+    Median = color_tile("white", "lightgrey")
+  ))
 }
 
-
+# Apply the function to Massachusetts and Mississippi data
 ma_table <- create_summary_table(massachusetts_data, "Massachusetts")
 ms_table <- create_summary_table(mississippi_data, "Mississippi")
 
-print(ma_table)
-print(ms_table)
-
+# Print the tables
+ma_table
+ms_table
 
 ```
 
-By examining these histograms, we visually analyze the distribution of each variables. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
+### Visualization of Variables
+By examining these histograms, we can visually analyze the distribution of each variable. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -191,6 +194,56 @@ kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Des
 
 ### Summary of numerical variables
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(formattable)
+library(tidyverse)
+library(knitr)
+
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+create_summary_table <- function(data, state_name) {
+  summary_stats <- data %>%
+    summarise(across(c(lninc50all, baplusall, povertyall),
+                     list(Min = ~min(.x, na.rm = TRUE), 
+                          Max = ~max(.x, na.rm = TRUE),
+                          Mean = ~mean(.x, na.rm = TRUE), 
+                          Median = ~median(.x, na.rm = TRUE))))
+
+  summary_long <- summary_stats %>%
+    pivot_longer(cols = everything(), names_to = "Variable_Statistic", values_to = "Value") %>%
+    separate(Variable_Statistic, into = c("Variable", "Statistic"), sep = "_") %>%
+    pivot_wider(names_from = "Statistic", values_from = "Value") %>%
+    mutate(Description = case_when(
+      Variable == "lninc50all" ~ "Natural log of median income",
+      Variable == "baplusall" ~ "Percentage of parents holding at least a Bachelor's degree",
+      Variable == "povertyall" ~ "Overall poverty rate"
+    )) %>%
+    select(Variable, Description, Min, Max, Mean, Median)
+    
+
+  formattable(summary_long, list(
+    Min = color_tile("white", "lightblue"),
+    Max = color_tile("white", "salmon"),
+    Mean = color_tile("white", "lightgreen"),
+    Median = color_tile("white", "lightgrey")
+  ))
+}
+
+# Apply the function to Massachusetts and Mississippi data
+ma_table <- create_summary_table(massachusetts_data, "Massachusetts")
+ms_table <- create_summary_table(mississippi_data, "Mississippi")
+
+# Print the tables
+ma_table
+ms_table
+
+```
+
+### Visualization of Variables
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 variables_of_interest <- c("lninc50all", "baplusall", "povertyall")
 
@@ -216,46 +269,4 @@ mississippi_data %>%
        y = "Test Score") +
   theme_minimal()
 ```
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(knitr)
-
-
-create_selected_summary_table <- function(data, state_name) {
-  summary_stats <- data %>%
-    summarise(across(c(lninc50all, baplusall, povertyall),
-                     list(Min = ~min(.x, na.rm = TRUE), 
-                          Max = ~max(.x, na.rm = TRUE),
-                          Mean = ~mean(.x, na.rm = TRUE), 
-                          Median = ~median(.x, na.rm = TRUE))))
-
-  
-  summary_long <- summary_stats %>%
-    pivot_longer(cols = everything(), names_to = "Variable_Statistic", values_to = "Value") %>%
-    separate(Variable_Statistic, into = c("Variable", "Statistic"), sep = "_") %>%
-    pivot_wider(names_from = "Statistic", values_from = "Value") %>%
-    select(Variable, Min, Max, Mean, Median) %>%
-    mutate(Description = case_when(
-      Variable == "lninc50all" ~ "Natural log of median income",
-      Variable == "baplusall" ~ "Percentage of parents holding at least a Bachelor's degree",
-      Variable == "povertyall" ~ "Overall poverty rate"
-    )) %>%
-    select(Variable, Description, Min, Max, Mean, Median)
-
-  
-  kable(summary_long, format = "markdown", col.names = c("Variable", "Description", "Min", "Max", "Mean", "Median"),
-        caption = paste("Selected Summary Statistics for", state_name))
-}
-
-
-ma_table <- create_selected_summary_table(massachusetts_data, "Massachusetts")
-ms_table <- create_selected_summary_table(mississippi_data, "Mississippi")
-
-
-print(ma_table)
-print(ms_table)
-
-```
-
 
