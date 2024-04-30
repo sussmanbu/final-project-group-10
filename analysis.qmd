@@ -82,7 +82,7 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(broom)
-library(forestplot)
+#library(forestplot)
 
 regMA <- tidy(weighted_regression)
 
@@ -93,21 +93,21 @@ regMA <- regMA %>%
 regMA = regMA[-c(1),]
 
 xlab_set <- expression(italics("Adjusted Coefficients and 95% Confidence Intervals"), )
-forestplot(
-  mean = regMA$estimate,
-  lower = regMA$lower,
-  upper = regMA$upper,
-  labeltext = regMA$term,
-  xlab = xlab_set,
-  cex = 0.8,
-  boxsize = 0.15,
-  lwd.ci= 2,
-  lineheight = "lines",
-  col = fpColors(box = "chartreuse4", line = "black", summary = "darkgreen"),
-  graph.pos = 2,  # Position of the forest plot graph      # Font size
-  grid = TRUE,
-  title = "Weighted Regression Model for Massachussets"
-)
+#forestplot(
+ # mean = regMA$estimate,
+ # lower = regMA$lower,
+  #upper = regMA$upper,
+ # labeltext = regMA$term,
+ # xlab = xlab_set,
+ # cex = 0.8,
+#  boxsize = 0.15,
+ # lwd.ci= 2,
+ # lineheight = "lines",
+ # col = fpColors(box = "chartreuse4", line = "black", summary = "darkgreen"),
+ # graph.pos = 2,  # Position of the forest plot graph      # Font size
+ # grid = TRUE,
+ # title = "Weighted Regression Model for Massachussets"
+#)
 
 ```
 
@@ -266,7 +266,7 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(broom)
-library(forestplot)
+#library(forestplot)
 
 robregMA <- tidy(robust_model_MA)
 
@@ -277,21 +277,21 @@ robregMA <- robregMA %>%
 robregMA = robregMA[-c(1),]
 
 xlab_set <- expression(italics("Adjusted Coefficients and 95% Confidence Intervals"), )
-forestplot(
-  mean = robregMA$estimate,
-  lower = robregMA$lower,
-  upper = robregMA$upper,
-  labeltext = robregMA$term,
-  xlab = xlab_set,
-  cex = 0.8,
-  boxsize = 0.15,
-  lwd.ci= 2,
-  lineheight = "lines",
-  col = fpColors(box = "chartreuse4", line = "black", summary = "darkgreen"),
-  graph.pos = 2,  # Position of the forest plot graph      # Font size
-  grid = TRUE,
-  title = "Robust Regression Model for Massachussets"
-)
+#forestplot(
+ # mean = robregMA$estimate,
+ # lower = robregMA$lower,
+#  upper = robregMA$upper,
+ # labeltext = robregMA$term,
+ # xlab = xlab_set,
+ # cex = 0.8,
+ # boxsize = 0.15,
+ # lwd.ci= 2,
+ # lineheight = "lines",
+ # col = fpColors(box = "chartreuse4", line = "black", summary = "darkgreen"),
+ # graph.pos = 2,  # Position of the forest plot graph      # Font size
+ # grid = TRUE,
+ # title = "Robust Regression Model for Massachussets"
+#)
 ```
 
 ### Interpretation for MA Robust Regression Model
@@ -362,7 +362,7 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(broom)
-library(forestplot)
+#library(forestplot)
 robregMS <- tidy(robust_model_MS)
 
 robregMS <- robregMS %>% 
@@ -372,21 +372,20 @@ robregMS <- robregMS %>%
 robregMS = robregMS[-c(1),]
 
 
-forestplot(
-  mean = robregMS$estimate,
-  lower = robregMS$lower,
-  upper = robregMS$upper,
-  labeltext = robregMS$term,
-  xlab = "Adjusted Coefficients and 95% Confidence Intervals",
-  boxsize = 0.15,
-  lwd.ci= 2,
-  lineheight = "lines",
-  col = fpColors(box = "cornflowerblue", line = "black", summary = "steelblue"),
-  graph.pos = 2,  # Position of the forest plot graph
-  cex = 0.8,      # Font size
-  grid = TRUE,
-  title = "Robust Regression Model for Mississippi"
-)
+#forestplot(
+#  mean = robregMS$estimate,
+##  upper = robregMS$upper,
+ # labeltext = robregMS$term,
+  #xlab = "Adjusted Coefficients and 95% Confidence Intervals",
+ # boxsize = 0.15,
+ # lwd.ci= 2,
+ # lineheight = "lines",
+ # col = fpColors(box = "cornflowerblue", line = "black", summary = #"steelblue"),
+#  graph.pos = 2,  # Position of the forest plot graph
+#  cex = 0.8,      # Font size
+#  grid = TRUE,
+ # title = "Robust Regression Model for Mississippi"
+#)
 ```
 
 ### Interpretation for MS Robust Regression Model

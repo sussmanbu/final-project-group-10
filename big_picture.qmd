@@ -25,8 +25,9 @@ Our study utilizes a comprehensive dataset encompassing district-level informati
 ### Massachusetts
 ```{r MAhist, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
-library(dplyr)
-library(readr)
+suppressPackageStartupMessages(library(knitr))
+library(tidyverse)
+library(knitr)
 
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
@@ -73,11 +74,6 @@ selected_variables_MA %>%
 
 ### Mississippi 
 ```{r MShist, echo=FALSE}
-library(tidyverse)
-library(dplyr)
-library(readr)
-
-
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 
@@ -132,6 +128,15 @@ The racial composition histograms are a mosaic of demographic diversity. Massach
 Poverty and unemployment in Mississippi seem to walk hand in hand, with histograms skewing towards higher rates than those in Massachusetts. It's a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement.
 
 ----
+
+```{r, echo=FALSE}
+ma_ms_data <- cleaned_seda[cleaned_seda$state %in% c("MA", "MS"), ]
+
+average_scores <- aggregate(mn_score_all ~ state, data = ma_ms_data, FUN = mean)
+
+kable(average_scores)
+```
+
 
 ## Analysis
 
