@@ -66,7 +66,7 @@ massachusetts_data <- cleaned_seda %>%
   filter(state == "MA")
 
 selected_variables_MA <- massachusetts_data %>%
-  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
 weights <- 1/selected_variables_MA$povertyall 
@@ -159,7 +159,7 @@ mississippi_data <- cleaned_seda %>%
   filter(state == "MS")
 
 selected_variables_MS <- mississippi_data %>%
-  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
 weights <- 1/selected_variables_MS$povertyall
@@ -251,6 +251,7 @@ kable(coefficients_table_mississippi, format = "markdown",
 library(tidyverse)
 library(dplyr)
 library(readr)
+library(sandwich)
 suppressPackageStartupMessages(library(MASS))
 
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
@@ -278,6 +279,7 @@ pseudo_r_squared <- 1 - rss/tss
 
 summary(robust_model_MA)
 cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+jtools::get_robust_se(robust_model_MA)
 ```
 
 ```{r, echo=FALSE}
