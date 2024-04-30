@@ -223,6 +223,199 @@ kable(coefficients_table_mississippi, format = "markdown",
 
 ```
 
+# Robust Regression Model
+
+## Massachusetts Robust Regression Model
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+suppressPackageStartupMessages(library(MASS))
+
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+selected_variables_MA <- massachusetts_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+
+robust_model_MA <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MA)
+  
+
+robust_residuals_MA <- residuals(robust_model_MA)
+
+
+tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_score_all))^2)
+
+
+rss <- sum(robust_residuals_MA^2)
+
+
+pseudo_r_squared <- 1 - rss/tss
+
+summary(robust_model_MA)
+cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+```
+
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+library(forestplot)
+
+robregMA <- tidy(robust_model_MA)
+
+robregMA <- robregMA %>% 
+  mutate(upper = estimate + std.error) %>% 
+  mutate(lower = estimate - std.error)  
+
+robregMA = robregMA[-c(1),]
+
+xlab_set <- expression(italics("Adjusted Coefficients and 95% Confidence Intervals"), )
+forestplot(
+  mean = robregMA$estimate,
+  lower = robregMA$lower,
+  upper = robregMA$upper,
+  labeltext = robregMA$term,
+  xlab = xlab_set,
+  cex = 0.8,
+  boxsize = 0.15,
+  lwd.ci= 2,
+  lineheight = "lines",
+  col = fpColors(box = "chartreuse4", line = "black", summary = "darkgreen"),
+  graph.pos = 2,  # Position of the forest plot graph      # Font size
+  grid = TRUE,
+  title = "Robust Regression Model for Massachussets"
+)
+```
+
+### Interpretation for MA Robust Regression Model
+
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
+library(knitr)
+
+interpretations_df <- data.frame(
+  Variable = c("(Intercept)", "perecd", "povertyall", "unempall", 
+               "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
+  Coefficient = c(0.6881, -0.8944, -0.7035, 2.1884, -0.0418, 0.8714, -0.3181, 0.7202, -0.0039, 0.7697),
+  Interpretation = c(
+    "Baseline mean score for all students on the logged scale when all predictors are at zero.",
+    "Each percentage point increase in economically disadvantaged students is associated with a 0.8944 point decrease in mean score.",
+    "Each percentage point increase in poverty rate is associated with a 0.7035 point decrease in mean score.",
+    "Each percentage point increase in unemployment rate is associated with a 2.1884 point increase in mean score, which is counterintuitive.",
+    "A 1% increase in median income (not logged) is associated with a 0.0418 point decrease in mean score, which may indicate the presence of other interacting variables.",
+    "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.8714 point increase in mean score.",
+    "Each percentage point increase in the proportion of Black students is associated with a 0.3181 point decrease in mean score.",
+    "Each percentage point increase in the proportion of Asian students is associated with a 0.7202 point increase in mean score.",
+    "Each percentage point increase in the proportion of White students is associated with a negligible change in mean score.",
+    "The model explains approximately 76.97% of the variance in the mean score for all students in the dataset."
+  )
+)
+
+kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients")
+```
+
+## Mississippi Robust Regression Model
+
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(MASS)
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MS <- mississippi_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+robust_model_MS <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MS)
+  
+
+robust_residuals_MS <- residuals(robust_model_MS)
+
+
+tss <- sum((selected_variables_MS$mn_score_all - mean(selected_variables_MS$mn_score_all))^2)
+
+
+rss <- sum(robust_residuals_MS^2)
+
+
+pseudo_r_squared <- 1 - rss/tss
+
+summary(robust_model_MS)
+cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
+```
+
+### MS Robust Regression Forest Plot 
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+library(forestplot)
+robregMS <- tidy(robust_model_MS)
+
+robregMS <- robregMS %>% 
+  mutate(upper = estimate + std.error) %>% 
+  mutate(lower = estimate - std.error)  
+  
+robregMS = robregMS[-c(1),]
+
+
+forestplot(
+  mean = robregMS$estimate,
+  lower = robregMS$lower,
+  upper = robregMS$upper,
+  labeltext = robregMS$term,
+  xlab = "Adjusted Coefficients and 95% Confidence Intervals",
+  boxsize = 0.15,
+  lwd.ci= 2,
+  lineheight = "lines",
+  col = fpColors(box = "cornflowerblue", line = "black", summary = "steelblue"),
+  graph.pos = 2,  # Position of the forest plot graph
+  cex = 0.8,      # Font size
+  grid = TRUE,
+  title = "Robust Regression Model for Mississippi"
+)
+```
+
+### Interpretation for MS Robust Regression Model
+
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(gridExtra))
+library(knitr)
+
+interpretations_df <- data.frame(
+  Variable = c("Intercept", "perecd", "povertyall", "unempall", 
+               "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
+  Coefficient = c(2.3299, -0.2273, -0.7626, -0.6635, -0.2040, 0.9211, -0.5384, 4.3782, -0.0387, 0.6625),
+  Interpretation = c(
+    "Baseline mean score for all students on the logged scale when all predictors are at zero.",
+    "Each percentage point increase in economically disadvantaged students is associated with a 0.2273 point decrease in mean score.",
+    "Each percentage point increase in poverty rate is associated with a 0.7626 point decrease in mean score.",
+    "Each percentage point increase in unemployment rate is associated with a 0.6635 point decrease in mean score.",
+    "A 1% increase in median income (on the natural log scale) is associated with a 0.2040 point decrease in mean score.",
+    "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.9211 point increase in mean score.",
+    "Each percentage point increase in the proportion of Black students is associated with a 0.5384 point decrease in mean score.",
+    "Each percentage point increase in the proportion of Asian students is associated with a 4.3782 point increase in mean score.",
+    "Each percentage point increase in the proportion of White students is associated with a 0.0387 point decrease in mean score.",
+    "The model explains approximately 66.25% of the variance in the mean score for all students in the dataset."
+  )
+)
+
+kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients for Mississippi")
+```
+
 ------------------------------------------------------------------------
 
 ## Rubric: On this page
