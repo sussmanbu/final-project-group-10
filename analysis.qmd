@@ -168,7 +168,7 @@ weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
                           data = selected_variables_MS,
                           weights = weights)
 
-summary(weighted_regression_MS)
+summ(weighted_regression_MS)
 ```
 
 ### Mississippi Forest Plot
