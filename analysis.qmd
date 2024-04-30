@@ -5,26 +5,24 @@ toc: true
 draft: false
 ---
 
-![](images/analysis page.jpeg)
+![](images/analysis%20page.jpeg)
 
 This comes from the file `analysis.qmd`.
 
 We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
 
-The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc. 
+The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
 
-While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points.
-If you want you can link back to your blog posts or create separate pages with more details.
+While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
 
-The style of this paper should aim to be that of an academic paper. 
-I don't expect this to be of publication quality but you should keep that aim in mind.
-Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
+The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
 
 ### Example of loading data
 
 The code below shows an example of loading the loan refusal data set (which you should delete at some point).
 
 ```{r}
+suppressPackageStartupMessages(library(gridExtra))
 library(tidyverse)
 print(getwd())
 data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
@@ -43,6 +41,187 @@ If you are directly quoting from a source, please make that clear. You can show 
 ```
 
 > To be or not to be.
+
+# Final exploratory modeling
+
+------------------------------------------------------------------------
+
+## Weighted Regression Model
+
+### Massachusetts Weighted Regression Model
+
+```{r, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+library(knitr)
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+selected_variables_MA <- massachusetts_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+weights <- 1/selected_variables_MA$povertyall 
+
+weighted_regression <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+                          data = selected_variables_MA,
+                          weights = weights)
+
+summary(weighted_regression) #make this a nicer table?
+
+```
+
+```{r, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+library(forestplot)
+
+regMA <- tidy(weighted_regression)
+
+regMA <- regMA %>% 
+  mutate(upper = estimate + std.error) %>% 
+  mutate(lower = estimate - std.error)  
+
+regMA = regMA[-c(1),]
+
+xlab_set <- expression(italics("Adjusted Coefficients and 95% Confidence Intervals"), )
+forestplot(
+  mean = regMA$estimate,
+  lower = regMA$lower,
+  upper = regMA$upper,
+  labeltext = regMA$term,
+  xlab = xlab_set,
+  cex = 0.8,
+  boxsize = 0.15,
+  lwd.ci= 2,
+  lineheight = "lines",
+  col = fpColors(box = "chartreuse4", line = "black", summary = "darkgreen"),
+  graph.pos = 2,  # Position of the forest plot graph      # Font size
+  grid = TRUE,
+  title = "Weighted Regression Model for Massachussets"
+)
+
+```
+
+### Interpretation for MA Weighted Regression Model
+
+```{r, echo = FALSE}
+coefficients_table <- data.frame(
+  Term = c("Intercept", "perecd", "povertyall", "unempall", 
+           "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
+  Estimate = c(0.74363, -0.83297, -0.75291, 2.16004, 
+               -0.06063, 0.92817, -0.15714, 0.93507, 0.12889, 0.7659),
+  Interpretation = c(
+    "Baseline mean score for all students, when all predictors are at zero.",
+    "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.833 in the mean score.",
+    "For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.753 in the mean score.",
+    "For each percentage point increase in unemployment rate, there is an unexpected increase of approximately 2.160 in the mean score.",
+    "A 1% increase in median income is associated with a decrease of 0.061 in the mean score, indicating a complex relationship with other socioeconomic factors.",
+    "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.928 in the mean score.",
+    "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.157 in the mean score.",
+    "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 0.935 in the mean score.",
+    "For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score.", 
+    "The model explains approximately 76.59% of the variance in the mean score for all students in the dataset."
+  )
+)
+
+
+kable(coefficients_table, format = "markdown", 
+      col.names = c("Term", "Coefficient Estimate", "Interpretation"),
+      caption = "Interpretations of Weighted Regression Model Coefficients for Massachusetts")
+```
+
+## Mississippi Weighted Regression Model
+
+```{r, echo=FALSE}
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MS <- mississippi_data %>%
+  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+weights <- 1/selected_variables_MS$povertyall
+
+weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+                          data = selected_variables_MS,
+                          weights = weights)
+
+summary(weighted_regression_MS)
+```
+
+### Mississippi Forest Plot
+
+```{r, echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+library(forestplot)
+regMS <- tidy(weighted_regression_MS)
+
+regMS <- regMS %>% 
+  mutate(upper = estimate + std.error) %>% 
+  mutate(lower = estimate - std.error)  
+  
+regMS = regMS[-c(1),]
+
+
+forestplot(
+  mean = regMS$estimate,
+  lower = regMS$lower,
+  upper = regMS$upper,
+  labeltext = regMS$term,
+  xlab = "Adjusted Coefficients and 95% Confidence Intervals",
+  boxsize = 0.15,
+  lwd.ci= 2,
+  lineheight = "lines",
+  col = fpColors(box = "cornflowerblue", line = "black", summary = "steelblue"),
+  graph.pos = 2,  # Position of the forest plot graph
+  cex = 0.8,      # Font size
+  grid = TRUE,
+  title = "Weighted Regression Model for Mississippi"
+)
+```
+
+### Interpretation for MS Weighted Regression Model
+
+```{r, echo=FALSE}
+coefficients_table_mississippi <- data.frame(
+  Term = c("Intercept", "perecd", "povertyall", "unempall", 
+           "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
+  Estimate = c(2.31107, -0.22535, -0.75443, -0.72945, 
+               -0.19933, 0.93576, -0.56360, 3.80540, -0.05968, 0.6752),
+  Interpretation = c(
+    "Baseline mean score for all students, when all predictors are at zero.",
+    "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.225 in the mean score.",
+    "For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.754 in the mean score.",
+    "For each percentage point increase in unemployment rate, there is an expected decrease of approximately 0.729 in the mean score.",
+    "A 1% increase in median income is associated with a decrease of 0.199 in the mean score, indicating a complex relationship with other socioeconomic factors.",
+    "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.936 in the mean score.",
+    "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.564 in the mean score.",
+    "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 3.805 in the mean score.",
+    "For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435).",
+    "The model explains approximately 67.52% of the variance in the mean score for all students in the dataset."
+  )
+)
+
+
+kable(coefficients_table_mississippi, format = "markdown", 
+      col.names = c("Term", "Coefficient Estimate", "Interpretation"),
+      caption = "Interpretations of Weighted Regression Model Coefficients for Mississippi")
+
+```
 
 ------------------------------------------------------------------------
 
