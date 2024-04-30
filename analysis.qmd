@@ -52,11 +52,14 @@ If you are directly quoting from a source, please make that clear. You can show 
 
 ```{r, echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(kableExtra))
 library(tidyverse)
 library(dplyr)
 library(readr)
 library(broom)
 library(knitr)
+library(jtools)
+library(kableExtra)
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 massachusetts_data <- cleaned_seda %>%
@@ -68,11 +71,11 @@ selected_variables_MA <- massachusetts_data %>%
 
 weights <- 1/selected_variables_MA$povertyall 
 
-weighted_regression <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+weighted_regression_MA <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
                           data = selected_variables_MA,
                           weights = weights)
 
-summary(weighted_regression) #make this a nicer table?
+summ(weighted_regression_MA, type="text") #make this a nicer table?
 
 ```
 
@@ -84,7 +87,7 @@ library(readr)
 library(broom)
 library(forestplot)
 
-regMA <- tidy(weighted_regression)
+regMA <- tidy(weighted_regression_MA)
 
 regMA <- regMA %>% 
   mutate(upper = estimate + std.error) %>% 
