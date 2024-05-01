@@ -23,6 +23,9 @@ This article dives into the complex interplay of socioeconomic factors that shap
 In Massachusetts and Mississippi, the chasm in educational outcomes extends beyond mere geography and taps directly into profound socioeconomic disparities.
 Our analysis, focusing on district-level data, demonstrates a stark correlation: in areas where economic disadvantage is more pronounced, educational performance, particularly in language and math, significantly declines.
 
+In the second part of our analysis, we document that the factors influencing test scores have relatively similar impact estimates in both states.
+This indicates that individual district demographic factors have similar impacts on test scores regardless of the state's overall test score level.
+
 ------------------------------------------------------------------------
 
 ## Data and Methodology
