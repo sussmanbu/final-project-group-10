@@ -178,6 +178,8 @@ Finally, the racial composition of districts also plays a critical role in educa
 Our analysis indicates varied performance across different racial groups, with significant disparities evident between and within states.
 These findings provoke a broader discussion on the intersection of race, education, and socioeconomic status.
 
+## Discussion
+
 Our exploration reveals a troubling yet clear picture: socioeconomic factors like poverty, unemployment, and parental education significantly influence educational outcomes in Massachusetts and Mississippi.
 This underscores the urgent need for policy interventions aimed at reducing educational disparities as a step towards greater social equity.
 
