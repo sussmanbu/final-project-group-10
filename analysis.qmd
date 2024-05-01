@@ -386,7 +386,7 @@ summary(robust_model_MS)
 cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
 ```
 
-### MS Robust Regression Forest Plot 
+### MS Robust Regression Forest Plot
 
 ```{r, echo=FALSE}
 library(tidyverse)
