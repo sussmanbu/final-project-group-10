@@ -180,10 +180,12 @@ This underscores the urgent need for policy interventions aimed at reducing educ
 
 The heart of our analysis was focused on examining if the factors influencing test scores have the similar effect at similar rates across two states with very different overall test score levels.
 In other words, does the percent of Asian students have the same influence on test scores in a state that has low overall test scores as a state that has high overall test scores?
-Is the effect lessened by having higher overall levels?
+Is the effect dampened by having higher overall levels?
 Is the same true for the rate of black students?
 White students?
 Economically disadvantaged students?
+
+## Results
 
 ## Call to Action
 
