@@ -196,7 +196,7 @@ kable(average_scores)
 
 ### Data on the Map:
 As you can see from the map of Massachusetts and Mississippi, districts with a lower percentage of economically disadvantaged students tend to have higher mean scores, while those with a higher percentage of economically disadvantaged students generally exhibit lower mean scores overall.
-```{r, echo=FALSE, message=FALSE, warning= FALSE}
+```{r, echo=FALSE, message=FALSE, warning= FALSE, results='hide'}
 library(tidycensus)
 library(tigris)
 library(sf)
@@ -206,7 +206,7 @@ library(stringdist)
 
 
 ma_districts <- school_districts(state = "25", type = "unified", cb = TRUE) %>% 
-  st_as_sf()  
+  st_as_sf()
 ma_districts <- ma_districts %>%
   mutate(NAME = gsub(" School District", "", NAME))
 
@@ -246,10 +246,6 @@ ggplot(data = ma_data_geo) +
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8))
 
-
-```
-
-```{r, echo=FALSE}
 ggplot(data = ma_data_geo) +
   geom_sf(aes(fill = avg_mn_score_all), color = "white", size = 0.1) + 
   scale_fill_viridis_c(name = "Mean Score", begin = 0, end = 1) + 
@@ -260,9 +256,10 @@ ggplot(data = ma_data_geo) +
   theme(plot.title = element_text(face = "bold", size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8))
+
 ```
 
-```{r, echo=FALSE, message=FALSE, warning= FALSE}
+```{r, echo=FALSE, message=FALSE, warning= FALSE, results='hide'}
 
 ms_districts <- school_districts(state = "28", type = "unified", cb = TRUE) %>% 
   st_as_sf()  
