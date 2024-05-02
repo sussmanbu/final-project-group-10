@@ -22,6 +22,39 @@ In Massachusetts and Mississippi, the chasm in educational outcomes extends beyo
 ## Data and Methodology
 Our study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics. By analyzing these variables, we aim to paint a detailed picture of how socioeconomic factors influence student performance across diverse communities.
 
+### Description of Variables
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+variable_descriptions <- data.frame(
+  Variable = c("mn_score_all", 
+               "perecd",
+               "povertyall",
+               "unempall",
+               "lninc50all",
+               "baplusall",
+               "perblk",
+               "perasn",
+               "perwht"
+               ),
+  Description = c(
+    "Average test scores for the district; Anything less than -0.75 is below basic. Between -0.75 and 0.05 is basic. Between 0.05 and 1.0 is proficient. Above 1.0 is advanced.",
+    "Percentage of Economically disadvantaged students",
+    "Poverty rate in the district",
+    "Unemployment rate in the district",
+    "Natural Log of Median Income",
+    "Percentage of Parents had Bachelor's Degree or Above",
+    "Percentage of Black Students",
+    "Percentage of Asian Students",
+    "Percentage of White Students"
+  )
+)
+
+kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Description"),
+      caption = "Description of Variables in the Dataset")
+
+```
+
 ### Massachusetts
 ```{r MAhist, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
@@ -127,7 +160,7 @@ The racial composition histograms are a mosaic of demographic diversity. Massach
 
 Poverty and unemployment in Mississippi seem to walk hand in hand, with histograms skewing towards higher rates than those in Massachusetts. It's a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement.
 
-----
+### Mean Score of MA and MS
 
 ```{r, echo=FALSE}
 ma_ms_data <- cleaned_seda[cleaned_seda$state %in% c("MA", "MS"), ]
@@ -135,6 +168,132 @@ ma_ms_data <- cleaned_seda[cleaned_seda$state %in% c("MA", "MS"), ]
 average_scores <- aggregate(mn_score_all ~ state, data = ma_ms_data, FUN = mean)
 
 kable(average_scores)
+```
+
+
+### Data on the Map:
+As you can see from the map of Massachusetts and Mississippi, districts with a lower percentage of economically disadvantaged students tend to have higher mean scores, while those with a higher percentage of economically disadvantaged students generally exhibit lower mean scores overall.
+```{r, echo=FALSE, message=FALSE, warning= FALSE}
+library(tidycensus)
+library(tigris)
+library(sf)
+library(ggplot2)
+library(dplyr)
+library(stringdist)
+
+
+ma_districts <- school_districts(state = "25", type = "unified", cb = TRUE) %>% 
+  st_as_sf()  
+ma_districts <- ma_districts %>%
+  mutate(NAME = gsub(" School District", "", NAME))
+
+
+massachusetts_data_map <- cleaned_seda %>%
+  filter(state == "MA") %>%
+  select(district, mn_score_all, perecd)
+
+
+ma_districts$name <- tolower(gsub("[^a-zA-Z0-9]", "", ma_districts$NAME))
+massachusetts_data_map$district <- tolower(gsub("[^a-zA-Z0-9]", "", massachusetts_data_map$district))
+
+
+
+matches <- stringdist::amatch(massachusetts_data_map$district, ma_districts$name, maxDist = 10)
+
+
+massachusetts_data_map$GEOID <- ma_districts$GEOID[matches]
+
+
+ma_data_geo <- left_join(ma_districts, massachusetts_data_map, by = "GEOID") %>%
+  group_by(district) %>%
+  mutate(avg_perecd = mean(perecd), avg_mn_score_all = mean(mn_score_all)) %>%
+  ungroup()
+
+
+
+
+ggplot(data = ma_data_geo) +
+  geom_sf(aes(fill = avg_perecd), color = "white", size = 0.1) + 
+  scale_fill_viridis_c(name = "Econ Disadv (%)", begin = 0, end = 1) + 
+  labs(title = "Map of Economically Disadvantaged Students in MA",
+       subtitle = "District-level Analysis",
+       caption = "Source: Cleaned SEDA Dataset") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8))
+
+
+```
+
+```{r, echo=FALSE}
+ggplot(data = ma_data_geo) +
+  geom_sf(aes(fill = avg_mn_score_all), color = "white", size = 0.1) + 
+  scale_fill_viridis_c(name = "Mean Score", begin = 0, end = 1) + 
+  labs(title = "Map of Mean Score of All Students in MA",
+       subtitle = "District-level Analysis",
+       caption = "Source: Cleaned SEDA Dataset") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8))
+```
+
+```{r, echo=FALSE, message=FALSE, warning= FALSE}
+
+ms_districts <- school_districts(state = "28", type = "unified", cb = TRUE) %>% 
+  st_as_sf()  
+ms_districts <- ms_districts %>%
+  mutate(NAME = gsub(" School District", "", NAME))
+
+
+mississippi_data_map <- cleaned_seda %>%
+  filter(state == "MS") %>%
+  select(district, mn_score_all, perecd)
+
+
+ms_districts$name <- tolower(gsub("[^a-zA-Z0-9]", "", ms_districts$NAME))
+mississippi_data_map$district <- tolower(gsub("[^a-zA-Z0-9]", "", mississippi_data_map$district))
+
+
+
+matches <- stringdist::amatch(mississippi_data_map$district, ms_districts$name, maxDist = 10)
+
+
+mississippi_data_map$GEOID <- ms_districts$GEOID[matches]
+
+
+ms_data_geo <- left_join(ms_districts, mississippi_data_map, by = "GEOID") %>%
+  group_by(district) %>%
+  mutate(avg_perecd = mean(perecd), avg_mn_score_all = mean(mn_score_all)) %>%
+  ungroup()
+
+
+
+
+ggplot(data = ms_data_geo) +
+  geom_sf(aes(fill = avg_perecd), color = "white", size = 0.1) + 
+  scale_fill_viridis_c(name = "Econ Disadv (%)", begin = 0, end = 1) + 
+  labs(title = "Map of Economically Disadvantaged Students in MS",
+       subtitle = "District-level Analysis",
+       caption = "Source: Cleaned SEDA Dataset") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8))
+
+
+ggplot(data = ms_data_geo) +
+  geom_sf(aes(fill = avg_mn_score_all), color = "white", size = 0.1) + 
+  scale_fill_viridis_c(name = "Mean Score", begin = 0, end = 1) + 
+  labs(title = "Map of Mean Score of All Students in MS",
+       subtitle = "District-level Analysis",
+       caption = "Source: Cleaned SEDA Dataset") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8))
+
 ```
 
 
@@ -157,6 +316,8 @@ Our exploration reveals a troubling yet clear picture: socioeconomic factors lik
 
 ## Call to Action
 Understanding these disparities is just the beginning. We must now turn insights into action. By supporting policies that target educational equity—such as improving access to quality education, enhancing parental support programs, and addressing systemic poverty—we can begin to close this educational gap. Let's commit to making a difference, not just in Massachusetts and Mississippi, but across the nation.
+
+
 
 ## Rubric: On this page
 
