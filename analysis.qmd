@@ -9,13 +9,7 @@ draft: false
 
 This comes from the file `analysis.qmd`.
 
-We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
 
-The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
-
-While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
-
-The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
 
 ### Example of loading data
 
@@ -42,9 +36,16 @@ If you are directly quoting from a source, please make that clear. You can show 
 
 > To be or not to be.
 
-# Final exploratory modeling
 
-------------------------------------------------------------------------
+
+
+# The question we want to address
+We aim to analyze how economic disadvantage correlates with educational performance in language and math across districts within the two states, examining the extent to which factors like median income and unemployment rates influence student performance. Our study also compares the educational outcomes between the two states to assess whether variations in economic conditions contribute to differences in performance. Additionally, we consider the role of racial demographics in this context, investigating how economic disparities affect different racial groups regarding their educational success. Finally, we look at the consistency of these relationships over time to identify any trends or changes, enhancing our understanding of how economic factors have historically influenced educational outcomes.
+
+# Modeling
+* Outline
+  + Weighted Regression Model
+  + Robust Regression Model
 
 ## Weighted Regression Model
 
@@ -456,6 +457,14 @@ kable(interpretations_df, format = "markdown", caption = "Interpretations of the
 ```
 
 ------------------------------------------------------------------------
+
+We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
+
+The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
+
+While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
+
+The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
 
 ## Rubric: On this page
 
