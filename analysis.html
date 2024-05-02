@@ -149,7 +149,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#example-of-loading-data" id="toc-example-of-loading-data" class="nav-link active" data-scroll-target="#example-of-loading-data">Example of loading data</a></li>
   <li><a href="#note-on-attribution" id="toc-note-on-attribution" class="nav-link" data-scroll-target="#note-on-attribution">Note on Attribution</a></li>
+  <li><a href="#the-question-we-want-to-address" id="toc-the-question-we-want-to-address" class="nav-link" data-scroll-target="#the-question-we-want-to-address">The question we want to address</a></li>
+  <li><a href="#modeling" id="toc-modeling" class="nav-link" data-scroll-target="#modeling">Modeling</a>
+  <ul class="collapse">
+  <li><a href="#weighted-regression-model" id="toc-weighted-regression-model" class="nav-link" data-scroll-target="#weighted-regression-model">Weighted Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#massachusetts-weighted-regression-model" id="toc-massachusetts-weighted-regression-model" class="nav-link" data-scroll-target="#massachusetts-weighted-regression-model">Massachusetts Weighted Regression Model</a></li>
+  <li><a href="#interpretation-for-ma-weighted-regression-model" id="toc-interpretation-for-ma-weighted-regression-model" class="nav-link" data-scroll-target="#interpretation-for-ma-weighted-regression-model">Interpretation for MA Weighted Regression Model</a></li>
+  </ul></li>
+  <li><a href="#mississippi-weighted-regression-model" id="toc-mississippi-weighted-regression-model" class="nav-link" data-scroll-target="#mississippi-weighted-regression-model">Mississippi Weighted Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#mississippi-forest-plot" id="toc-mississippi-forest-plot" class="nav-link" data-scroll-target="#mississippi-forest-plot">Mississippi Forest Plot</a></li>
+  <li><a href="#interpretation-for-ms-weighted-regression-model" id="toc-interpretation-for-ms-weighted-regression-model" class="nav-link" data-scroll-target="#interpretation-for-ms-weighted-regression-model">Interpretation for MS Weighted Regression Model</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#robust-regression-model" id="toc-robust-regression-model" class="nav-link" data-scroll-target="#robust-regression-model">Robust Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#massachusetts-robust-regression-model" id="toc-massachusetts-robust-regression-model" class="nav-link" data-scroll-target="#massachusetts-robust-regression-model">Massachusetts Robust Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-for-ma-robust-regression-model" id="toc-interpretation-for-ma-robust-regression-model" class="nav-link" data-scroll-target="#interpretation-for-ma-robust-regression-model">Interpretation for MA Robust Regression Model</a></li>
+  </ul></li>
+  <li><a href="#mississippi-robust-regression-model" id="toc-mississippi-robust-regression-model" class="nav-link" data-scroll-target="#mississippi-robust-regression-model">Mississippi Robust Regression Model</a>
+  <ul class="collapse">
+  <li><a href="#ms-robust-regression-forest-plot" id="toc-ms-robust-regression-forest-plot" class="nav-link" data-scroll-target="#ms-robust-regression-forest-plot">MS Robust Regression Forest Plot</a></li>
+  <li><a href="#interpretation-for-ms-robust-regression-model" id="toc-interpretation-for-ms-robust-regression-model" class="nav-link" data-scroll-target="#interpretation-for-ms-robust-regression-model">Interpretation for MS Robust Regression Model</a></li>
+  </ul></li>
   <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -180,34 +206,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p><img src="images/analysis page.jpeg" class="img-fluid"></p>
 <p>This comes from the file <code>analysis.qmd</code>.</p>
-<p>We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You’ll also reflect on next steps and further analysis.</p>
-<p>The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.</p>
-<p>While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.</p>
-<p>The style of this paper should aim to be that of an academic paper. I don’t expect this to be of publication quality but you should keep that aim in mind. Avoid using “we” too frequently, for example “We also found that …”. Describe your methodology and your findings but don’t describe your whole process.</p>
 <section id="example-of-loading-data" class="level3">
 <h3 class="anchored" data-anchor-id="example-of-loading-data">Example of loading data</h3>
 <p>The code below shows an example of loading the loan refusal data set (which you should delete at some point).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(gridExtra))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.3     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::combine() masks gridExtra::combine()
-✖ dplyr::filter()  masks stats::filter()
-✖ dplyr::lag()     masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">getwd</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">getwd</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/taeloranderson/Desktop/MA415/final-project-group-10"</code></pre>
+<pre><code>[1] "/Users/ianli/Desktop/MA415/Final Project/final-project-group-10"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"dataset/loan_refusal_clean.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"dataset/loan_refusal_clean.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 20 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -218,8 +227,8 @@ dbl (4): min, white, himin, hiwhite
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"dataset/loan_refusal.RData"</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">ls</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"dataset/loan_refusal.RData"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">ls</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "data"            "has_annotations" "loan_data_clean"</code></pre>
 </div>
@@ -233,7 +242,704 @@ dbl (4): min, white, himin, hiwhite
 <blockquote class="blockquote">
 <p>To be or not to be.</p>
 </blockquote>
+</section>
+<section id="the-question-we-want-to-address" class="level1">
+<h1>The question we want to address</h1>
+<p>We aim to analyze how economic disadvantage correlates with educational performance in language and math across districts within the two states, examining the extent to which factors like median income and unemployment rates influence student performance. Our study also compares the educational outcomes between the two states to assess whether variations in economic conditions contribute to differences in performance. Additionally, we consider the role of racial demographics in this context, investigating how economic disparities affect different racial groups regarding their educational success. Finally, we look at the consistency of these relationships over time to identify any trends or changes, enhancing our understanding of how economic factors have historically influenced educational outcomes.</p>
+</section>
+<section id="modeling" class="level1">
+<h1>Modeling</h1>
+<ul>
+<li>Outline
+<ul>
+<li>Weighted Regression Model</li>
+<li>Robust Regression Model</li>
+</ul></li>
+</ul>
+<section id="weighted-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="weighted-regression-model">Weighted Regression Model</h2>
+<section id="massachusetts-weighted-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="massachusetts-weighted-regression-model">Massachusetts Weighted Regression Model</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">4775</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">mn_score_all</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(8,4766)</td>
+<td style="text-align: right;">1948.86</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Est.</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">S.E.</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">t val.</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">3.28</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">perecd</td>
+<td style="text-align: right;">-0.83</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">-21.51</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">povertyall</td>
+<td style="text-align: right;">-0.75</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">-6.15</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">unempall</td>
+<td style="text-align: right;">2.16</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">15.75</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">lninc50all</td>
+<td style="text-align: right;">-0.06</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">-3.19</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">baplusall</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">35.19</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">perblk</td>
+<td style="text-align: right;">-0.16</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">-2.38</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">perasn</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">14.99</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">perwht</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">3.07</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: grid</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: checkmate</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: abind</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="interpretation-for-ma-weighted-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-for-ma-weighted-regression-model">Interpretation for MA Weighted Regression Model</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Interpretations of Weighted Regression Model Coefficients for Massachusetts</caption>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Coefficient Estimate</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: right;">0.74363</td>
+<td style="text-align: left;">Baseline mean score for all students, when all predictors are at zero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perecd</td>
+<td style="text-align: right;">-0.83297</td>
+<td style="text-align: left;">For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.833 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">povertyall</td>
+<td style="text-align: right;">-0.75291</td>
+<td style="text-align: left;">For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.753 in the mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unempall</td>
+<td style="text-align: right;">2.16004</td>
+<td style="text-align: left;">For each percentage point increase in unemployment rate, there is an unexpected increase of approximately 2.160 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lninc50all</td>
+<td style="text-align: right;">-0.06063</td>
+<td style="text-align: left;">A 1% increase in median income is associated with a decrease of 0.061 in the mean score, indicating a complex relationship with other socioeconomic factors.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">baplusall</td>
+<td style="text-align: right;">0.92817</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of parents with a bachelor’s degree or higher, there is an expected increase of approximately 0.928 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perblk</td>
+<td style="text-align: right;">-0.15714</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.157 in the mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perasn</td>
+<td style="text-align: right;">0.93507</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 0.935 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perwht</td>
+<td style="text-align: right;">0.12889</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R-squared</td>
+<td style="text-align: right;">0.76590</td>
+<td style="text-align: left;">The model explains approximately 76.59% of the variance in the mean score for all students in the dataset.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="mississippi-weighted-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="mississippi-weighted-regression-model">Mississippi Weighted Regression Model</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">2836</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">mn_score_all</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(8,2827)</td>
+<td style="text-align: right;">734.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">0.68</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">0.67</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Est.</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">S.E.</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">t val.</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">2.31</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">5.92</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">perecd</td>
+<td style="text-align: right;">-0.23</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">-6.18</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">povertyall</td>
+<td style="text-align: right;">-0.75</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">-6.31</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">unempall</td>
+<td style="text-align: right;">-0.73</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">-4.49</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">lninc50all</td>
+<td style="text-align: right;">-0.20</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">-5.74</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">baplusall</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">14.36</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">perblk</td>
+<td style="text-align: right;">-0.56</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">-7.66</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">perasn</td>
+<td style="text-align: right;">3.81</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">8.20</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">perwht</td>
+<td style="text-align: right;">-0.06</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">-0.78</td>
+<td style="text-align: right;">0.43</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+</div>
+</div>
+<section id="mississippi-forest-plot" class="level3">
+<h3 class="anchored" data-anchor-id="mississippi-forest-plot">Mississippi Forest Plot</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="interpretation-for-ms-weighted-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-for-ms-weighted-regression-model">Interpretation for MS Weighted Regression Model</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Interpretations of Weighted Regression Model Coefficients for Mississippi</caption>
+<colgroup>
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 87%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Coefficient Estimate</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: right;">2.31107</td>
+<td style="text-align: left;">Baseline mean score for all students, when all predictors are at zero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perecd</td>
+<td style="text-align: right;">-0.22535</td>
+<td style="text-align: left;">For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.225 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">povertyall</td>
+<td style="text-align: right;">-0.75443</td>
+<td style="text-align: left;">For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.754 in the mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unempall</td>
+<td style="text-align: right;">-0.72945</td>
+<td style="text-align: left;">For each percentage point increase in unemployment rate, there is an expected decrease of approximately 0.729 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lninc50all</td>
+<td style="text-align: right;">-0.19933</td>
+<td style="text-align: left;">A 1% increase in median income is associated with a decrease of 0.199 in the mean score, indicating a complex relationship with other socioeconomic factors.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">baplusall</td>
+<td style="text-align: right;">0.93576</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of parents with a bachelor’s degree or higher, there is an expected increase of approximately 0.936 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perblk</td>
+<td style="text-align: right;">-0.56360</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.564 in the mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perasn</td>
+<td style="text-align: right;">3.80540</td>
+<td style="text-align: left;">For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 3.805 in the mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perwht</td>
+<td style="text-align: right;">-0.05968</td>
+<td style="text-align: left;">For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R-squared</td>
+<td style="text-align: right;">0.67520</td>
+<td style="text-align: left;">The model explains approximately 67.52% of the variance in the mean score for all students in the dataset.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="robust-regression-model" class="level1">
+<h1>Robust Regression Model</h1>
+<section id="massachusetts-robust-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="massachusetts-robust-regression-model">Massachusetts Robust Regression Model</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call: rlm(formula = mn_score_all ~ perecd + povertyall + unempall + 
+    lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MA)
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.686284 -0.091326 -0.005956  0.095575  0.906861 
+
+Coefficients:
+            Value    Std. Error t value 
+(Intercept)   0.6881   0.2257     3.0493
+perecd       -0.8944   0.0334   -26.7885
+povertyall   -0.7035   0.1054    -6.6759
+unempall      2.1884   0.1325    16.5164
+lninc50all   -0.0418   0.0190    -2.2032
+baplusall     0.8714   0.0257    33.8958
+perblk       -0.3181   0.0457    -6.9610
+perasn        0.7202   0.0541    13.3028
+perwht       -0.0039   0.0288    -0.1344
+
+Residual standard error: 0.1381 on 4766 degrees of freedom</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Pseudo R-squared:  0.7696934 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>+-----------------+-----------+---------+----------+------------+
+|                 |      Est. |    S.E. |  z value |          p |
++=================+===========+=========+==========+============+
+| (Intercept)     |    0.6881 |  0.2654 |    2.593 |   0.009521 |
++-----------------+-----------+---------+----------+------------+
+| perecd          |   -0.8944 | 0.03791 |   -23.59 | 4.548e-123 |
++-----------------+-----------+---------+----------+------------+
+| povertyall      |   -0.7035 |  0.1189 |   -5.917 |  3.285e-09 |
++-----------------+-----------+---------+----------+------------+
+| unempall        |     2.188 |   0.143 |    15.31 |   6.85e-53 |
++-----------------+-----------+---------+----------+------------+
+| lninc50all      |  -0.04183 | 0.02222 |   -1.883 |    0.05975 |
++-----------------+-----------+---------+----------+------------+
+| baplusall       |    0.8714 | 0.02792 |    31.21 | 8.446e-214 |
++-----------------+-----------+---------+----------+------------+
+| perblk          |   -0.3181 | 0.06384 |   -4.983 |  6.272e-07 |
++-----------------+-----------+---------+----------+------------+
+| perasn          |    0.7202 |  0.0658 |    10.95 |  6.938e-28 |
++-----------------+-----------+---------+----------+------------+
+| perwht          | -0.003871 | 0.04128 | -0.09376 |     0.9253 |
++-----------------+-----------+---------+----------+------------+</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="interpretation-for-ma-robust-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-for-ma-robust-regression-model">Interpretation for MA Robust Regression Model</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Interpretations of the Robust Regression Model Coefficients</caption>
+<colgroup>
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 87%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.6881</td>
+<td style="text-align: left;">Baseline mean score for all students on the logged scale when all predictors are at zero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perecd</td>
+<td style="text-align: right;">-0.8944</td>
+<td style="text-align: left;">Each percentage point increase in economically disadvantaged students is associated with a 0.8944 point decrease in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">povertyall</td>
+<td style="text-align: right;">-0.7035</td>
+<td style="text-align: left;">Each percentage point increase in poverty rate is associated with a 0.7035 point decrease in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unempall</td>
+<td style="text-align: right;">2.1884</td>
+<td style="text-align: left;">Each percentage point increase in unemployment rate is associated with a 2.1884 point increase in mean score, which is counterintuitive.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lninc50all</td>
+<td style="text-align: right;">-0.0418</td>
+<td style="text-align: left;">A 1% increase in median income (not logged) is associated with a 0.0418 point decrease in mean score, which may indicate the presence of other interacting variables.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">baplusall</td>
+<td style="text-align: right;">0.8714</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of parents with a bachelor’s degree is associated with a 0.8714 point increase in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perblk</td>
+<td style="text-align: right;">-0.3181</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of Black students is associated with a 0.3181 point decrease in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perasn</td>
+<td style="text-align: right;">0.7202</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of Asian students is associated with a 0.7202 point increase in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perwht</td>
+<td style="text-align: right;">-0.0039</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of White students is associated with a negligible change in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R-squared</td>
+<td style="text-align: right;">0.7697</td>
+<td style="text-align: left;">The model explains approximately 76.97% of the variance in the mean score for all students in the dataset.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="mississippi-robust-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="mississippi-robust-regression-model">Mississippi Robust Regression Model</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call: rlm(formula = mn_score_all ~ perecd + povertyall + unempall + 
+    lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MS)
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.513638 -0.115744 -0.002019  0.110301  0.741378 
+
+Coefficients:
+            Value   Std. Error t value
+(Intercept)  2.3299  0.3966     5.8746
+perecd      -0.2273  0.0377    -6.0212
+povertyall  -0.7626  0.1188    -6.4197
+unempall    -0.6635  0.1555    -4.2662
+lninc50all  -0.2040  0.0353    -5.7726
+baplusall    0.9211  0.0677    13.6061
+perblk      -0.5384  0.0729    -7.3860
+perasn       4.3782  0.5150     8.5013
+perwht      -0.0387  0.0762    -0.5085
+
+Residual standard error: 0.1679 on 2827 degrees of freedom</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Pseudo R-squared:  0.6624828 </code></pre>
+</div>
+</div>
+<section id="ms-robust-regression-forest-plot" class="level3">
+<h3 class="anchored" data-anchor-id="ms-robust-regression-forest-plot">MS Robust Regression Forest Plot</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="interpretation-for-ms-robust-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-for-ms-robust-regression-model">Interpretation for MS Robust Regression Model</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Interpretations of the Robust Regression Model Coefficients for Mississippi</caption>
+<colgroup>
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 86%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: right;">2.3299</td>
+<td style="text-align: left;">Baseline mean score for all students on the logged scale when all predictors are at zero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perecd</td>
+<td style="text-align: right;">-0.2273</td>
+<td style="text-align: left;">Each percentage point increase in economically disadvantaged students is associated with a 0.2273 point decrease in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">povertyall</td>
+<td style="text-align: right;">-0.7626</td>
+<td style="text-align: left;">Each percentage point increase in poverty rate is associated with a 0.7626 point decrease in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unempall</td>
+<td style="text-align: right;">-0.6635</td>
+<td style="text-align: left;">Each percentage point increase in unemployment rate is associated with a 0.6635 point decrease in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lninc50all</td>
+<td style="text-align: right;">-0.2040</td>
+<td style="text-align: left;">A 1% increase in median income (on the natural log scale) is associated with a 0.2040 point decrease in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">baplusall</td>
+<td style="text-align: right;">0.9211</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of parents with a bachelor’s degree is associated with a 0.9211 point increase in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perblk</td>
+<td style="text-align: right;">-0.5384</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of Black students is associated with a 0.5384 point decrease in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perasn</td>
+<td style="text-align: right;">4.3782</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of Asian students is associated with a 4.3782 point increase in mean score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perwht</td>
+<td style="text-align: right;">-0.0387</td>
+<td style="text-align: left;">Each percentage point increase in the proportion of White students is associated with a 0.0387 point decrease in mean score.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R-squared</td>
+<td style="text-align: right;">0.6625</td>
+<td style="text-align: left;">The model explains approximately 66.25% of the variance in the mean score for all students in the dataset.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <hr>
+<p>We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You’ll also reflect on next steps and further analysis.</p>
+<p>The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.</p>
+<p>While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.</p>
+<p>The style of this paper should aim to be that of an academic paper. I don’t expect this to be of publication quality but you should keep that aim in mind. Avoid using “we” too frequently, for example “We also found that …”. Describe your methodology and your findings but don’t describe your whole process.</p>
+</section>
 </section>
 <section id="rubric-on-this-page" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
@@ -274,6 +980,7 @@ dbl (4): min, white, himin, hiwhite
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -121,11 +121,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#data-files-and-variables" id="toc-data-files-and-variables" class="nav-link" data-scroll-target="#data-files-and-variables">Data Files and Variables</a></li>
   <li><a href="#cleaning" id="toc-cleaning" class="nav-link" data-scroll-target="#cleaning">Cleaning</a></li>
   <li><a href="#summary-of-numerical-variables" id="toc-summary-of-numerical-variables" class="nav-link" data-scroll-target="#summary-of-numerical-variables">Summary of numerical variables</a></li>
+  <li><a href="#visualization-of-variables" id="toc-visualization-of-variables" class="nav-link" data-scroll-target="#visualization-of-variables">Visualization of Variables</a></li>
   </ul></li>
   <li><a href="#second-dataset-adding-more-variables" id="toc-second-dataset-adding-more-variables" class="nav-link" data-scroll-target="#second-dataset-adding-more-variables">Second Dataset (Adding more variables)</a>
   <ul class="collapse">
   <li><a href="#data-files-and-variables-1" id="toc-data-files-and-variables-1" class="nav-link" data-scroll-target="#data-files-and-variables-1">Data Files and Variables</a></li>
   <li><a href="#summary-of-numerical-variables-1" id="toc-summary-of-numerical-variables-1" class="nav-link" data-scroll-target="#summary-of-numerical-variables-1">Summary of numerical variables</a></li>
+  <li><a href="#visualization-of-variables-1" id="toc-visualization-of-variables-1" class="nav-link" data-scroll-target="#visualization-of-variables-1">Visualization of Variables</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -175,8 +177,8 @@ ul.task-list li input[type="checkbox"] {
 <table class="table table-sm table-striped small">
 <caption>Description of Variables in the Dataset</caption>
 <colgroup>
-<col style="width: 17%">
-<col style="width: 82%">
+<col style="width: 7%">
+<col style="width: 92%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -199,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td style="text-align: left;">Mn_score</td>
-<td style="text-align: left;">Average test scores for the district</td>
+<td style="text-align: left;">Average test scores for the district; Anything less than -0.75 is below basic. Between -0.75 and 0.05 is basic. Between 0.05 and 1.0 is proficient. Above 1.0 is advanced.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Numstu</td>
@@ -210,43 +212,43 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Percentage of students in a particular grade</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Subgroups - All</td>
+<td style="text-align: left;">All</td>
 <td style="text-align: left;">All students</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Subgroups - Asn</td>
+<td style="text-align: left;">Asn</td>
 <td style="text-align: left;">Asian students</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Subgroups - Blk</td>
+<td style="text-align: left;">Blk</td>
 <td style="text-align: left;">Black students</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Subgroups - Fem</td>
+<td style="text-align: left;">Fem</td>
 <td style="text-align: left;">Female students</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Subgroups - Hsp</td>
+<td style="text-align: left;">Hsp</td>
 <td style="text-align: left;">Hispanic students</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Subgroups - Male</td>
+<td style="text-align: left;">Male</td>
 <td style="text-align: left;">Male students</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Subgroups - Mtr</td>
+<td style="text-align: left;">Mtr</td>
 <td style="text-align: left;">Multiracial students</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Subgroups - Nec</td>
+<td style="text-align: left;">Nec</td>
 <td style="text-align: left;">Not economically disadvantaged students</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Subgroups - Ecd</td>
+<td style="text-align: left;">Ecd</td>
 <td style="text-align: left;">Economically disadvantaged students</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Subgroups - Wht</td>
+<td style="text-align: left;">Wht</td>
 <td style="text-align: left;">White students</td>
 </tr>
 <tr class="odd">
@@ -289,38 +291,313 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="summary-of-numerical-variables" class="level3">
 <h3 class="anchored" data-anchor-id="summary-of-numerical-variables">Summary of numerical variables</h3>
-<p>To begin, we wanted to make summary tables of MA and MS’s general descriptive statistics for the explanatory variables included in our data sets.</p>
+<p>To start, we aimed to create summary tables of the general descriptive statistics for the explanatory variables included in our analysis of Massachusetts (MA) and Mississippi (MS).</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
+<div class="cell-output-display">
 
-Table: Summary Statistics for Massachusetts
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+Variable
+</th>
+<th style="text-align:right;">
+Description
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Median
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+perecd
+</td>
+<td style="text-align:right;">
+Percentage of economically disadvantaged students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #eef6f9">0.009009009</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8b7e">0.9237849</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e0fae0">0.25723116</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f5f5f5">0.21066416</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+povertyall
+</td>
+<td style="text-align:right;">
+Overall poverty rate
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f7fbfc">0.003767741</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fde5e2">0.3341780</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f9fef9">0.07671932</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfcfc">0.06338371</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+unempall
+</td>
+<td style="text-align:right;">
+Unemployment rate
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #edf6f9">0.009126523</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.1654570</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fbfefb">0.06644015</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfcfc">0.06349946</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+perblk
+</td>
+<td style="text-align:right;">
+Percentage of Black students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.000000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcbcb4">0.6057010</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.03854075</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.01873459</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+perasn
+</td>
+<td style="text-align:right;">
+Percentage of Asian students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.000000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdd8d4">0.4195884</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">0.04166573</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">0.02125702</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+perwht
+</td>
+<td style="text-align:right;">
+Percentage of White students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #add8e6">0.043547497</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8072">1.0000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90">0.83332103</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d3d3d3">0.90210655</span>
+</td>
+</tr>
+</tbody>
 
-|Variable   |Description                                       |       Min|       Max|      Mean|    Median|
-|:----------|:-------------------------------------------------|---------:|---------:|---------:|---------:|
-|perecd     |Percentage of economically disadvantaged students | 0.0090090| 0.9237849| 0.2572312| 0.2106642|
-|povertyall |Overall poverty rate                              | 0.0037677| 0.3341780| 0.0767193| 0.0633837|
-|unempall   |Unemployment rate                                 | 0.0091265| 0.1654570| 0.0664401| 0.0634995|
-|perblk     |Percentage of Black students                      | 0.0000000| 0.6057010| 0.0385408| 0.0187346|
-|perasn     |Percentage of Asian students                      | 0.0000000| 0.4195884| 0.0416657| 0.0212570|
-|perwht     |Percentage of White students                      | 0.0435475| 1.0000000| 0.8333210| 0.9021066|</code></pre>
+</table>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+<div class="cell-output-display">
 
-Table: Summary Statistics for Mississippi
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+Variable
+</th>
+<th style="text-align:right;">
+Description
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Median
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+perecd
+</td>
+<td style="text-align:right;">
+Percentage of economically disadvantaged students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #add8e6">0.21128461</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8072">1.00000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90">0.725154384</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d3d3d3">0.707870219</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+povertyall
+</td>
+<td style="text-align:right;">
+Overall poverty rate
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e4f2f7">0.06760336</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fccbc6">0.43864822</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ddf9dd">0.223992864</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f1f1f1">0.219527415</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+unempall
+</td>
+<td style="text-align:right;">
+Unemployment rate
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f1f8fa">0.03440398</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fee9e7">0.21617603</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f0fcf0">0.098541433</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f9f9f9">0.095361948</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+perblk
+</td>
+<td style="text-align:right;">
+Percentage of Black students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f6fafc">0.02304695</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8072">1.00000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #abf2ab">0.544714064</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #dfdfdf">0.505269078</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+perasn
+</td>
+<td style="text-align:right;">
+Percentage of Asian students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.00000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.05819051</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.005957721</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.002673716</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+perwht
+</td>
+<td style="text-align:right;">
+Percentage of White students
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.00000000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8477">0.96406932</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #bff5bf">0.419329515</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e2e2e2">0.458589231</span>
+</td>
+</tr>
+</tbody>
 
-|Variable   |Description                                       |       Min|       Max|      Mean|    Median|
-|:----------|:-------------------------------------------------|---------:|---------:|---------:|---------:|
-|perecd     |Percentage of economically disadvantaged students | 0.2112846| 1.0000000| 0.7251544| 0.7078702|
-|povertyall |Overall poverty rate                              | 0.0676034| 0.4386482| 0.2239929| 0.2195274|
-|unempall   |Unemployment rate                                 | 0.0344040| 0.2161760| 0.0985414| 0.0953619|
-|perblk     |Percentage of Black students                      | 0.0230470| 1.0000000| 0.5447141| 0.5052691|
-|perasn     |Percentage of Asian students                      | 0.0000000| 0.0581905| 0.0059577| 0.0026737|
-|perwht     |Percentage of White students                      | 0.0000000| 0.9640693| 0.4193295| 0.4585892|</code></pre>
+</table>
 </div>
 </div>
-<p>By examining these histograms, we visually analyze the distribution of each variables. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.</p>
+</section>
+<section id="visualization-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-of-variables">Visualization of Variables</h3>
+<p>By examining these histograms, we can visually analyze the distribution of each variable. This visualization helps us understand the spread, central tendency, and potential outliers within the test scores across different racial groups and economic statuses.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
@@ -379,34 +656,195 @@ Table: Summary Statistics for Mississippi
 <h3 class="anchored" data-anchor-id="summary-of-numerical-variables-1">Summary of numerical variables</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+Variable
+</th>
+<th style="text-align:right;">
+Description
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Median
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+lninc50all
+</td>
+<td style="text-align:right;">
+Natural log of median income
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #add8e6">10.348664000</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8072">12.1182110</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90">11.23381391</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d3d3d3">11.22294600</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+baplusall
+</td>
+<td style="text-align:right;">
+Percentage of parents holding at least a Bachelor’s degree
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">0.108037650</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fef9f8">0.8464119</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fbfefb">0.41176147</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfdfd">0.38683075</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+povertyall
+</td>
+<td style="text-align:right;">
+Overall poverty rate
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.003767741</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.3341780</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.07671932</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.06338371</span>
+</td>
+</tr>
+</tbody>
+
+</table>
 </div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+Variable
+</th>
+<th style="text-align:right;">
+Description
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Median
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+lninc50all
+</td>
+<td style="text-align:right;">
+Natural log of median income
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #add8e6">9.85782910</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fa8072">11.2068380</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90">10.4684077</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d3d3d3">10.4519910</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+baplusall
+</td>
+<td style="text-align:right;">
+Percentage of parents holding at least a Bachelor’s degree
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.03869108</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefdfd">0.5401447</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.1707087</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.1499818</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+povertyall
+</td>
+<td style="text-align:right;">
+Overall poverty rate
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">0.06760336</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.4386482</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">0.2239929</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">0.2195274</span>
+</td>
+</tr>
+</tbody>
+
+</table>
 </div>
 </div>
+</section>
+<section id="visualization-of-variables-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-of-variables-1">Visualization of Variables</h3>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-
-Table: Selected Summary Statistics for Massachusetts
-
-|Variable   |Description                                                |        Min|        Max|       Mean|     Median|
-|:----------|:----------------------------------------------------------|----------:|----------:|----------:|----------:|
-|lninc50all |Natural log of median income                               | 10.3486640| 12.1182110| 11.2338139| 11.2229460|
-|baplusall  |Percentage of parents holding at least a Bachelor's degree |  0.1080376|  0.8464119|  0.4117615|  0.3868308|
-|povertyall |Overall poverty rate                                       |  0.0037677|  0.3341780|  0.0767193|  0.0633837|</code></pre>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-
-Table: Selected Summary Statistics for Mississippi
-
-|Variable   |Description                                                |       Min|        Max|       Mean|     Median|
-|:----------|:----------------------------------------------------------|---------:|----------:|----------:|----------:|
-|lninc50all |Natural log of median income                               | 9.8578291| 11.2068380| 10.4684077| 10.4519910|
-|baplusall  |Percentage of parents holding at least a Bachelor's degree | 0.0386911|  0.5401447|  0.1707087|  0.1499818|
-|povertyall |Overall poverty rate                                       | 0.0676034|  0.4386482|  0.2239929|  0.2195274|</code></pre>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

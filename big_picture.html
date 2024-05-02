@@ -113,23 +113,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"><img src="images/Big picture page1.jpg" class="img-fluid"></a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#thesis-statement" id="toc-thesis-statement" class="nav-link" data-scroll-target="#thesis-statement">Thesis Statement</a></li>
   <li><a href="#data-and-methodology" id="toc-data-and-methodology" class="nav-link" data-scroll-target="#data-and-methodology">Data and Methodology</a>
   <ul class="collapse">
+  <li><a href="#description-of-variables" id="toc-description-of-variables" class="nav-link" data-scroll-target="#description-of-variables">Description of Variables</a></li>
   <li><a href="#massachusetts" id="toc-massachusetts" class="nav-link" data-scroll-target="#massachusetts">Massachusetts</a></li>
   <li><a href="#mississippi" id="toc-mississippi" class="nav-link" data-scroll-target="#mississippi">Mississippi</a></li>
-  </ul></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
-  <ul class="collapse">
+  <li><a href="#mean-score-of-ma-and-ms" id="toc-mean-score-of-ma-and-ms" class="nav-link" data-scroll-target="#mean-score-of-ma-and-ms">Mean Score of MA and MS</a></li>
+  <li><a href="#data-on-the-map" id="toc-data-on-the-map" class="nav-link" data-scroll-target="#data-on-the-map">Data on the Map:</a></li>
   <li><a href="#economic-factors" id="toc-economic-factors" class="nav-link" data-scroll-target="#economic-factors">Economic Factors</a></li>
   <li><a href="#educational-background-of-parents" id="toc-educational-background-of-parents" class="nav-link" data-scroll-target="#educational-background-of-parents">Educational Background of Parents</a></li>
   <li><a href="#racial-demographics" id="toc-racial-demographics" class="nav-link" data-scroll-target="#racial-demographics">Racial Demographics</a></li>
   </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#call-to-action" id="toc-call-to-action" class="nav-link" data-scroll-target="#call-to-action">Call to Action</a></li>
   <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
   <li><a href="#rubric-other-components" id="toc-rubric-other-components" class="nav-link" data-scroll-target="#rubric-other-components">Rubric: Other components</a>
   <ul class="collapse">
+  <li><a href="#video-recording" id="toc-video-recording" class="nav-link" data-scroll-target="#video-recording">Video Recording</a></li>
   <li><a href="#rest-of-the-site" id="toc-rest-of-the-site" class="nav-link" data-scroll-target="#rest-of-the-site">Rest of the Site</a></li>
   </ul></li>
   </ul>
@@ -160,8 +164,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><img src="images/Big picture page1.jpg" class="img-fluid"></p>
-<hr>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"><img src="images/Big picture page1.jpg" class="img-fluid"></h2>
+</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Imagine two children, one in Massachusetts, the richest state in terms of educational attainment, and the other in Mississippi, ranked lowest on the same scale. Though separated by over a thousand miles, the distance is more than geographical—it’s educational, economic, and deeply rooted in the very fabric of society. This article dives into the complex interplay of socioeconomic factors that shape educational outcomes, revealing how deeply inequality is entrenched from one generation to the next.</p>
@@ -170,11 +175,70 @@ ul.task-list li input[type="checkbox"] {
 <section id="thesis-statement" class="level2">
 <h2 class="anchored" data-anchor-id="thesis-statement">Thesis Statement</h2>
 <p>In Massachusetts and Mississippi, the chasm in educational outcomes extends beyond mere geography and taps directly into profound socioeconomic disparities. Our analysis, focusing on district-level data, demonstrates a stark correlation: in areas where economic disadvantage is more pronounced, educational performance, particularly in language and math, significantly declines.</p>
+<p>In the second part of our analysis, we document that the factors influencing test scores have relatively similar impact estimates in both states. This indicates that individual district demographic factors have similar impacts on test scores regardless of the state’s overall test score level.</p>
 <hr>
 </section>
 <section id="data-and-methodology" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-methodology">Data and Methodology</h2>
 <p>Our study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics. By analyzing these variables, we aim to paint a detailed picture of how socioeconomic factors influence student performance across diverse communities.</p>
+<section id="description-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="description-of-variables">Description of Variables</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Description of Variables in the Dataset</caption>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 92%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mn_score_all</td>
+<td style="text-align: left;">Average test scores for the district; Anything less than -0.75 is below basic. Between -0.75 and 0.05 is basic. Between 0.05 and 1.0 is proficient. Above 1.0 is advanced.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perecd</td>
+<td style="text-align: left;">Percentage of Economically disadvantaged students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">povertyall</td>
+<td style="text-align: left;">Poverty rate in the district</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unempall</td>
+<td style="text-align: left;">Unemployment rate in the district</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lninc50all</td>
+<td style="text-align: left;">Natural Log of Median Income</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">baplusall</td>
+<td style="text-align: left;">Percentage of Parents had Bachelor’s Degree or Above</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perblk</td>
+<td style="text-align: left;">Percentage of Black Students</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perasn</td>
+<td style="text-align: left;">Percentage of Asian Students</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perwht</td>
+<td style="text-align: left;">Percentage of White Students</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 <section id="massachusetts" class="level3">
 <h3 class="anchored" data-anchor-id="massachusetts">Massachusetts</h3>
 <div class="cell">
@@ -195,11 +259,52 @@ ul.task-list li input[type="checkbox"] {
 <p>Economic disadvantage casts long shadows across the Mississippi graph, where the frequency of high percentages is all too common, a reflection of the hardship many students face before they even step into a classroom. Massachusetts, while not immune to these challenges, shows a distribution with fewer districts at the higher end of economic disadvantage, suggesting a different kind of starting line for students.</p>
 <p>The racial composition histograms are a mosaic of demographic diversity. Massachusetts’s ‘White’ bars rise high, a sign of racial homogeneity in many districts. Mississippi tells a different story, with ‘Black’ significantly more represented, raising questions about how racial and economic factors interweave to shape educational outcomes.</p>
 <p>Poverty and unemployment in Mississippi seem to walk hand in hand, with histograms skewing towards higher rates than those in Massachusetts. It’s a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement.</p>
-<hr>
 </section>
+<section id="mean-score-of-ma-and-ms" class="level3">
+<h3 class="anchored" data-anchor-id="mean-score-of-ma-and-ms">Mean Score of MA and MS</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">state</th>
+<th style="text-align: right;">mn_score_all</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MA</td>
+<td style="text-align: right;">0.4624010</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MS</td>
+<td style="text-align: right;">-0.3302381</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<section id="data-on-the-map" class="level3">
+<h3 class="anchored" data-anchor-id="data-on-the-map">Data on the Map:</h3>
+<p>As you can see from the map of Massachusetts and Mississippi, districts with a lower percentage of economically disadvantaged students tend to have higher mean scores, while those with a higher percentage of economically disadvantaged students generally exhibit lower mean scores overall.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="big_picture_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="big_picture_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="big_picture_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="big_picture_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 <section id="economic-factors" class="level3">
 <h3 class="anchored" data-anchor-id="economic-factors">Economic Factors</h3>
 <p>Our initial focus is on economic variables. Poverty and unemployment, often intertwined, emerge as significant predictors of educational success. Districts with higher poverty rates consistently show lower educational outcomes. This pattern underscores the critical role that economic stability plays in supporting academic achievement.</p>
@@ -211,14 +316,20 @@ ul.task-list li input[type="checkbox"] {
 <section id="racial-demographics" class="level3">
 <h3 class="anchored" data-anchor-id="racial-demographics">Racial Demographics</h3>
 <p>Finally, the racial composition of districts also plays a critical role in educational outcomes. Our analysis indicates varied performance across different racial groups, with significant disparities evident between and within states. These findings provoke a broader discussion on the intersection of race, education, and socioeconomic status.</p>
-<hr>
-<p>Our exploration reveals a troubling yet clear picture: socioeconomic factors like poverty, unemployment, and parental education significantly influence educational outcomes in Massachusetts and Mississippi. This underscores the urgent need for policy interventions aimed at reducing educational disparities as a step towards greater social equity.</p>
-<hr>
 </section>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>Our exploration reveals a troubling yet clear picture: socioeconomic factors like poverty, unemployment, and parental education significantly influence educational outcomes in Massachusetts and Mississippi. This underscores the urgent need for policy interventions aimed at reducing educational disparities as a step towards greater social equity.</p>
+<p>The heart of our analysis was focused on examining if the factors influencing test scores have the similar effect at similar rates across two states with very different overall test score levels. In other words, does the percent of Asian students have the same influence on test scores in a state that has low overall test scores as a state that has high overall test scores? Is the effect dampened by having higher overall levels? Is the same true for the rate of black students? White students? Economically disadvantaged students?</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
 </section>
 <section id="call-to-action" class="level2">
 <h2 class="anchored" data-anchor-id="call-to-action">Call to Action</h2>
-<p>Understanding these disparities is just the beginning. We must now turn insights into action. By supporting policies that target educational equity—such as improving access to quality education, enhancing parental support programs, and addressing systemic poverty—we can begin to close this educational gap. Let’s commit to making a difference, not just in Massachusetts and Mississippi, but across the nation.</p>
+<p>Understanding these disparities is just the beginning. We must now turn insights into action. By supporting policies that target educational equity—such as improving access to quality education, enhancing parental support programs, and addressing systemic poverty—we can begin to close this educational gap.</p>
+<p>We can see that two very different states have similar effects on test scores from different demographic characteristics. This is promising for a variety of reasons, but most importantly it indicates that nationwide policies are feasible solutions. Even if test scores are at different levels, the same factors are having similar effects on test scores, which means that changing these demographics (like increasing the rate of parents with a BA) will “lift all boats” across the country.</p>
 </section>
 <section id="rubric-on-this-page" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
@@ -244,6 +355,10 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="rubric-other-components" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-other-components">Rubric: Other components</h2>
+<section id="video-recording" class="level3">
+<h3 class="anchored" data-anchor-id="video-recording">Video Recording</h3>
+<p>Make a video recording (probably using Zoom) demonstrating your interactive components. You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA. This video should be no longer than 4 minutes. Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website. This can be presented by any subset of the team members.</p>
+</section>
 <section id="rest-of-the-site" class="level3">
 <h3 class="anchored" data-anchor-id="rest-of-the-site">Rest of the Site</h3>
 <p>Finally, here are important things to keep in mind for the rest of the site.</p>
