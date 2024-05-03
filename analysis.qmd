@@ -11,43 +11,35 @@ This comes from the file `analysis.qmd`.
 
 
 
-### Example of loading data
-
-The code below shows an example of loading the loan refusal data set (which you should delete at some point).
-
-```{r}
-suppressPackageStartupMessages(library(tidyverse))
-library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
-```
-
 ## Note on Attribution
 
 In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
 
 If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
 
-```         
-> To be or not to be.
-```
-
-> To be or not to be.
 
 
 
 
-# The question we want to address
+
+# Motivation and Research
+
+## Motivation
 We aim to analyze how economic disadvantage correlates with educational performance in language and math across districts within the two states, examining the extent to which factors like median income and unemployment rates influence student performance. Our study also compares the educational outcomes between the two states to assess whether variations in economic conditions contribute to differences in performance. Additionally, we consider the role of racial demographics in this context, investigating how economic disparities affect different racial groups regarding their educational success. Finally, we look at the consistency of these relationships over time to identify any trends or changes, enhancing our understanding of how economic factors have historically influenced educational outcomes.
 
-# Modeling
-* Outline
-  + Weighted Regression Model
-  + Robust Regression Model
+## Relationship Exploration
 
-## Weighted Regression Model
+
+# Models
+
+## Outline
+1. Weighted Regression Model
+2. Robust Regression Model
+
+## 1. Weighted Regression Model
+
+### Models Overview
+Since some of the variables are not normally distributed, we decided to use weighted and robust regression models to address these issues. This linear regression model examines the impact of various socioeconomic and demographic factors on mean student scores across districts in Massachusetts. It incorporates variables such as the percentage of economically disadvantaged students (perecd), poverty rate (povertyall), unemployment rate (unempall), natural logarithm of median income (lninc50all), and the percentage of parents with at least a bachelor's degree (baplusall), along with racial demographics (perblk, perasn, perwht). The weighted regression approach is employed to adjust for potential biases or imbalances in the dataset.
 
 ### Massachusetts Weighted Regression Model
 
@@ -76,11 +68,27 @@ weighted_regression_MA <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
                           data = selected_variables_MA,
                           weights = weights)
 
-summ(weighted_regression_MA, type="text") #make this a nicer table?
+summ(weighted_regression_MA, type="text") 
+```
+The model explains approximately 76.59% of the variance in the mean score for all students in the dataset.
+
+### MA Weighted Regression Model Residual Plots
+The values on this plot appear to be randomly distributed around the zero line, indicating that the assumption of constant variance (homoscedasticity) and linearity is satisfied.
+```{r, echo=FALSE}
+residuals_vs_fitted <- ggplot(data = augment(weighted_regression_MA), aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
+
+
+print(residuals_vs_fitted)
 
 ```
 
-```{r, echo=FALSE, warning=FALSE}
+### Visualization of Coefficients
+```{r, echo=FALSE, message=FALSE, warning= FALSE, results='hide'}
 suppressPackageStartupMessages(library(tidyverse))
 library(tidyverse)
 library(dplyr)
@@ -124,7 +132,6 @@ mean = regMA$estimate,
 ```
 
 ### Interpretation for MA Weighted Regression Model
-
 ```{r, echo = FALSE}
 coefficients_table <- data.frame(
   Term = c("Intercept", "perecd", "povertyall", "unempall", 
@@ -151,7 +158,7 @@ kable(coefficients_table, format = "markdown",
       caption = "Interpretations of Weighted Regression Model Coefficients for Massachusetts")
 ```
 
-## Mississippi Weighted Regression Model
+### Mississippi Weighted Regression Model
 
 ```{r, echo=FALSE}
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
@@ -171,9 +178,21 @@ weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
 
 summ(weighted_regression_MS)
 ```
+The model explains approximately 0.68% of the variance in the mean score for all students in the dataset.
 
-### Mississippi Forest Plot
+### MS Weighted Regression Model Residual Plots
+The values on this plot appear to be randomly distributed around the zero line, indicating that the assumption of constant variance (homoscedasticity) and linearity is satisfied.
+```{r, echo=FALSE, warning=FALSE}
+residuals_vs_fitted <- ggplot(data = augment(weighted_regression_MS), aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
+print(residuals_vs_fitted)
+```
 
+### Visualization of Coefficients
 ```{r, echo=FALSE, warning=FALSE}
 library(tidyverse)
 library(dplyr)
@@ -244,9 +263,12 @@ kable(coefficients_table_mississippi, format = "markdown",
 
 ```
 
-# Robust Regression Model
+### Potential Flaws and Limitations
+While one goal of weighted regression might be to reduce the influence of outliers by assigning them lower weights, if not properly managed, outliers with incorrectly assigned high weights can disproportionately influence the model, leading to skewed results. Moreover, the effectiveness of weighted regression often depends on the availability and accuracy of external information to assign weights, which could compromise the reliability of the weighting scheme.
 
-## Massachusetts Robust Regression Model
+## 2. Robust Regression Model
+
+### Massachusetts Robust Regression Model
 
 ```{r, echo=FALSE}
 library(tidyverse)
