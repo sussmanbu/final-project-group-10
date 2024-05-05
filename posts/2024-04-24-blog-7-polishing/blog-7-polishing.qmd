@@ -34,7 +34,7 @@ massachusetts_data <- cleaned_seda %>%
   filter(state == "MA")
 
 selected_variables_MA <- massachusetts_data %>%
-  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
 weights <- 1/selected_variables_MA$povertyall 
@@ -132,7 +132,7 @@ mississippi_data <- cleaned_seda %>%
   filter(state == "MS")
 
 selected_variables_MS <- mississippi_data %>%
-  select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
   filter(if_all(everything(), is.finite))
 
 weights <- 1/selected_variables_MS$povertyall

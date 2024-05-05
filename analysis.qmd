@@ -252,6 +252,7 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(sandwich)
+library(kableExtra)
 suppressPackageStartupMessages(library(MASS))
 
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
@@ -274,12 +275,10 @@ tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_s
 
 rss <- sum(robust_residuals_MA^2)
 
-
 pseudo_r_squared <- 1 - rss/tss
 
 summary(robust_model_MA)
 cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
-jtools::get_robust_se(robust_model_MA)
 ```
 
 ```{r, echo=FALSE}
