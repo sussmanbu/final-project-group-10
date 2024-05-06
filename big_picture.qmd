@@ -28,6 +28,7 @@ This indicates that individual district demographic factors have similar impacts
 
 ------------------------------------------------------------------------
 
+
 ## Data and Methodology
 
 Our study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics.
@@ -65,6 +66,7 @@ kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Des
       caption = "Description of Variables in the Dataset")
 
 ```
+
 
 ### Massachusetts
 
@@ -181,19 +183,6 @@ Poverty and unemployment in Mississippi seem to walk hand in hand, with histogra
 It's a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement.
 
 
-### Mean Score of MA and MS
-
-
-```{r, echo=FALSE}
-ma_ms_data <- cleaned_seda[cleaned_seda$state %in% c("MA", "MS"), ]
-
-average_scores <- aggregate(mn_score_all ~ state, data = ma_ms_data, FUN = mean)
-
-kable(average_scores)
-```
-
-
-
 ### Data on the Map:
 As you can see from the map of Massachusetts and Mississippi, districts with a lower percentage of economically disadvantaged students tend to have higher mean scores, while those with a higher percentage of economically disadvantaged students generally exhibit lower mean scores overall.
 ```{r, echo=FALSE, message=FALSE, warning= FALSE, results='hide'}
@@ -244,7 +233,10 @@ ggplot(data = ma_data_geo) +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", size = 14),
         plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 8))
+        plot.caption = element_text(size = 8),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank())
 
 ggplot(data = ma_data_geo) +
   geom_sf(aes(fill = avg_mn_score_all), color = "white", size = 0.1) + 
@@ -255,7 +247,10 @@ ggplot(data = ma_data_geo) +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", size = 14),
         plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 8))
+        plot.caption = element_text(size = 8),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank())
 
 ```
 
@@ -300,7 +295,10 @@ ggplot(data = ms_data_geo) +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", size = 14),
         plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 8))
+        plot.caption = element_text(size = 8),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank())
 
 
 ggplot(data = ms_data_geo) +
@@ -312,10 +310,25 @@ ggplot(data = ms_data_geo) +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", size = 14),
         plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 8))
+        plot.caption = element_text(size = 8),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank())
 
 ```
 
+
+### Mean Score of MA and MS
+
+As you can see below, the average score for Massachussetts between 2009 and 2018 is much higher than the average score for Mississippi for the same time. This leads us to wonder what factors could have caused this to occur
+
+```{r, echo=FALSE}
+ma_ms_data <- cleaned_seda[cleaned_seda$state %in% c("MA", "MS"), ]
+
+average_scores <- aggregate(mn_score_all ~ state, data = ma_ms_data, FUN = mean)
+
+kable(average_scores)
+```
 
 ### Economic Factors
 
@@ -359,44 +372,4 @@ By supporting policies that target educational equity—such as improving access
 We can see that two very different states have similar effects on test scores from different demographic characteristics.
 This is promising for a variety of reasons, but most importantly it indicates that nationwide policies are feasible solutions.
 Even if test scores are at different levels, the same factors are having similar effects on test scores, which means that changing these demographics (like increasing the rate of parents with a BA) will "lift all boats" across the country.
-
-
-
-## Rubric: On this page
-
-You will
-
--   Title
-    -   Your big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.
--   Clarity of Explanation
-    -   You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don't go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.
-    -   Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
--   Creativity
-    -   Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.
--   This page should be self-contained.
-
-**Note**: This page should have no code visible, i.e. use `#| echo: FALSE`.
-
-------------------------------------------------------------------------
-
-## Rubric: Other components
-
-### Video Recording
-
-Make a video recording (probably using Zoom) demonstrating your interactive components.
-You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA.
-This video should be no longer than 4 minutes.
-Include a link to your video (and password if needed) in your README.md file on your Github repository.
-You are not required to provide a link on the website.
-This can be presented by any subset of the team members.
-
-### Rest of the Site
-
-Finally, here are important things to keep in mind for the rest of the site.
-
-The main title of your page is informative.
-Each post has an author/description/informative title.
-All lab required posts are present.
-Each page (including the home page) has a nice featured image associated with it.
-Your about page is up to date and clean.
-You have removed the generic posts from the initial site template.
+---
