@@ -268,7 +268,6 @@ print(residuals_vs_fitted)
 ### Potential Flaws and Limitations
 While one goal of weighted regression might be to reduce the influence of outliers by assigning them lower weights, if not properly managed, outliers with incorrectly assigned high weights can disproportionately influence the model, leading to skewed results. Moreover, the effectiveness of weighted regression often depends on the availability and accuracy of external information to assign weights, which could compromise the reliability of the weighting scheme.
 
-<<<<<<< HEAD
 ```{r, echo=FALSE}
 library(tidyverse)
 library(dplyr)
@@ -276,17 +275,19 @@ library(readr)
 library(sandwich)
 library(kableExtra)
 suppressPackageStartupMessages(library(MASS))
-=======
+```
+
 # Summary of Analysis
 **Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
->>>>>>> 22fe07fae3a23f7a5955cf1f129813930abc019e
+
+# Summary of Analysis
+**Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
 
 **Racial Demographics**: Racial impacts vary notably between the states. Black students' increased percentages correlate with lower scores, more significantly in Mississippi. In contrast, Asian students' presence markedly improves scores, especially in Mississippi. The effect of White students is mixed, with a slight increase in Massachusetts and an insignificant decrease in Mississippi.
 
 
 
-
-<<<<<<< HEAD
+```{r}
 tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_score_all))^2)
 
 
@@ -303,7 +304,7 @@ suppressPackageStartupMessages(library(tidyverse))
 library(tidyverse)
 library(dplyr)
 library(readr)
-library(broom)
+library(broom)]
 library(forestplot)
 
 robregMA <- tidy(robust_model_MA)
@@ -470,8 +471,7 @@ interpretations_df <- data.frame(
 
 kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients for Mississippi")
 ```
-=======
->>>>>>> 22fe07fae3a23f7a5955cf1f129813930abc019e
+
 
 ------------------------------------------------------------------------
 
