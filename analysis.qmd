@@ -7,49 +7,29 @@ draft: false
 
 ![](images/analysis%20page.jpeg)
 
-This comes from the file `analysis.qmd`.
+# Motivation and Research
 
-We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
+## Motivation and Key Questions
+The main focus of this research is to analyze how economic disadvantage correlates with educational performance in language and math across districts within the two states, examining the extent to which factors like median income and unemployment rates influence student performance. This research also compares the educational outcomes between the two states to assess whether variations in economic conditions contribute to differences in performance. Additionally, it explores the role of racial demographics in this context, investigating how economic disparities affect different racial groups in terms of their educational success. Finally, this study examines the consistency of these relationships over time to identify any trends or changes, thereby enhancing the understanding of how economic factors have historically influenced educational outcomes.
 
-The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
+## Relationship Exploration
+Analyze how economic disadvantage correlates with educational performance in language and math across districts within both states, shedding light on the influence of economic factors such as median income and unemployment rates on student performance. Also, investigate the role of racial demographics in educational outcomes, examining how economic disparities impact different racial groups in terms of their educational success.
 
-While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
 
-The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
+# Modeling and Inference
+* Key information: 
+the explanation of our dependent variable mn_score_all: Average test scores for the district; Anything less than -0.75 is below basic. Between -0.75 and 0.05 is basic. Between 0.05 and 1.0 is proficient. Above 1.0 is advanced.
 
-### Example of loading data
+## Outline
+1. Multiple Linear Regression Model
+1. Weighted Regression Model
 
-The code below shows an example of loading the loan refusal data set (which you should delete at some point).
+## 1. Multiple Linear Regression Model
 
-```{r}
-suppressPackageStartupMessages(library(tidyverse))
-library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
-```
+### Models Overview
+This model investigates the relationship between explanatory variables and mean students scores acorss districts in Massachusetts and Mississippi from economic and racial aspects.
 
-## Note on Attribution
-
-In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
-
-If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
-
-```         
-> To be or not to be.
-```
-
-> To be or not to be.
-
-# Final exploratory modeling
-
-------------------------------------------------------------------------
-
-## Weighted Regression Model
-
-### Massachusetts Weighted Regression Model
-
+### Model Finding: MA Multiple Linear Regression Model
 ```{r, echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(kableExtra))
@@ -60,6 +40,62 @@ library(broom)
 library(knitr)
 library(jtools)
 library(kableExtra)
+
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+massachusetts_data <- cleaned_seda %>%
+  filter(state == "MA")
+
+selected_variables_MA <- massachusetts_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+MLR_MA <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+                          data = selected_variables_MA)
+
+summ(MLR_MA)
+```
+
+### Statistical Performance: MA MLR
+The model's R-squared value is acceptable; however, due to the skewness of some explanatory variables, there may be potential bias affecting the results. Additionally, the p-value for the percentage of white students is 0.53, indicating that it is not statistically significant and does not contribute reliably to the model.
+
+### Model Find: MS Multiple Linear Regression Model
+```{r, echo=FALSE, warning=FALSE}
+cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
+
+mississippi_data <- cleaned_seda %>%
+  filter(state == "MS")
+
+selected_variables_MS <- mississippi_data %>%
+  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
+  filter(if_all(everything(), is.finite))
+
+MLR_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, 
+                          data = selected_variables_MS)
+
+summ(MLR_MS)
+```
+
+### Statistical Performance: MS MLR
+Same as the MA MLR, the model's R-squared value is acceptable; however, due to the skewness of some explanatory variables, there may be potential bias affecting the results.
+
+## 2. Weighted Regression Model
+
+### Models Overview: Why this model
+Due to the skewness of some explanatory variables, potential biases may affect the results in the MLR; therefore, the use **weighted** regression models may address these issues. The regression models examine the impact of various socioeconomic and demographic factors on mean student scores across districts in Massachusetts and Mississippi. The models incorporate variables such as the percentage of economically disadvantaged students (perecd), poverty rate (povertyall), unemployment rate (unempall), natural logarithm of median income (lninc50all), and the percentage of parents with at least a bachelor's degree (baplusall), as well as racial demographics (perblk, perasn, perwht). The weighted regression approach is employed to adjust for potential biases or imbalances in the dataset.
+
+### Model Finding: Massachusetts Weighted Regression Model
+```{r, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(kableExtra))
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(broom)
+library(knitr)
+library(jtools)
+library(kableExtra)
+
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
 massachusetts_data <- cleaned_seda %>%
@@ -75,11 +111,20 @@ weighted_regression_MA <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
                           data = selected_variables_MA,
                           weights = weights)
 
-summ(weighted_regression_MA, type="text") #make this a nicer table?
-
+summ(weighted_regression_MA)
 ```
 
-```{r, echo=FALSE, warning=FALSE}
+* For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.833 in the mean score.
+* For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.753 in the mean score.
+* For each percentage point increase in unemployment rate, there is an unexpected increase of approximately 2.160 in the mean score.
+* A 1% increase in median income is associated with a decrease of 0.061 in the mean score, indicating a complex relationship with other socioeconomic factors.
+* For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.928 in the mean score.
+* For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.157 in the mean score.
+* For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 0.935 in the mean score.
+* For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score.
+
+### Visualization of Coefficients
+```{r, echo=FALSE, message=FALSE, warning= FALSE, results='hide'}
 suppressPackageStartupMessages(library(tidyverse))
 library(tidyverse)
 library(dplyr)
@@ -122,36 +167,22 @@ mean = regMA$estimate,
 
 ```
 
-### Interpretation for MA Weighted Regression Model
-
-```{r, echo = FALSE}
-coefficients_table <- data.frame(
-  Term = c("Intercept", "perecd", "povertyall", "unempall", 
-           "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
-  Estimate = c(0.74363, -0.83297, -0.75291, 2.16004, 
-               -0.06063, 0.92817, -0.15714, 0.93507, 0.12889, 0.7659),
-  Interpretation = c(
-    "Baseline mean score for all students, when all predictors are at zero.",
-    "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.833 in the mean score.",
-    "For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.753 in the mean score.",
-    "For each percentage point increase in unemployment rate, there is an unexpected increase of approximately 2.160 in the mean score.",
-    "A 1% increase in median income is associated with a decrease of 0.061 in the mean score, indicating a complex relationship with other socioeconomic factors.",
-    "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.928 in the mean score.",
-    "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.157 in the mean score.",
-    "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 0.935 in the mean score.",
-    "For each percentage point increase in the percentage of White students, there is an expected but smaller increase of approximately 0.129 in the mean score.", 
-    "The model explains approximately 76.59% of the variance in the mean score for all students in the dataset."
-  )
-)
+### Statistical Performance: MA Weighted Regression Model
+```{r, echo=FALSE}
+residuals_vs_fitted <- ggplot(data = augment(weighted_regression_MA), aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
 
 
-kable(coefficients_table, format = "markdown", 
-      col.names = c("Term", "Coefficient Estimate", "Interpretation"),
-      caption = "Interpretations of Weighted Regression Model Coefficients for Massachusetts")
+print(residuals_vs_fitted)
 ```
+* The values on this plot appear to be randomly distributed around the zero line, indicating that the assumptions of constant variance (homoscedasticity) and linearity are satisfied. Additionally, the model explains approximately 76.59% of the variance in the mean score for all students in the dataset, suggesting that the weighted regression model performed quite well.
 
-## Mississippi Weighted Regression Model
 
+### Model Finding: Mississippi Weighted Regression Model
 ```{r, echo=FALSE}
 cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
 
@@ -170,9 +201,16 @@ weighted_regression_MS <- lm(mn_score_all ~ perecd + povertyall + unempall + lni
 
 summ(weighted_regression_MS)
 ```
+* For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.225 in the mean score.
+* For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.754 in the mean score.
+* For each percentage point increase in unemployment rate, there is an expected decrease of approximately 0.729 in the mean score.
+* A 1% increase in median income is associated with a decrease of 0.199 in the mean score, indicating a complex relationship with other socioeconomic factors.
+* For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.936 in the mean score.
+* For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.564 in the mean score.
+* For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 3.805 in the mean score.
+* For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435).
 
-### Mississippi Forest Plot
-
+### Visualization of Coefficients
 ```{r, echo=FALSE, warning=FALSE}
 library(tidyverse)
 library(dplyr)
@@ -214,39 +252,23 @@ forestplot(
 )
 ```
 
-### Interpretation for MS Weighted Regression Model
-
-```{r, echo=FALSE}
-coefficients_table_mississippi <- data.frame(
-  Term = c("Intercept", "perecd", "povertyall", "unempall", 
-           "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
-  Estimate = c(2.31107, -0.22535, -0.75443, -0.72945, 
-               -0.19933, 0.93576, -0.56360, 3.80540, -0.05968, 0.6752),
-  Interpretation = c(
-    "Baseline mean score for all students, when all predictors are at zero.",
-    "For each percentage point increase in economically disadvantaged students, there is an expected decrease of approximately 0.225 in the mean score.",
-    "For each percentage point increase in poverty rate, there is an expected decrease of approximately 0.754 in the mean score.",
-    "For each percentage point increase in unemployment rate, there is an expected decrease of approximately 0.729 in the mean score.",
-    "A 1% increase in median income is associated with a decrease of 0.199 in the mean score, indicating a complex relationship with other socioeconomic factors.",
-    "For each percentage point increase in the percentage of parents with a bachelor's degree or higher, there is an expected increase of approximately 0.936 in the mean score.",
-    "For each percentage point increase in the percentage of Black students, there is an expected decrease of approximately 0.564 in the mean score.",
-    "For each percentage point increase in the percentage of Asian students, there is an expected increase of approximately 3.805 in the mean score.",
-    "For each percentage point increase in the proportion of White students, there is an expected decrease of approximately 0.060 in the mean score, although this effect is not statistically significant (p-value: 0.435).",
-    "The model explains approximately 67.52% of the variance in the mean score for all students in the dataset."
-  )
-)
-
-
-kable(coefficients_table_mississippi, format = "markdown", 
-      col.names = c("Term", "Coefficient Estimate", "Interpretation"),
-      caption = "Interpretations of Weighted Regression Model Coefficients for Mississippi")
-
+### Statistical Performance: MS Weighted Regression Model 
+```{r, echo=FALSE, warning=FALSE}
+residuals_vs_fitted <- ggplot(data = augment(weighted_regression_MS), aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs. Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
+print(residuals_vs_fitted)
 ```
 
-# Robust Regression Model
+* The values on this plot appear to be randomly distributed around the zero line, indicating that the assumptions of constant variance (homoscedasticity) and linearity are satisfied. Additionally, the model explains approximately 67.52% of the variance in the mean score for all students in the dataset, suggesting that the weighted regression model performed quite well.
 
-## Massachusetts Robust Regression Model
+### Potential Flaws and Limitations
+While one goal of weighted regression might be to reduce the influence of outliers by assigning them lower weights, if not properly managed, outliers with incorrectly assigned high weights can disproportionately influence the model, leading to skewed results. Moreover, the effectiveness of weighted regression often depends on the availability and accuracy of external information to assign weights, which could compromise the reliability of the weighting scheme.
 
+<<<<<<< HEAD
 ```{r, echo=FALSE}
 library(tidyverse)
 library(dplyr)
@@ -254,22 +276,17 @@ library(readr)
 library(sandwich)
 library(kableExtra)
 suppressPackageStartupMessages(library(MASS))
+=======
+# Summary of Analysis
+**Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
+>>>>>>> 22fe07fae3a23f7a5955cf1f129813930abc019e
 
-cleaned_seda <- read_rds("dataset/cleaned_seda.rds")
-massachusetts_data <- cleaned_seda %>%
-  filter(state == "MA")
-
-selected_variables_MA <- massachusetts_data %>%
-  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
-  filter(if_all(everything(), is.finite))
+**Racial Demographics**: Racial impacts vary notably between the states. Black students' increased percentages correlate with lower scores, more significantly in Mississippi. In contrast, Asian students' presence markedly improves scores, especially in Mississippi. The effect of White students is mixed, with a slight increase in Massachusetts and an insignificant decrease in Mississippi.
 
 
-robust_model_MA <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MA)
-  
-
-robust_residuals_MA <- residuals(robust_model_MA)
 
 
+<<<<<<< HEAD
 tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_score_all))^2)
 
 
@@ -453,8 +470,25 @@ interpretations_df <- data.frame(
 
 kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients for Mississippi")
 ```
+=======
+>>>>>>> 22fe07fae3a23f7a5955cf1f129813930abc019e
 
 ------------------------------------------------------------------------
+
+We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
+
+The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
+
+While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
+
+The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
+
+## Note on Attribution
+
+In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
+
+If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
+
 
 ## Rubric: On this page
 
