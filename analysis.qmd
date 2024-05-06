@@ -22,7 +22,7 @@ the explanation of our dependent variable mn_score_all: Average test scores for 
 
 ## Outline
 1. Multiple Linear Regression Model
-1. Weighted Regression Model
+2. Weighted Regression Model
 
 ## 1. Multiple Linear Regression Model
 
@@ -268,226 +268,17 @@ print(residuals_vs_fitted)
 ### Potential Flaws and Limitations
 While one goal of weighted regression might be to reduce the influence of outliers by assigning them lower weights, if not properly managed, outliers with incorrectly assigned high weights can disproportionately influence the model, leading to skewed results. Moreover, the effectiveness of weighted regression often depends on the availability and accuracy of external information to assign weights, which could compromise the reliability of the weighting scheme.
 
-```{r, echo=FALSE}
-library(tidyverse)
-library(dplyr)
-library(readr)
-library(sandwich)
-library(kableExtra)
-suppressPackageStartupMessages(library(MASS))
-```
 
 # Summary of Analysis
 **Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
 
-# Summary of Analysis
 **Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
 
 **Racial Demographics**: Racial impacts vary notably between the states. Black students' increased percentages correlate with lower scores, more significantly in Mississippi. In contrast, Asian students' presence markedly improves scores, especially in Mississippi. The effect of White students is mixed, with a slight increase in Massachusetts and an insignificant decrease in Mississippi.
 
 
 
-```{r}
-tss <- sum((selected_variables_MA$mn_score_all - mean(selected_variables_MA$mn_score_all))^2)
-
-
-rss <- sum(robust_residuals_MA^2)
-
-pseudo_r_squared <- 1 - rss/tss
-
-summary(robust_model_MA)
-cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
-```
-
-```{r, echo=FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-library(tidyverse)
-library(dplyr)
-library(readr)
-library(broom)]
-library(forestplot)
-
-robregMA <- tidy(robust_model_MA)
-
-robregMA <- robregMA %>% 
-  mutate(upper = estimate + std.error) %>% 
-  mutate(lower = estimate - std.error)  
-
-robregMA = robregMA[-c(1),]
-
-y_labels <- c( "Economically Disadv",
-   "Poverty",
-    "Unemployment",
-    "Income (50th Percentile)",
-    "Parent Education",
-    "Black or AA",
-"Asian",
-"White")
-
-xlab_set <- expression(italics("Adjusted Coefficients and 95% Confidence Intervals"), )
-forestplot(
-  mean = robregMA$estimate,
-  lower = robregMA$lower,
-  upper = robregMA$upper,
-  labeltext = y_labels,
-  xlab = "Adjusted Coefficients and 95% Confidence Intervals",
-  cex = 0.8,
-  boxsize=0.18,
-  lwd.ci= 2,
-  lineheight = "lines",
-  col = fpColors(box = "#0077BB", line = "black", summary = "darkgreen"),
-  graph.pos = 2,  # Position of the forest plot graph      # Font size
-  grid = TRUE,
-  title = "Robust Regression Model for Massachussets"
-)
-```
-
-### Interpretation for MA Robust Regression Model
-
-```{r, echo=FALSE}
-suppressPackageStartupMessages(library(gridExtra))
-library(knitr)
-
-interpretations_df <- data.frame(
-  Variable = c("(Intercept)", "perecd", "povertyall", "unempall", 
-               "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
-  Coefficient = c(0.6881, -0.8944, -0.7035, 2.1884, -0.0418, 0.8714, -0.3181, 0.7202, -0.0039, 0.7697),
-  Interpretation = c(
-    "Baseline mean score for all students on the logged scale when all predictors are at zero.",
-    "Each percentage point increase in economically disadvantaged students is associated with a 0.8944 point decrease in mean score.",
-    "Each percentage point increase in poverty rate is associated with a 0.7035 point decrease in mean score.",
-    "Each percentage point increase in unemployment rate is associated with a 2.1884 point increase in mean score, which is counterintuitive.",
-    "A 1% increase in median income (not logged) is associated with a 0.0418 point decrease in mean score, which may indicate the presence of other interacting variables.",
-    "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.8714 point increase in mean score.",
-    "Each percentage point increase in the proportion of Black students is associated with a 0.3181 point decrease in mean score.",
-    "Each percentage point increase in the proportion of Asian students is associated with a 0.7202 point increase in mean score.",
-    "Each percentage point increase in the proportion of White students is associated with a negligible change in mean score.",
-    "The model explains approximately 76.97% of the variance in the mean score for all students in the dataset."
-  )
-)
-
-kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients")
-```
-
-## Mississippi Robust Regression Model
-
-```{r, echo=FALSE}
-suppressPackageStartupMessages(library(gridExtra))
-library(tidyverse)
-library(dplyr)
-library(readr)
-library(MASS)
-
-mississippi_data <- cleaned_seda %>%
-  filter(state == "MS")
-
-selected_variables_MS <- mississippi_data %>%
-  dplyr::select(mn_score_all, perecd, povertyall, unempall, lninc50all, baplusall, perblk, perasn, perwht) %>%
-  filter(if_all(everything(), is.finite))
-
-robust_model_MS <- rlm(mn_score_all ~ perecd + povertyall + unempall + lninc50all + baplusall + perblk + perasn + perwht, data = selected_variables_MS)
-  
-
-robust_residuals_MS <- residuals(robust_model_MS)
-
-
-tss <- sum((selected_variables_MS$mn_score_all - mean(selected_variables_MS$mn_score_all))^2)
-
-
-rss <- sum(robust_residuals_MS^2)
-
-
-pseudo_r_squared <- 1 - rss/tss
-
-summary(robust_model_MS)
-cat("Pseudo R-squared: ", pseudo_r_squared, "\n")
-```
-
-### MS Robust Regression Forest Plot 
-
-```{r, echo=FALSE}
-library(tidyverse)
-library(dplyr)
-library(readr)
-library(broom)
-library(forestplot)
-robregMS <- tidy(robust_model_MS)
-
-robregMS <- robregMS %>% 
-  mutate(upper = estimate + std.error) %>% 
-  mutate(lower = estimate - std.error)  
-  
-robregMS = robregMS[-c(1),]
-
-y_labels <- c( "Economically Disadv",
-   "Poverty",
-    "Unemployment",
-    "Income (50th Percentile)",
-    "Parent Education",
-    "Black or AA",
-"Asian",
-"White")
-
-forestplot(
-  mean = robregMS$estimate,
-  lower = robregMS$lower,
-  upper = robregMS$upper,
-  labeltext = y_labels,
-  xlab = "Adjusted Coefficients and 95% Confidence Intervals",
-  boxsize=0.18,
-  lwd.ci= 2,
-  lineheight = "lines",
-  col = fpColors(box = "#00CC66", line = "black", summary = "steelblue"),
-    graph.pos = 2,  # Position of the forest plot graph
-  cex = 0.8,      # Font size
-  grid = TRUE,
-  title = "Robust Regression Model for Mississippi"
-)
-```
-
-### Interpretation for MS Robust Regression Model
-
-```{r, echo=FALSE}
-suppressPackageStartupMessages(library(gridExtra))
-library(knitr)
-
-interpretations_df <- data.frame(
-  Variable = c("Intercept", "perecd", "povertyall", "unempall", 
-               "lninc50all", "baplusall", "perblk", "perasn", "perwht", "R-squared"),
-  Coefficient = c(2.3299, -0.2273, -0.7626, -0.6635, -0.2040, 0.9211, -0.5384, 4.3782, -0.0387, 0.6625),
-  Interpretation = c(
-    "Baseline mean score for all students on the logged scale when all predictors are at zero.",
-    "Each percentage point increase in economically disadvantaged students is associated with a 0.2273 point decrease in mean score.",
-    "Each percentage point increase in poverty rate is associated with a 0.7626 point decrease in mean score.",
-    "Each percentage point increase in unemployment rate is associated with a 0.6635 point decrease in mean score.",
-    "A 1% increase in median income (on the natural log scale) is associated with a 0.2040 point decrease in mean score.",
-    "Each percentage point increase in the proportion of parents with a bachelor's degree is associated with a 0.9211 point increase in mean score.",
-    "Each percentage point increase in the proportion of Black students is associated with a 0.5384 point decrease in mean score.",
-    "Each percentage point increase in the proportion of Asian students is associated with a 4.3782 point increase in mean score.",
-    "Each percentage point increase in the proportion of White students is associated with a 0.0387 point decrease in mean score.",
-    "The model explains approximately 66.25% of the variance in the mean score for all students in the dataset."
-  )
-)
-
-kable(interpretations_df, format = "markdown", caption = "Interpretations of the Robust Regression Model Coefficients for Mississippi")
-```
-
-
 ------------------------------------------------------------------------
-
-We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
-
-The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
-
-While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
-
-The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
-
-## Note on Attribution
-
-In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
-
-If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
 
 
 ## Rubric: On this page
