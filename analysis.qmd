@@ -22,7 +22,7 @@ the explanation of our dependent variable mn_score_all: Average test scores for 
 
 ## Outline
 1. Multiple Linear Regression Model
-1. Weighted Regression Model
+2. Weighted Regression Model
 
 ## 1. Multiple Linear Regression Model
 
@@ -268,38 +268,13 @@ print(residuals_vs_fitted)
 ### Potential Flaws and Limitations
 While one goal of weighted regression might be to reduce the influence of outliers by assigning them lower weights, if not properly managed, outliers with incorrectly assigned high weights can disproportionately influence the model, leading to skewed results. Moreover, the effectiveness of weighted regression often depends on the availability and accuracy of external information to assign weights, which could compromise the reliability of the weighting scheme.
 
-```{r, echo=FALSE}
-library(tidyverse)
-library(dplyr)
-library(readr)
-library(sandwich)
-library(kableExtra)
-suppressPackageStartupMessages(library(MASS))
-```
 
 # Summary of Analysis
 **Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
 
-# Summary of Analysis
 **Economic Factors**: Economic disadvantage and poverty consistently lead to lower student scores in both states. Interestingly, an increase in unemployment correlates with an increase in scores in Massachusetts but a decrease in Mississippi, suggesting unique regional economic dynamics. This discrepancy may also be caused by potential biases in the variables.
 
 **Racial Demographics**: Racial impacts vary notably between the states. Black students' increased percentages correlate with lower scores, more significantly in Mississippi. In contrast, Asian students' presence markedly improves scores, especially in Mississippi. The effect of White students is mixed, with a slight increase in Massachusetts and an insignificant decrease in Mississippi.
-
-------------------------------------------------------------------------
-
-We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
-
-The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.
-
-While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.
-
-The style of this paper should aim to be that of an academic paper. I don't expect this to be of publication quality but you should keep that aim in mind. Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
-
-## Note on Attribution
-
-In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
-
-If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
 
 
 ## Rubric: On this page
