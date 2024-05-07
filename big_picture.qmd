@@ -23,18 +23,18 @@ This article dives into the complex interplay of socioeconomic factors that shap
 In Massachusetts and Mississippi, the chasm in educational outcomes extends beyond mere geography and taps directly into profound socioeconomic disparities.
 Our analysis, focusing on district-level data, demonstrates a stark correlation: in areas where economic disadvantage is more pronounced, educational performance, particularly in language and math, significantly declines.
 
-In the second part of our analysis, we document that the factors influencing test scores have relatively similar impact estimates in both states.
+In the second part of our analysis, we document that most of the factors influencing test scores have relatively similar impact estimates in both states.
 This indicates that individual district demographic factors have similar impacts on test scores regardless of the state's overall test score level.
 
 ------------------------------------------------------------------------
 
-
 ## Data and Methodology
 
-Our study utilizes a comprehensive dataset encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics.
+Our study utilizes a comprehensive data set encompassing district-level information from both states, including metrics on economically disadvantaged students, poverty rates, unemployment levels, median income, parental educational attainment, and racial demographics.
 By analyzing these variables, we aim to paint a detailed picture of how socioeconomic factors influence student performance across diverse communities.
 
 ### Description of Variables
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
@@ -66,7 +66,6 @@ kable(variable_descriptions, format = "markdown", col.names = c("Variable", "Des
       caption = "Description of Variables in the Dataset")
 
 ```
-
 
 ### Massachusetts
 
@@ -182,9 +181,10 @@ Mississippi tells a different story, with 'Black' significantly more represented
 Poverty and unemployment in Mississippi seem to walk hand in hand, with histograms skewing towards higher rates than those in Massachusetts.
 It's a silent narrative of the daily challenges students bring with them to school, burdens that can weigh heavily on academic achievement.
 
-
 ### Data on the Map:
+
 As you can see from the map of Massachusetts and Mississippi, districts with a lower percentage of economically disadvantaged students tend to have higher mean scores, while those with a higher percentage of economically disadvantaged students generally exhibit lower mean scores overall.
+
 ```{r, echo=FALSE, message=FALSE, warning= FALSE, results='hide'}
 library(tidycensus)
 library(tigris)
@@ -317,10 +317,10 @@ ggplot(data = ms_data_geo) +
 
 ```
 
-
 ### Mean Score of MA and MS
 
-As you can see below, the average score for Massachussetts between 2009 and 2018 is much higher than the average score for Mississippi for the same time. This leads us to wonder what factors could have caused this to occur
+As you can see below, the average score for Massachussetts between 2009 and 2018 is much higher than the average score for Mississippi for the same time.
+This leads us to wonder what factors could have caused this to occur
 
 ```{r, echo=FALSE}
 ma_ms_data <- cleaned_seda[cleaned_seda$state %in% c("MA", "MS"), ]
@@ -334,8 +334,9 @@ kable(average_scores)
 
 Our initial focus is on economic variables.
 Poverty and unemployment, often intertwined, emerge as significant predictors of educational success.
+In both states, students whose parents have at least a bachelor's degree receive about a 93% increase in test scores.
 Districts with higher poverty rates consistently show lower educational outcomes.
-This pattern underscores the critical role that economic stability plays in supporting academic achievement.
+Median income level of the district also had very similar effects in both MA and MS. This pattern underscores the critical role that economic stability plays in supporting academic achievement.
 
 ### Educational Background of Parents
 
@@ -346,6 +347,9 @@ This relationship highlights the cyclical nature of education—where educationa
 ### Racial Demographics
 
 Finally, the racial composition of districts also plays a critical role in educational outcomes.
+Being white and had a relatively similar impact in both states.
+Black students in Mississippi had a lower scores than black students in Massachusetts, although Black students in both states had test scores below the median.
+One surprising finding was that being Asian had a much larger impact in MS (356% increase in scores) than in MA (94% increase).
 Our analysis indicates varied performance across different racial groups, with significant disparities evident between and within states.
 These findings provoke a broader discussion on the intersection of race, education, and socioeconomic status.
 
@@ -361,8 +365,6 @@ Is the same true for the rate of black students?
 White students?
 Economically disadvantaged students?
 
-## Results
-
 ## Call to Action
 
 Understanding these disparities is just the beginning.
@@ -372,4 +374,3 @@ By supporting policies that target educational equity—such as improving access
 We can see that two very different states have similar effects on test scores from different demographic characteristics.
 This is promising for a variety of reasons, but most importantly it indicates that nationwide policies are feasible solutions.
 Even if test scores are at different levels, the same factors are having similar effects on test scores, which means that changing these demographics (like increasing the rate of parents with a BA) will "lift all boats" across the country.
----
